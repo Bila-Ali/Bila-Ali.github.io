@@ -1,278 +1,277 @@
-// renderer.js - Dynamic Portfolio Renderer
+// =================================================
+//  DYNAMIC RENDERER — reads DATA object
+//  Auto-builds all sections, cards, timelines
+// =================================================
 
-document.addEventListener('DOMContentLoaded', () => {
-  renderAll();
-  setupNavbar();
-  setupScrollEffects();
+// Helper: DOM elements
+const $ = id => document.getElementById(id);
+
+// ----- Navigation Building -----
+const navSections = ["skills", "experience", "vulnerabilities", "projects", "certifications", "achievements", "education", "contact"];
+const navContainer = $("#nav-links");
+const mobileMenu = $("#mobileMenu");
+
+navSections.forEach(section => {
+  const link = document.createElement("a");
+  link.href = `#${section}`;
+  link.textContent = section.charAt(0).toUpperCase() + section.slice(1);
+  navContainer.appendChild(link);
+
+  const mobileLink = document.createElement("a");
+  mobileLink.href = `#${section}`;
+  mobileLink.textContent = section.charAt(0).toUpperCase() + section.slice(1);
+  mobileMenu.appendChild(mobileLink);
 });
 
-// Main Render Function
-function renderAll() {
-  renderHero();
-  renderSkills();
-  renderExperience();
-  renderCertifications();
-  renderProjects();
-  renderVulnerabilities();
-  renderAchievements();
-  renderEducation();
-  renderCurrentlyLearning();
-  renderContact();
-}
+// Mobile toggle
+$("#mobileToggle").addEventListener("click", () => {
+  mobileMenu.classList.toggle("open");
+  mobileMenu.style.display = mobileMenu.classList.contains("open") ? "flex" : "none";
+});
 
-// ====================== HERO ======================
-function renderHero() {
+// Active link highlight + scroll progress
+window.addEventListener("scroll", () => {
+  const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+  $("#scroll-progress").style.width = scrollPercent + "%";
+  let current = "";
+  document.querySelectorAll("section[id]").forEach(section => {
+    const sectionTop = section.offsetTop - 100;
+    if (pageYOffset >= sectionTop) current = section.getAttribute("id");
+  });
+  document.querySelectorAll(".nav-links a, .mobile-menu a").forEach(a => {
+    a.classList.remove("active");
+    if (a.getAttribute("href") === `#${current}`) a.classList.add("active");
+  });
+});
+
+// --- Hero Section ---
+function buildHero() {
   const p = DATA.profile;
-  
-  document.getElementById('hero-badge').textContent = p.badge;
-  document.getElementById('hero-name').innerHTML = p.name;
-  document.getElementById('hero-title').textContent = p.title;
-  document.getElementById('hero-bio').innerHTML = p.bio;
-  
-  // Profile Image
-  const img = document.getElementById('profile-img');
-  img.src = p.photo;
-  img.alt = p.name;
-
-  // Stats
-  const statsContainer = document.getElementById('stats-grid');
-  statsContainer.innerHTML = p.stats.map(stat => `
-    <div class="stat-card">
-      <h3>${stat.num}</h3>
-      <p>${stat.label}</p>
-    </div>
-  `).join('');
-}
-
-// ====================== SKILLS ======================
-function renderSkills() {
-  const container = document.getElementById('skills-grid');
-  container.innerHTML = Object.entries(DATA.skills).map(([category, items]) => `
-    <div class="skill-category">
-      <h3>${category}</h3>
-      <div class="skill-tags">
-        ${items.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+  const heroHtml = `
+    <div class="hero-left">
+      <div class="badge"><span class="live-dot"></span> ${p.badge}</div>
+      <h1 class="hero-name">Bilawal <em>Ali</em></h1>
+      <div class="hero-role">${p.titleLine}</div>
+      <p class="hero-bio">${p.bio}</p>
+      <div class="hero-btns">
+        <a href="${p.resume}" download class="btn btn-primary">📄 Download Resume</a>
+        <a href="${p.github}" target="_blank" class="btn btn-outline">GitHub ↗</a>
+        <a href="${p.linkedin}" target="_blank" class="btn btn-outline">LinkedIn ↗</a>
+      </div>
+      <div class="stats-grid">
+        ${p.stats.map(s => `<div class="stat-card"><h3>${s.num}</h3><p>${s.label}</p></div>`).join("")}
       </div>
     </div>
-  `).join('');
+    <div class="profile-card">
+      <div class="profile-img">
+        <img src="${p.photo}" alt="${p.name}" onerror="this.src='https://placehold.co/200x200?text=BA'">
+      </div>
+      <div class="profile-name">${p.name.toUpperCase()}</div>
+      <div class="profile-title">${p.roleMono}</div>
+      <div class="contact-links">
+        <a href="${p.github}" target="_blank">🐙 GH</a>
+        <a href="${p.linkedin}" target="_blank">🔗 IN</a>
+        <a href="mailto:${p.email}">✉️ Mail</a>
+      </div>
+    </div>
+  `;
+  $("#hero-root").innerHTML = heroHtml;
 }
 
-// ====================== EXPERIENCE ======================
-function renderExperience() {
-  const container = document.getElementById('experience-timeline');
-  container.innerHTML = Object.values(DATA.experience).map(exp => `
-    <div class="timeline-item">
-      <div class="timeline-header">
-        <div>
-          <h3>${exp.role}</h3>
-          <h4>${exp.company} • ${exp.location}</h4>
+// Skills
+function buildSkills() {
+  $("#skills-grid").innerHTML = DATA.skills.map(skill => `
+    <div class="skill-card reveal">
+      <h3>${skill.icon} ${skill.title}</h3>
+      <div class="skill-items">
+        ${skill.items.map(item => `<span class="skill-tag">${item}</span>`).join("")}
+      </div>
+    </div>
+  `).join("");
+}
+
+// Experience with badges
+function buildExperience() {
+  const badgeColors = { green: "bp-green", cyan: "bp-cyan", amber: "bp-amber", red: "bp-red" };
+  $("#timeline-root").innerHTML = DATA.experience.map(exp => `
+    <div class="exp-card reveal">
+      <div class="exp-header">
+        <div><div class="exp-role">${exp.role}</div><div class="exp-company">${exp.company} · ${exp.location}</div></div>
+        <div><span class="badge-pill ${badgeColors[exp.badgeColor] || "bp-green"}">${exp.badge}</span><div class="exp-date">${exp.date}</div></div>
+      </div>
+      <ul class="exp-points">${exp.points.map(p => `<li>${p}</li>`).join("")}</ul>
+    </div>
+  `).join("");
+}
+
+// Generic card builder for projects, vulns, certs, achievements
+function buildCardGrid(containerId, items, type) {
+  const container = $(containerId);
+  if (!container) return;
+  container.innerHTML = items.map((item, idx) => {
+    let ribbonHtml = "";
+    if (item.ribbon) ribbonHtml = `<div class="ribbon" style="background:${item.ribbonColor === 'amber' ? '#ffaa33' : item.ribbonColor === 'green' ? '#00ff88' : '#00eaff'}; color:#000;">🏆 ${item.ribbon}</div>`;
+    let medalBadge = item.medal ? `<div class="ribbon" style="background:#ffcc00; left:auto; right:12px;">⭐ CEH Medal</div>` : "";
+    let linkHtml = item.link ? `<a href="${item.link}" target="_blank" class="card-link">Explore →</a>` : (item.verify ? `<a href="${item.verify}" target="_blank" class="card-link">Verify →</a>` : "");
+    let imageHtml = `<div class="card-img"><img src="${item.image}" alt="${item.title}" onerror="this.src='https://placehold.co/400x200?text=${encodeURIComponent(item.title)}'"></div>`;
+    return `
+      <div class="card reveal" data-lb-group="${type}" data-lb-src="${item.image}" data-lb-cap="${item.title}" onclick="openLightbox(this, '${type}', event)">
+        ${ribbonHtml}
+        ${medalBadge}
+        ${imageHtml}
+        <div class="card-content">
+          <h3>${item.title}</h3>
+          <p>${item.desc || (item.issuer ? item.issuer : "")}</p>
+          <div class="tag-group">${(item.tags || []).map(t => `<span class="tag">${t}</span>`).join("")}</div>
+          ${linkHtml}
         </div>
-        <div class="timeline-date">${exp.date}</div>
       </div>
-      <span class="badge ${exp.badgeColor}">${exp.badge}</span>
-      <ul class="timeline-points">
-        ${exp.points.map(point => `<li>${point}</li>`).join('')}
-      </ul>
-    </div>
-  `).join('');
+    `;
+  }).join("");
 }
 
-// ====================== CERTIFICATIONS ======================
-function renderCertifications() {
-  const container = document.getElementById('cert-grid');
-  container.innerHTML = Object.values(DATA.certifications).map(cert => `
-    <div class="card cert-card">
-      <div class="card-image">
-        <img src="${cert.image}" alt="${cert.name}" loading="lazy">
-        ${cert.medal ? '<div class="medal">🏅</div>' : ''}
+// Education
+function buildEducation() {
+  const e = DATA.education;
+  $("#education-root").innerHTML = `
+    <div class="edu-card reveal">
+      <div class="edu-banner"><img src="${e.bannerImg}" alt="campus" onerror="this.style.display='none'"><span style="position:absolute; font-size:2rem;">🎓</span></div>
+      <div class="edu-content">
+        <div class="edu-degree">${e.degree}</div>
+        <div class="edu-meta"><span class="edu-pill">${e.university}</span><span class="edu-pill">CGPA ${e.cgpa}</span><span class="edu-pill">${e.year}</span></div>
+        <p>${e.desc}</p>
       </div>
-      <div class="card-body">
-        <h3>${cert.name}</h3>
-        <p class="issuer">${cert.issuer} • ${cert.date}</p>
-        ${cert.verify ? `<a href="${cert.verify}" target="_blank" class="verify-btn">Verify →</a>` : ''}
-      </div>
-    </div>
-  `).join('');
-}
-
-// ====================== PROJECTS ======================
-function renderProjects() {
-  const container = document.getElementById('projects-grid');
-  container.innerHTML = Object.values(DATA.projects).map(proj => `
-    <div class="card project-card">
-      <div class="card-image">
-        <img src="${proj.image}" alt="${proj.title}" loading="lazy">
-      </div>
-      <div class="card-body">
-        <h3>${proj.title}</h3>
-        <p>${proj.desc}</p>
-        <div class="tags">
-          ${proj.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-        </div>
-        ${proj.link ? `<a href="${proj.link}" target="_blank" class="project-link">View on GitHub →</a>` : ''}
-      </div>
-    </div>
-  `).join('');
-}
-
-// ====================== VULNERABILITIES ======================
-function renderVulnerabilities() {
-  const container = document.getElementById('vuln-grid');
-  container.innerHTML = Object.values(DATA.vulnerabilities).map(vuln => `
-    <div class="card vuln-card">
-      <div class="card-image">
-        <img src="${vuln.image}" alt="${vuln.title}" loading="lazy">
-      </div>
-      <div class="card-body">
-        <h3>${vuln.title}</h3>
-        <p>${vuln.desc}</p>
-        <div class="tags">
-          ${vuln.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-        </div>
-        ${vuln.severity ? `<span class="severity-badge ${vuln.severity.toLowerCase()}">${vuln.severity}</span>` : ''}
-      </div>
-    </div>
-  `).join('');
-}
-
-// ====================== ACHIEVEMENTS ======================
-function renderAchievements() {
-  const container = document.getElementById('ach-grid');
-  container.innerHTML = Object.values(DATA.achievements).map(ach => `
-    <div class="card ach-card">
-      <div class="card-image">
-        <img src="${ach.image}" alt="${ach.title}" loading="lazy">
-      </div>
-      <div class="card-body">
-        <h3>${ach.title}</h3>
-        <p>${ach.desc}</p>
-        ${ach.ribbon ? `<span class="ribbon ${ach.ribbonColor}">${ach.ribbon}</span>` : ''}
-      </div>
-    </div>
-  `).join('');
-}
-
-// ====================== EDUCATION ======================
-function renderEducation() {
-  const edu = DATA.education;
-  document.getElementById('education-card').innerHTML = `
-    <div class="edu-banner">
-      <img src="${edu.banner}" alt="${edu.university}">
-    </div>
-    <div class="edu-content">
-      <h3>${edu.degree}</h3>
-      <h4>${edu.university}</h4>
-      <p class="cgpa">CGPA: <strong>${edu.cgpa}</strong> | Class of ${edu.year}</p>
-      <p>${edu.desc}</p>
     </div>
   `;
 }
 
-// ====================== CURRENTLY LEARNING ======================
-function renderCurrentlyLearning() {
-  const container = document.getElementById('learning-grid');
-  container.innerHTML = DATA.currentlyLearning.map(item => `
-    <div class="learn-item">
-      <span class="dot"></span>
-      ${item}
-    </div>
-  `).join('');
+// Currently Learning
+function buildLearning() {
+  $("#learning-grid").innerHTML = DATA.currentlyLearning.map(item => `<div class="learn-item reveal">${item}</div>`).join("");
 }
 
-// ====================== CONTACT ======================
-function renderContact() {
+// Volunteer Events
+function buildEvents() {
+  $("#events-grid").innerHTML = DATA.volunteer.map(ev => `
+    <div class="event-card reveal" data-lb-group="events" data-lb-src="${ev.image}" data-lb-cap="${ev.title}" onclick="openLightbox(this, 'events', event)">
+      <div class="card-img"><img src="${ev.image}" alt="${ev.title}" onerror="this.src='https://placehold.co/400x200?text=Event'"></div>
+      <div class="card-content"><h3>${ev.title}</h3><p>${ev.org}</p><small>${ev.desc}</small></div>
+    </div>
+  `).join("");
+}
+
+// Contact Section
+function buildContact() {
   const p = DATA.profile;
-  const container = document.getElementById('contact-grid');
-  
   const contacts = [
     { icon: "✉️", title: "Email", value: p.email, link: `mailto:${p.email}` },
-    { icon: "📱", title: "Phone", value: p.phone, link: `tel:${p.phone}` },
-    { icon: "💼", title: "LinkedIn", value: "linkedin.com/in/bilawal-ali-0b0211245", link: p.linkedin },
+    { icon: "💼", title: "LinkedIn", value: "linkedin.com/in/bilawal", link: p.linkedin },
     { icon: "🐙", title: "GitHub", value: "github.com/Bila-Ali", link: p.github },
-    { icon: "📍", title: "Location", value: p.location }
+    { icon: "📞", title: "Phone", value: p.phone, link: `tel:${p.phone}` },
+    { icon: "📍", title: "Location", value: p.location, link: "#" }
   ];
-
-  container.innerHTML = contacts.map(c => `
-    <div class="contact-card">
-      <div class="contact-icon">${c.icon}</div>
+  $("#contact-grid").innerHTML = contacts.map(c => `
+    <div class="contact-item reveal">
+      <div class="emoji">${c.icon}</div>
       <h3>${c.title}</h3>
       <a href="${c.link}" target="_blank">${c.value}</a>
     </div>
-  `).join('');
+  `).join("");
+  $("#footer-social").innerHTML = `<a href="${p.github}" target="_blank">GitHub</a> • <a href="${p.linkedin}" target="_blank">LinkedIn</a> • <a href="mailto:${p.email}">Email</a>`;
 }
 
-// ====================== NAVBAR ======================
-function setupNavbar() {
-  const links = [
-    { id: "skills", label: "Skills" },
-    { id: "experience", label: "Experience" },
-    { id: "certifications", label: "Certs" },
-    { id: "projects", label: "Projects" },
-    { id: "vulnerabilities", label: "Research" },
-    { id: "achievements", label: "Achievements" },
-    { id: "contact", label: "Contact" }
-  ];
+// Lightbox System (global)
+window.openLightbox = function(el, group, event) {
+  const allCards = Array.from(document.querySelectorAll(`[data-lb-group="${group}"]`));
+  const index = allCards.indexOf(el);
+  window.lbItems = allCards;
+  window.lbIndex = index;
+  const lb = $("#lightbox");
+  const img = $("#lbImg");
+  const cap = $("#lbCaption");
+  img.src = el.dataset.lbSrc;
+  cap.innerText = el.dataset.lbCap;
+  lb.style.display = "flex";
+  document.body.style.overflow = "hidden";
+};
 
-  const navContainer = document.getElementById('nav-links');
-  navContainer.innerHTML = links.map(link => `
-    <a href="#${link.id}" class="nav-item">${link.label}</a>
-  `).join('');
-
-  // Mobile Menu
-  const toggle = document.getElementById('nav-toggle');
-  toggle.addEventListener('click', () => {
-    navContainer.classList.toggle('active');
-  });
+function closeLightbox() {
+  $("#lightbox").style.display = "none";
+  document.body.style.overflow = "auto";
 }
 
-// ====================== SCROLL EFFECTS ======================
-function setupScrollEffects() {
-  // Smooth scrolling
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
-    });
-  });
-
-  // Active nav link
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-item');
-
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop;
-      if (scrollY >= sectionTop - 200) {
-        current = section.getAttribute('id');
-      }
-    });
-
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === `#${current}`) {
-        link.classList.add('active');
-      }
-    });
-  });
-
-  // Simple scroll reveal
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.card, .timeline-item, .skill-category').forEach(el => {
-    el.style.transition = 'all 0.6s ease';
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    observer.observe(el);
-  });
+function navigateLb(direction) {
+  if (!window.lbItems) return;
+  window.lbIndex = (window.lbIndex + direction + window.lbItems.length) % window.lbItems.length;
+  const nextCard = window.lbItems[window.lbIndex];
+  $("#lbImg").src = nextCard.dataset.lbSrc;
+  $("#lbCaption").innerText = nextCard.dataset.lbCap;
 }
+
+// Event listeners for lightbox
+$("#closeLb").addEventListener("click", closeLightbox);
+$("#lbPrev").addEventListener("click", () => navigateLb(-1));
+$("#lbNext").addEventListener("click", () => navigateLb(1));
+$("#lightbox").addEventListener("click", (e) => { if (e.target === $("#lightbox")) closeLightbox(); });
+
+// Intersection Observer for reveal animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add("in"); });
+}, { threshold: 0.1 });
+document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+
+// Particle Canvas effect
+function initParticles() {
+  const canvas = $("#particles-canvas");
+  const ctx = canvas.getContext("2d");
+  let width, height;
+  let particles = [];
+  function resize() {
+    width = window.innerWidth; height = window.innerHeight;
+    canvas.width = width; canvas.height = height;
+  }
+  function createParticles() {
+    particles = [];
+    for (let i=0; i<80; i++) {
+      particles.push({
+        x: Math.random() * width, y: Math.random() * height,
+        radius: Math.random() * 2 + 1, alpha: Math.random() * 0.4,
+        vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.2
+      });
+    }
+  }
+  function draw() {
+    if (!ctx) return;
+    ctx.clearRect(0,0,width,height);
+    ctx.fillStyle = "#00ff88";
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(0, 255, 136, ${p.alpha})`;
+      ctx.fill();
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = width; if (p.x > width) p.x = 0;
+      if (p.y < 0) p.y = height; if (p.y > height) p.y = 0;
+    });
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener("resize", () => { resize(); createParticles(); });
+  resize(); createParticles(); draw();
+}
+
+// INITIALIZE RENDER
+function init() {
+  buildHero();
+  buildSkills();
+  buildExperience();
+  buildCardGrid("vuln-grid", DATA.vulnerabilities, "vulns");
+  buildCardGrid("projects-grid", DATA.projects, "projects");
+  buildCardGrid("certs-grid", DATA.certifications, "certs");
+  buildCardGrid("achievements-grid", DATA.achievements, "achievements");
+  buildEducation();
+  buildLearning();
+  buildEvents();
+  buildContact();
+  initParticles();
+}
+init();
