@@ -518,7 +518,7 @@ section{padding:96px 0;position:relative;z-index:1}
 /* ══════════════════════════════════════
    CONTACT
 ══════════════════════════════════════ */
-.contact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+/* .contact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
 .contact-box{
   background:var(--surface);border:1px solid var(--border);
   border-radius:var(--r16);padding:24px;transition:all 0.3s;
@@ -526,7 +526,7 @@ section{padding:96px 0;position:relative;z-index:1}
 }
 .contact-box:hover{border-color:rgba(0,255,136,0.2);transform:translateY(-3px)}
 /* contact icon: styled image tile */
-.contact-ico-wrap{
+/* .contact-ico-wrap{
   width:42px;height:42px;border-radius:10px;
   background:linear-gradient(135deg,rgba(0,255,136,0.1),rgba(0,195,255,0.05));
   border:1px solid rgba(0,255,136,0.15);
@@ -536,7 +536,72 @@ section{padding:96px 0;position:relative;z-index:1}
 }
 .contact-label{font-family:var(--mono);font-size:0.63rem;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
 .contact-val{font-size:0.88rem;color:var(--muted);word-break:break-all;transition:color 0.2s}
-.contact-val:hover{color:var(--green)}
+.contact-val:hover{color:var(--green)} */ 
+
+
+/* ══════════════════════════════════════
+   CONTACT — circular icon buttons
+══════════════════════════════════════ */
+.contact-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  justify-content: center;
+  padding: 20px 0;
+}
+.contact-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.25s;
+}
+.contact-box:hover { transform: translateY(-6px) }
+
+/* the circle */
+.c-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.c-circle img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  transition: transform 0.3s;
+}
+.contact-box:hover .c-circle img { transform: scale(1.15) }
+
+/* individual glow colors on hover */
+.contact-box.email:hover    .c-circle { border-color: rgba(234,67,53,0.7);   box-shadow: 0 0 18px rgba(234,67,53,0.35);   background: rgba(234,67,53,0.08)   }
+.contact-box.linkedin:hover .c-circle { border-color: rgba(10,102,194,0.7);  box-shadow: 0 0 18px rgba(10,102,194,0.35);  background: rgba(10,102,194,0.08)  }
+.contact-box.github:hover   .c-circle { border-color: rgba(240,246,252,0.5); box-shadow: 0 0 18px rgba(240,246,252,0.2);  background: rgba(240,246,252,0.06) }
+.contact-box.resume:hover   .c-circle { border-color: rgba(255,170,0,0.7);   box-shadow: 0 0 18px rgba(255,170,0,0.35);   background: rgba(255,170,0,0.08)   }
+.contact-box.phone:hover    .c-circle { border-color: rgba(0,255,136,0.7);   box-shadow: 0 0 18px rgba(0,255,136,0.3);    background: rgba(0,255,136,0.07)   }
+.contact-box.location:hover .c-circle { border-color: rgba(0,195,255,0.7);   box-shadow: 0 0 18px rgba(0,195,255,0.3);    background: rgba(0,195,255,0.07)   }
+
+.c-label {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--dim);
+  transition: color 0.25s;
+}
+.contact-box:hover .c-label { color: var(--green) }
+
+
 
 /* ══════════════════════════════════════
    FOOTER
@@ -1117,20 +1182,40 @@ $("event-grid").innerHTML = DATA.volunteer.map((v, i) => `
   </div>`).join("");
 
 /* ── CONTACT: styled icon tiles ── */
-$("contact-grid").innerHTML = [
-  { ico:"✉️", label:"Email",    val:DATA.profile.email,    href:`mailto:${DATA.profile.email}` },
-  { ico:"💼", label:"LinkedIn", val:"linkedin.com/in/bilawal-ali-0b0211245", href:DATA.profile.linkedin },
-  { ico:"🐙", label:"GitHub",   val:"github.com/Bila-Ali", href:DATA.profile.github },
-  { ico:"📞", label:"Phone",    val:DATA.profile.phone,    href:`tel:${DATA.profile.phone}` },
-  { ico:"📍", label:"Location", val:DATA.profile.location, href:"#" },
-  { ico:"📄", label:"Resume",   val:"Download PDF",        href:DATA.profile.resume, dl:true },
-].map((c, i) => `
-  <div class="contact-box r" style="transition-delay:${i*0.06}s">
-    <div class="contact-ico-wrap">${c.ico}</div>
-    <div class="contact-label">${c.label}</div>
-    <a class="contact-val" href="${c.href}" target="_blank" ${c.dl?'download':''}>${c.val}</a>
-  </div>`).join("");
+// $("contact-grid").innerHTML = [
+//   { ico:"✉️", label:"Email",    val:DATA.profile.email,    href:`mailto:${DATA.profile.email}` },
+//   { ico:"💼", label:"LinkedIn", val:"linkedin.com/in/bilawal-ali-0b0211245", href:DATA.profile.linkedin },
+//   { ico:"🐙", label:"GitHub",   val:"github.com/Bila-Ali", href:DATA.profile.github },
+//   { ico:"📞", label:"Phone",    val:DATA.profile.phone,    href:`tel:${DATA.profile.phone}` },
+//   { ico:"📍", label:"Location", val:DATA.profile.location, href:"#" },
+//   { ico:"📄", label:"Resume",   val:"Download PDF",        href:DATA.profile.resume, dl:true },
+// ].map((c, i) => `
+//   <div class="contact-box r" style="transition-delay:${i*0.06}s">
+//     <div class="contact-ico-wrap">${c.ico}</div>
+//     <div class="contact-label">${c.label}</div>
+//     <a class="contact-val" href="${c.href}" target="_blank" ${c.dl?'download':''}>${c.val}</a>
+//   </div>`).join("");
 
+
+/* ── CONTACT: circular image icon buttons ── */
+$("contact-grid").innerHTML = [
+  { key:"email",    img:"assets/icons/email.png",    label:"Email",    href:`mailto:${DATA.profile.email}`,    dl:false },
+  { key:"linkedin", img:"assets/icons/linkedin.png", label:"LinkedIn", href:DATA.profile.linkedin,             dl:false },
+  { key:"github",   img:"assets/icons/github.png",   label:"GitHub",   href:DATA.profile.github,               dl:false },
+  { key:"resume",   img:"assets/icons/resume.png",   label:"Resume",   href:DATA.profile.resume,               dl:true  },
+  { key:"phone",    img:"assets/icons/phone.png",    label:"Phone",    href:`tel:${DATA.profile.phone}`,        dl:false },
+  { key:"location", img:"assets/icons/location.png", label:"Location", href:"#",                               dl:false },
+].map((c, i) => `
+  <a class="contact-box ${c.key} r" style="transition-delay:${i*0.07}s"
+     href="${c.href}" target="${c.dl || c.key==='phone' || c.key==='location' ? '_self' : '_blank'}"
+     ${c.dl ? 'download' : ''}>
+    <div class="c-circle">
+      <img src="${c.img}" alt="${c.label}">
+    </div>
+    <div class="c-label">${c.label}</div>
+  </a>`).join("");
+
+   
 /* ── SCROLL REVEAL ── */
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("in"); });
