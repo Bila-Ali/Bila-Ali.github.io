@@ -1056,7 +1056,7 @@ $("proj-grid").innerHTML = DATA.projects.map((p, i) =>
 
 /* ── CERTIFICATIONS ── */
 $("cert-grid").innerHTML = DATA.certifications.map((c, i) =>
-  buildCard({...c, kicker:c.issuer, tags:[], lbGroup:"certs", lbCap:`${c.name} · ${c.issuer}`}, i, 0.05)).join("");
+  buildCard({...c, kicker:c.issuer, title: c.name, tags:[], lbGroup:"certs", lbCap:`${c.name} · ${c.issuer}`}, i, 0.05)).join("");
 
 /* ── ACHIEVEMENTS ── */
 $("ach-grid").innerHTML = DATA.achievements.map((a, i) =>
