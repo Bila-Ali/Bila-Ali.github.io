@@ -1,1113 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bilawal Ali | SOC Analyst & Cybersecurity Researcher</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-    }
-
-    :root{
-      --bg:#071018;
-      --bg2:#0d1722;
-      --card:#101c29;
-      --border:rgba(255,255,255,0.08);
-      --green:#00ff88;
-      --cyan:#00c3ff;
-      --text:#e7f3ff;
-      --muted:#8aa4b8;
-      --shadow:0 10px 30px rgba(0,0,0,0.3);
-    }
-
-    html{
-      scroll-behavior:smooth;
-    }
-
-    body{
-      font-family:'Inter',sans-serif;
-      background:var(--bg);
-      color:var(--text);
-      line-height:1.7;
-      overflow-x:hidden;
-    }
-
-    body::before{
-      content:'';
-      position:fixed;
-      inset:0;
-      background:
-      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-      background-size:40px 40px;
-      pointer-events:none;
-      z-index:-1;
-    }
-
-    .container{
-      width:min(1200px,90%);
-      margin:auto;
-    }
-
-    section{
-      padding:90px 0;
-    }
-
-    .section-title{
-      font-size:2.5rem;
-      margin-bottom:14px;
-      font-weight:800;
-    }
-
-    .section-title span{
-      color:var(--green);
-    }
-
-    .section-subtitle{
-      color:var(--muted);
-      margin-bottom:50px;
-      max-width:700px;
-    }
-
-    /* NAVBAR */
-
-    nav{
-      position:fixed;
-      width:100%;
-      top:0;
-      z-index:1000;
-      backdrop-filter:blur(14px);
-      background:rgba(7,16,24,0.8);
-      border-bottom:1px solid var(--border);
-    }
-
-    .nav-container{
-      width:min(1200px,90%);
-      margin:auto;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:18px 0;
-    }
-
-    .logo{
-      color:var(--green);
-      text-decoration:none;
-      font-size:1.2rem;
-      font-weight:800;
-    }
-
-    .nav-links{
-      display:flex;
-      gap:28px;
-    }
-
-    .nav-links a{
-      color:var(--muted);
-      text-decoration:none;
-      font-size:0.95rem;
-      transition:0.3s;
-    }
-
-    .nav-links a:hover{
-      color:var(--green);
-    }
-
-    /* HERO */
-
-    #hero{
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-    }
-
-    .hero-grid{
-      display:grid;
-      grid-template-columns:1fr 420px;
-      gap:60px;
-      align-items:center;
-    }
-
-    .badge{
-      display:inline-block;
-      background:rgba(0,255,136,0.08);
-      border:1px solid rgba(0,255,136,0.2);
-      padding:10px 18px;
-      border-radius:50px;
-      color:var(--green);
-      font-size:0.9rem;
-      margin-bottom:24px;
-    }
-
-    .hero-title{
-      font-size:4.5rem;
-      line-height:1;
-      margin-bottom:18px;
-      font-weight:800;
-    }
-
-    .hero-title span{
-      color:var(--green);
-    }
-
-    .hero-role{
-      color:var(--cyan);
-      font-size:1.2rem;
-      margin-bottom:20px;
-      font-weight:600;
-    }
-
-    .hero-text{
-      color:var(--muted);
-      font-size:1.05rem;
-      margin-bottom:32px;
-      max-width:650px;
-    }
-
-    .hero-buttons{
-      display:flex;
-      flex-wrap:wrap;
-      gap:16px;
-      margin-bottom:40px;
-    }
-
-    .btn{
-      padding:14px 24px;
-      border-radius:10px;
-      text-decoration:none;
-      font-weight:600;
-      transition:0.3s;
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-    }
-
-    .btn-primary{
-      background:var(--green);
-      color:#000;
-    }
-
-    .btn-primary:hover{
-      transform:translateY(-3px);
-    }
-
-    .btn-secondary{
-      border:1px solid rgba(255,255,255,0.1);
-      color:var(--text);
-      background:var(--card);
-    }
-
-    .btn-secondary:hover{
-      border-color:var(--green);
-      color:var(--green);
-    }
-
-    .hero-stats{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:18px;
-    }
-
-    .stat-box{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:16px;
-      padding:24px;
-      text-align:center;
-    }
-
-    .stat-box h3{
-      font-size:2rem;
-      color:var(--green);
-      margin-bottom:8px;
-    }
-
-    .stat-box p{
-      color:var(--muted);
-      font-size:0.9rem;
-    }
-
-    .hero-image img{
-      width:100%;
-      border-radius:24px;
-      border:2px solid rgba(0,255,136,0.2);
-      box-shadow:var(--shadow);
-    }
-
-    /* CARDS */
-
-    .card-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-      gap:28px;
-    }
-
-    .card{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:18px;
-      overflow:hidden;
-      transition:0.3s;
-    }
-
-    .card:hover{
-      transform:translateY(-6px);
-      border-color:rgba(0,255,136,0.25);
-    }
-
-    .card img{
-      width:100%;
-      height:220px;
-      object-fit:cover;
-    }
-
-    .card-content{
-      padding:24px;
-    }
-
-    .card-content h3{
-      margin-bottom:10px;
-      font-size:1.3rem;
-    }
-
-    .card-content p{
-      color:var(--muted);
-      margin-bottom:18px;
-      font-size:0.95rem;
-    }
-
-    .tags{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-bottom:18px;
-    }
-
-    .tag{
-      background:rgba(0,255,136,0.08);
-      border:1px solid rgba(0,255,136,0.15);
-      color:var(--green);
-      padding:6px 12px;
-      border-radius:50px;
-      font-size:0.8rem;
-    }
-
-    .card-link{
-      text-decoration:none;
-      color:var(--cyan);
-      font-weight:600;
-    }
-
-    /* SKILLS */
-
-    .skills-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:24px;
-    }
-
-    .skill-card{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:28px;
-    }
-
-    .skill-card h3{
-      margin-bottom:18px;
-      color:var(--green);
-    }
-
-    .skill-list{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-    }
-
-    .skill-pill{
-      background:rgba(255,255,255,0.05);
-      padding:8px 14px;
-      border-radius:50px;
-      font-size:0.9rem;
-      color:var(--text);
-    }
-
-    /* EXPERIENCE */
-
-    .timeline{
-      display:flex;
-      flex-direction:column;
-      gap:30px;
-    }
-
-    .timeline-card{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:32px;
-    }
-
-    .timeline-top{
-      display:flex;
-      justify-content:space-between;
-      gap:20px;
-      flex-wrap:wrap;
-      margin-bottom:18px;
-    }
-
-    .timeline-card h3{
-      font-size:1.5rem;
-      margin-bottom:5px;
-    }
-
-    .company{
-      color:var(--cyan);
-    }
-
-    .date{
-      color:var(--muted);
-    }
-
-    .timeline-card ul{
-      padding-left:20px;
-      color:var(--muted);
-    }
-
-    .timeline-card li{
-      margin-bottom:10px;
-    }
-
-    /* CONTACT */
-
-    .contact-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-      gap:24px;
-    }
-
-    .contact-box{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:28px;
-    }
-
-    .contact-box h3{
-      margin-bottom:14px;
-    }
-
-    .contact-box p,
-    .contact-box a{
-      color:var(--muted);
-      text-decoration:none;
-    }
-
-    footer{
-      border-top:1px solid var(--border);
-      padding:30px;
-      text-align:center;
-      color:var(--muted);
-    }
-
-    /* RESPONSIVE */
-
-    @media(max-width:900px){
-
-      .hero-grid{
-        grid-template-columns:1fr;
-      }
-
-      .hero-title{
-        font-size:3rem;
-      }
-
-      .nav-links{
-        display:none;
-      }
-
-      .hero-stats{
-        grid-template-columns:1fr;
-      }
-    }
-
-  </style>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-
-  <!-- NAVBAR -->
-
-  <nav>
+  <!-- Navbar -->
+  <nav id="navbar">
     <div class="nav-container">
-      <a href="#" class="logo">Bilawal Ali</a>
-
-      <div class="nav-links">
-        <a href="#skills">Skills</a>
-        <a href="#experience">Experience</a>
-        <a href="#projects">Projects</a>
-        <a href="#vulnerabilities">Research</a>
-        <a href="#certifications">Certifications</a>
-        <a href="#achievements">Achievements</a>
-        <a href="#contact">Contact</a>
-      </div>
+      <div class="nav-logo">BILAWAL<span class="neon">ALI</span></div>
+      <div class="nav-links" id="nav-links"></div>
+      <button class="nav-toggle" id="nav-toggle">☰</button>
     </div>
   </nav>
 
-  <!-- HERO -->
-
+  <!-- Hero -->
   <section id="hero">
-    <div class="container">
-
-      <div class="hero-grid">
-
-        <div>
-
-          <div class="badge">
-            Open to SOC Analyst & Cybersecurity Internship Roles
-          </div>
-
-          <h1 class="hero-title">
-            <span>Bilawal</span> Ali
-          </h1>
-
-          <div class="hero-role">
-            SOC Analyst • Threat Hunter • Security Researcher
-          </div>
-
-          <p class="hero-text">
-            SOC Analyst with hands-on experience in SIEM monitoring,
-            incident response, threat hunting, malware analysis,
-            and security operations. Skilled in Wazuh, Splunk,
-            ELK Stack, MITRE ATT&CK, and blue team operations.
-          </p>
-
-          <div class="hero-buttons">
-
-            <a href="resume/Bilawal_Ali_Resume.pdf" class="btn btn-primary" download>
-              Download Resume
-            </a>
-
-            <a href="https://github.com/Bila-Ali" target="_blank" class="btn btn-secondary">
-              GitHub
-            </a>
-
-            <a href="https://linkedin.com" target="_blank" class="btn btn-secondary">
-              LinkedIn
-            </a>
-
-          </div>
-
-          <div class="hero-stats">
-
-            <div class="stat-box">
-              <h3>1K+</h3>
-              <p>Daily Security Events Monitored</p>
-            </div>
-
-            <div class="stat-box">
-              <h3>150+</h3>
-              <p>PortSwigger Labs Completed</p>
-            </div>
-
-            <div class="stat-box">
-              <h3>10+</h3>
-              <p>Vulnerabilities Identified</p>
-            </div>
-
-          </div>
-
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="badge" id="hero-badge"></div>
+        <h1 id="hero-name"></h1>
+        <h2 id="hero-title"></h2>
+        <p id="hero-bio"></p>
+        <div class="hero-buttons">
+          <a href="resume/Bilawal_Ali_Resume.pdf" download class="btn primary">Download Resume</a>
+          <a href="#contact" class="btn secondary">Get In Touch</a>
         </div>
-
-        <div class="hero-image">
-
-          <!-- REPLACE THIS IMAGE -->
-          <img src="assets/profile/bilawal.jpg" alt="Bilawal Ali">
-
-        </div>
-
       </div>
+      <div class="hero-visual">
+        <img id="profile-img" src="assets/profile/bilawal.jpg" alt="Bilawal Ali">
+      </div>
+    </div>
+    <div class="stats-grid" id="stats-grid"></div>
+  </section>
 
+  <!-- Skills -->
+  <section id="skills" class="section">
+    <div class="container">
+      <h2 class="section-title">Technical <span class="neon">Arsenal</span></h2>
+      <div class="skills-grid" id="skills-grid"></div>
     </div>
   </section>
 
-  <!-- SKILLS -->
-
-  <section id="skills">
+  <!-- Experience -->
+  <section id="experience" class="section sec-alt">
     <div class="container">
-
-      <h2 class="section-title">
-        Technical <span>Skills</span>
-      </h2>
-
-      <p class="section-subtitle">
-        Cybersecurity tools, technologies, and frameworks used in SOC operations,
-        threat hunting, incident response, and offensive security.
-      </p>
-
-      <div class="skills-grid">
-
-        <div class="skill-card">
-          <h3>SIEM & Log Analysis</h3>
-
-          <div class="skill-list">
-            <span class="skill-pill">Wazuh</span>
-            <span class="skill-pill">Splunk</span>
-            <span class="skill-pill">ELK Stack</span>
-            <span class="skill-pill">Kibana</span>
-            <span class="skill-pill">Logstash</span>
-            <span class="skill-pill">Alert Triage</span>
-          </div>
-        </div>
-
-        <div class="skill-card">
-          <h3>Threat Detection & IR</h3>
-
-          <div class="skill-list">
-            <span class="skill-pill">Threat Hunting</span>
-            <span class="skill-pill">Incident Response</span>
-            <span class="skill-pill">MITRE ATT&CK</span>
-            <span class="skill-pill">IOC Analysis</span>
-            <span class="skill-pill">YARA</span>
-          </div>
-        </div>
-
-        <div class="skill-card">
-          <h3>Offensive Security</h3>
-
-          <div class="skill-list">
-            <span class="skill-pill">Burp Suite</span>
-            <span class="skill-pill">Nmap</span>
-            <span class="skill-pill">Metasploit</span>
-            <span class="skill-pill">SQLmap</span>
-            <span class="skill-pill">VAPT</span>
-          </div>
-        </div>
-
-        <div class="skill-card">
-          <h3>Programming & DFIR</h3>
-
-          <div class="skill-list">
-            <span class="skill-pill">Python</span>
-            <span class="skill-pill">Bash</span>
-            <span class="skill-pill">Volatility</span>
-            <span class="skill-pill">Autopsy</span>
-            <span class="skill-pill">REMnux</span>
-          </div>
-        </div>
-
-      </div>
-
+      <h2 class="section-title">Professional <span class="neon">Journey</span></h2>
+      <div class="timeline" id="experience-timeline"></div>
     </div>
   </section>
 
-  <!-- EXPERIENCE -->
-
-  <section id="experience">
+  <!-- Certifications -->
+  <section id="certifications" class="section">
     <div class="container">
-
-      <h2 class="section-title">
-        Professional <span>Experience</span>
-      </h2>
-
-      <p class="section-subtitle">
-        Hands-on cybersecurity experience in SOC monitoring,
-        threat analysis, vulnerability assessment, and incident response.
-      </p>
-
-      <div class="timeline">
-
-        <div class="timeline-card">
-
-          <div class="timeline-top">
-
-            <div>
-              <h3>SOC Analyst Intern (L1)</h3>
-              <div class="company">Cyberster</div>
-            </div>
-
-            <div class="date">
-              2026 - Present
-            </div>
-
-          </div>
-
-          <ul>
-            <li>Monitored and triaged 1000+ daily security events using Wazuh SIEM.</li>
-            <li>Investigated brute-force attacks, suspicious authentication activity, and endpoint alerts.</li>
-            <li>Created custom Wazuh detection rules and active response configurations.</li>
-            <li>Mapped detections to MITRE ATT&CK framework.</li>
-          </ul>
-
-        </div>
-
-        <div class="timeline-card">
-
-          <div class="timeline-top">
-
-            <div>
-              <h3>Red Team Intern</h3>
-              <div class="company">ITSOLERA Pvt Ltd</div>
-            </div>
-
-            <div class="date">
-              June 2024 - August 2024
-            </div>
-
-          </div>
-
-          <ul>
-            <li>Performed VAPT against web applications using Burp Suite and industry methodologies.</li>
-            <li>Identified SQL Injection, XSS, and authentication vulnerabilities.</li>
-            <li>Created professional security assessment reports.</li>
-          </ul>
-
-        </div>
-
-      </div>
-
+      <h2 class="section-title">Certifications &amp; Credentials</h2>
+      <div class="card-grid" id="cert-grid"></div>
     </div>
   </section>
 
-    <!-- VULNERABILITY RESEARCH -->
-
-  <section id="vulnerabilities">
+  <!-- Projects -->
+  <section id="projects" class="section sec-alt">
     <div class="container">
-
-      <h2 class="section-title">
-        Vulnerability <span>Research</span>
-      </h2>
-
-      <p class="section-subtitle">
-        Security vulnerabilities responsibly identified during web application testing,
-        bug bounty practice, and security research.
-      </p>
-
-      <div class="card-grid">
-
-        <div class="card">
-
-          <img src="assets/vulnerabilities/sqli-union.jpg" alt="SQL Injection">
-
-          <div class="card-content">
-
-            <h3>Union-Based SQL Injection</h3>
-
-            <p>
-              Identified a SQL Injection vulnerability capable of exposing database
-              information through UNION query manipulation.
-            </p>
-
-            <div class="tags">
-              <span class="tag">SQL Injection</span>
-              <span class="tag">MySQL</span>
-              <span class="tag">Burp Suite</span>
-            </div>
-
-            <a href="#" class="card-link">
-              Responsible Disclosure →
-            </a>
-
-          </div>
-
-        </div>
-
-        <div class="card">
-
-          <img src="assets/vulnerabilities/sqli-time.jpg" alt="Blind SQL Injection">
-
-          <div class="card-content">
-
-            <h3>Time-Based Blind SQL Injection</h3>
-
-            <p>
-              Detected a blind SQL Injection vulnerability using time-delay techniques
-              that confirmed backend database interaction.
-            </p>
-
-            <div class="tags">
-              <span class="tag">Blind SQLi</span>
-              <span class="tag">OWASP</span>
-              <span class="tag">VAPT</span>
-            </div>
-
-            <a href="#" class="card-link">
-              View Details →
-            </a>
-
-          </div>
-
-        </div>
-
-        <div class="card">
-
-          <img src="assets/vulnerabilities/xss.jpg" alt="XSS Vulnerability">
-
-          <div class="card-content">
-
-            <h3>Cross-Site Scripting (XSS)</h3>
-
-            <p>
-              Tested and validated reflected XSS behavior in web application input fields
-              during security assessments.
-            </p>
-
-            <div class="tags">
-              <span class="tag">XSS</span>
-              <span class="tag">Web Security</span>
-              <span class="tag">AppSec</span>
-            </div>
-
-            <a href="#" class="card-link">
-              View Findings →
-            </a>
-
-          </div>
-
-        </div>
-
-      </div>
-
+      <h2 class="section-title">Featured <span class="neon">Projects</span></h2>
+      <div class="card-grid" id="projects-grid"></div>
     </div>
   </section>
 
-  <!-- PROJECTS -->
-
-  <section id="projects">
+  <!-- Vulnerabilities -->
+  <section id="vulnerabilities" class="section">
     <div class="container">
-
-      <h2 class="section-title">
-        Featured <span>Projects</span>
-      </h2>
-
-      <p class="section-subtitle">
-        Real-world cybersecurity, DFIR, malware analysis,
-        and SOC engineering projects.
-      </p>
-
-      <div class="card-grid">
-
-        <div class="card">
-
-          <!-- REPLACE WITH YOUR PROJECT SCREENSHOT -->
-          <img src="assets/projects/mailforensics.png" alt="Project Screenshot">
-
-          <div class="card-content">
-
-            <h3>MailForensics</h3>
-
-            <p>
-              DFIR email analysis platform for phishing detection,
-              IOC extraction, SPF/DKIM analysis, and risk scoring.
-            </p>
-
-            <div class="tags">
-              <span class="tag">Python</span>
-              <span class="tag">Streamlit</span>
-              <span class="tag">DFIR</span>
-            </div>
-
-            <a href="https://github.com/Bila-Ali" class="card-link" target="_blank">
-              View Project →
-            </a>
-
-          </div>
-
-        </div>
-
-        <div class="card">
-
-          <img src="assets/projects/soclab.png" alt="Project Screenshot">
-
-          <div class="card-content">
-
-            <h3>SOC & Threat Simulation Lab</h3>
-
-            <p>
-              Built a complete SOC environment using Wazuh,
-              Splunk, ELK Stack, Suricata IDS, and pfSense.
-            </p>
-
-            <div class="tags">
-              <span class="tag">Splunk</span>
-              <span class="tag">Wazuh</span>
-              <span class="tag">Suricata</span>
-            </div>
-
-            <a href="#" class="card-link">
-              View Details →
-            </a>
-
-          </div>
-
-        </div>
-
-        <div class="card">
-
-          <img src="assets/projects/malware.png" alt="Project Screenshot">
-
-          <div class="card-content">
-
-            <h3>AI-Based PDF Malware Detection</h3>
-
-            <p>
-              Machine learning malware detection system trained on malicious
-              and benign PDF datasets with explainable AI.
-            </p>
-
-            <div class="tags">
-              <span class="tag">Python</span>
-              <span class="tag">Machine Learning</span>
-              <span class="tag">SHAP</span>
-            </div>
-
-            <a href="#" class="card-link">
-              View Project →
-            </a>
-
-          </div>
-
-        </div>
-
-      </div>
-
+      <h2 class="section-title">Vulnerability <span class="neon">Research</span></h2>
+      <div class="card-grid" id="vuln-grid"></div>
     </div>
   </section>
 
-  <!-- CERTIFICATIONS -->
-
-  <section id="certifications">
+  <!-- Achievements -->
+  <section id="achievements" class="section sec-alt">
     <div class="container">
-
-      <h2 class="section-title">
-        Certifications & <span>Training</span>
-      </h2>
-
-      <p class="section-subtitle">
-        Professional certifications, cybersecurity training,
-        and hands-on learning achievements.
-      </p>
-
-      <div class="card-grid">
-
-        <div class="card">
-
-          <!-- REPLACE WITH CERTIFICATE IMAGE -->
-          <img src="assets/certifications/ceh.jpg" alt="Certification">
-
-          <div class="card-content">
-
-            <h3>Certified Ethical Hacker (CEH)</h3>
-
-            <p>
-              Ethical hacking and penetration testing certification.
-            </p>
-
-            <a href="#" class="card-link">
-              Verify Certificate →
-            </a>
-
-          </div>
-
-        </div>
-
-        <div class="card">
-
-          <img src="assets/certifications/google.jpg" alt="Certification">
-
-          <div class="card-content">
-
-            <h3>Google Cybersecurity Professional Certificate</h3>
-
-            <p>
-              Cybersecurity operations, risk management,
-              and SOC fundamentals.
-            </p>
-
-            <a href="#" class="card-link">
-              Verify Certificate →
-            </a>
-
-          </div>
-
-        </div>
-
-        <div class="card">
-
-          <img src="assets/certifications/splunk.jpg" alt="Certification">
-
-          <div class="card-content">
-
-            <h3>Splunk Fundamentals</h3>
-
-            <p>
-              SIEM analysis, SPL queries,
-              and security monitoring.
-            </p>
-
-            <a href="#" class="card-link">
-              Verify Certificate →
-            </a>
-
-          </div>
-
-        </div>
-
-      </div>
-
+      <h2 class="section-title">Achievements &amp; Recognition</h2>
+      <div class="card-grid" id="ach-grid"></div>
     </div>
   </section>
 
-  <!-- ACHIEVEMENTS -->
-
-  <section id="achievements">
+  <!-- Education -->
+  <section id="education" class="section">
     <div class="container">
-
-      <h2 class="section-title">
-        Achievements & <span>Awards</span>
-      </h2>
-
-      <p class="section-subtitle">
-        Competitions, bug bounty achievements,
-        public speaking, and cybersecurity recognition.
-      </p>
-
-      <div class="card-grid">
-
-        <div class="card">
-          <img src="assets/achievements/ctf.jpg" alt="Achievement">
-
-          <div class="card-content">
-            <h3>1st Place - QUEST CTF 2026</h3>
-
-            <p>
-              Secured first position in a university-level
-              Capture The Flag competition.
-            </p>
-          </div>
-        </div>
-
-        <div class="card">
-          <img src="assets/achievements/nadra.jpg" alt="Achievement">
-
-          <div class="card-content">
-            <h3>NADRA Bug Bounty Challenge</h3>
-
-            <p>
-              Won consolation prize as Team Lead in a national bug bounty challenge.
-            </p>
-          </div>
-        </div>
-
-        <div class="card">
-          <img src="assets/achievements/speaker.jpg" alt="Achievement">
-
-          <div class="card-content">
-            <h3>Cybersecurity Guest Speaker</h3>
-
-            <p>
-              Delivered cybersecurity awareness and career guidance lecture at MUET.
-            </p>
-          </div>
-        </div>
-
-      </div>
-
+      <h2 class="section-title">Education</h2>
+      <div class="edu-card" id="education-card"></div>
     </div>
   </section>
 
-  <!-- CURRENTLY LEARNING -->
-
-  <section id="learning">
+  <!-- Currently Learning -->
+  <section id="learning" class="section sec-alt">
     <div class="container">
-
-      <h2 class="section-title">
-        Currently <span>Learning</span>
-      </h2>
-
-      <div class="skills-grid">
-
-        <div class="skill-card">
-          <h3>Advanced Threat Hunting</h3>
-        </div>
-
-        <div class="skill-card">
-          <h3>Detection Engineering</h3>
-        </div>
-
-        <div class="skill-card">
-          <h3>Malware Reverse Engineering</h3>
-        </div>
-
-        <div class="skill-card">
-          <h3>Cloud Security</h3>
-        </div>
-
-      </div>
-
+      <h2 class="section-title">Currently <span class="neon">Learning</span></h2>
+      <div class="learning-grid" id="learning-grid"></div>
     </div>
   </section>
 
-  <!-- CONTACT -->
-
-  <section id="contact">
+  <!-- Contact -->
+  <section id="contact" class="section">
     <div class="container">
-
-      <h2 class="section-title">
-        Contact <span>Me</span>
-      </h2>
-
-      <p class="section-subtitle">
-        Open for SOC Analyst, Blue Team,
-        Threat Hunting, and Cybersecurity Internship opportunities.
-      </p>
-
-      <div class="contact-grid">
-
-        <div class="contact-box">
-          <h3>Email</h3>
-          <p>
-            khooharobilawalali@gmail.com
-          </p>
-        </div>
-
-        <div class="contact-box">
-          <h3>GitHub</h3>
-          <a href="https://github.com/Bila-Ali" target="_blank">
-            github.com/Bila-Ali
-          </a>
-        </div>
-
-        <div class="contact-box">
-          <h3>LinkedIn</h3>
-          <a href="#">
-            linkedin.com/in/bilawal-ali
-          </a>
-        </div>
-
-        <div class="contact-box">
-          <h3>Location</h3>
-          <p>
-            Hyderabad, Sindh, Pakistan
-          </p>
-        </div>
-
-      </div>
-
+      <h2 class="section-title">Let's <span class="neon">Connect</span></h2>
+      <div class="contact-grid" id="contact-grid"></div>
     </div>
   </section>
-
-  <!-- FOOTER -->
 
   <footer>
-    © 2026 Bilawal Ali • SOC Analyst • Cybersecurity Researcher
+    <p>© 2026 Bilawal Ali • SOC Analyst & Cybersecurity Researcher</p>
   </footer>
 
+  <script src="portfolio-data.js"></script>
+  <script src="renderer.js"></script>
 </body>
 </html>
