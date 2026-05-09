@@ -926,7 +926,8 @@ window.addEventListener("scroll", () => {
 
 /* ── HERO ── */
 $("h-badge").textContent = DATA.profile.badge;
-$("h-name").innerHTML = DATA.profile.name.replace(" ", `<br><em>`) + `</em>`;
+//$("h-name").innerHTML = DATA.profile.name.replace(" ", `<br><em>`) + `</em>`;
+$("h-name").innerHTML = `<em>${DATA.profile.name}</em>`;
 $("h-role").textContent = DATA.profile.title;
 $("h-bio").innerHTML = DATA.profile.bio;
 $("h-btns").innerHTML = `
