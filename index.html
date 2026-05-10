@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bilawal Ali | SOC Analyst & Cybersecurity Researcher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* ══════════════════════════════════════
+   TOKENS
+══════════════════════════════════════ */
+:root {
+  --bg:      #071018;
+  --bg2:     #0d1722;
+  --surface: #101c29;
+  --card:    #131f2d;
+  --border:  rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.04);
+  --green:   #00ff88;
+  --cyan:    #00c3ff;
+  --amber:   #ffaa00;
+  --red:     #ff5555;
+  --text:    #e7f3ff;
+  --muted:   #8aa4b8;
+  --dim:     #506070;
+  --sans:    'Inter', sans-serif;
+  --mono:    'JetBrains Mono', monospace;
+  --r12: 12px; --r16: 16px; --r20: 20px;
+  --shadow:  0 16px 48px rgba(0,0,0,0.45);
+}
+
+/* ══════════════════════════════════════
+   RESET & BASE
+══════════════════════════════════════ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.7;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+
+body::before{
+  content:'';position:fixed;inset:0;
+  background:
+    linear-gradient(rgba(255,255,255,0.018) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,0.018) 1px,transparent 1px);
+  background-size:44px 44px;
+  pointer-events:none;z-index:0;
+}
+
+/* ══════════════════════════════════════
+   SCROLLBAR
+══════════════════════════════════════ */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:rgba(0,255,136,0.3);border-radius:3px}
+
+/* ══════════════════════════════════════
+   LAYOUT
+══════════════════════════════════════ */
+.wrap{width:min(1180px,92%);margin:auto;position:relative;z-index:1}
+section{padding:96px 0;position:relative;z-index:1}
+.sec-alt{background:var(--bg2)}
+
+/* ══════════════════════════════════════
+   SECTION HEADER
+══════════════════════════════════════ */
+.sh{margin-bottom:54px}
+.sh-label{
+  font-family:var(--mono);font-size:0.72rem;letter-spacing:3px;
+  text-transform:uppercase;color:var(--green);
+  display:inline-block;margin-bottom:12px;
+  padding:5px 12px;background:rgba(0,255,136,0.06);
+  border:1px solid rgba(0,255,136,0.18);border-radius:6px;
+}
+.sh h2{
+  font-size:clamp(1.9rem,4vw,2.65rem);font-weight:800;
+  line-height:1.1;margin-bottom:14px;letter-spacing:-0.02em;
+}
+.sh h2 em{color:var(--green);font-style:normal}
+.sh p{color:var(--muted);font-size:0.95rem;max-width:620px;line-height:1.75}
+
+/* ══════════════════════════════════════
+   NAV
+══════════════════════════════════════ */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  background:rgba(7,16,24,0.88);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+  transition:box-shadow 0.3s;
+}
+#nav.scrolled{box-shadow:0 4px 28px rgba(0,0,0,0.6)}
+.nav-inner{
+  width:min(1180px,92%);margin:auto;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:15px 0;
+}
+.nav-logo{
+  font-family:var(--mono);font-size:0.88rem;font-weight:700;
+  color:var(--green);display:flex;align-items:center;gap:8px;
+}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2.2s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(0,255,136,0.6)}50%{box-shadow:0 0 0 6px rgba(0,255,136,0)}}
+.nav-links{display:flex;gap:2px;align-items:center}
+.nav-links a{
+  color:var(--muted);font-size:0.84rem;font-weight:500;
+  padding:7px 13px;border-radius:8px;transition:all 0.2s;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--green);background:rgba(0,255,136,0.07)}
+.nav-cta{
+  font-family:var(--mono);font-size:0.75rem;font-weight:700;
+  padding:9px 20px;border-radius:8px;letter-spacing:1px;
+  background:var(--green);color:#000;
+  transition:all 0.2s;white-space:nowrap;
+}
+.nav-cta:hover{background:#fff;transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,255,136,0.3)}
+.nav-toggle{
+  display:none;flex-direction:column;gap:5px;
+  background:none;border:none;cursor:pointer;padding:6px;
+}
+.nav-toggle span{display:block;width:20px;height:2px;background:var(--text);border-radius:2px;transition:0.3s}
+.nav-drawer{
+  display:none;flex-direction:column;
+  background:var(--surface);border-top:1px solid var(--border);padding:6px 0;
+}
+.nav-drawer a{
+  color:var(--muted);padding:13px 20px;font-size:0.9rem;font-weight:500;
+  border-bottom:1px solid var(--border2);transition:color 0.2s;
+}
+.nav-drawer a:hover{color:var(--green)}
+.nav-drawer.open{display:flex}
+
+/* ══════════════════════════════════════
+   BUTTONS
+══════════════════════════════════════ */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  font-weight:600;border-radius:10px;font-family:var(--sans);
+  transition:all 0.25s;cursor:pointer;border:none;
+}
+.btn-lg{padding:13px 24px;font-size:0.92rem}
+.btn-sm{padding:9px 18px;font-size:0.82rem}
+.btn-primary{background:var(--green);color:#000}
+.btn-primary:hover{background:#fff;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,255,136,0.28)}
+.btn-ghost{background:var(--surface);color:var(--text);border:1px solid rgba(255,255,255,0.09)}
+.btn-ghost:hover{border-color:var(--green);color:var(--green)}
+
+/* ══════════════════════════════════════
+   TAGS / PILLS
+══════════════════════════════════════ */
+.tag{
+  display:inline-block;padding:4px 11px;border-radius:50px;
+  font-family:var(--mono);font-size:0.72rem;font-weight:500;
+}
+.tg{background:rgba(0,255,136,0.08);color:var(--green);border:1px solid rgba(0,255,136,0.18)}
+.tc{background:rgba(0,195,255,0.08);color:var(--cyan);border:1px solid rgba(0,195,255,0.18)}
+.ta{background:rgba(255,170,0,0.08);color:var(--amber);border:1px solid rgba(255,170,0,0.18)}
+.tr{background:rgba(255,85,85,0.08);color:var(--red);border:1px solid rgba(255,85,85,0.18)}
+
+/* ══════════════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════════════ */
+.r{opacity:0;transform:translateY(22px);transition:opacity 0.5s ease,transform 0.5s ease}
+.r.in{opacity:1;transform:none}
+
+/* ══════════════════════════════════════
+   HERO
+══════════════════════════════════════ */
+#hero,#about[style*="min-height"]{min-height:100vh;display:flex;align-items:center;padding-top:74px}
+.hero-grid{
+  display:grid;grid-template-columns:1fr 420px;
+  gap:60px;align-items:center;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:9px;
+  background:rgba(0,255,136,0.07);border:1px solid rgba(0,255,136,0.2);
+  padding:9px 18px;border-radius:50px;
+  color:var(--green);font-size:0.85rem;font-weight:600;margin-bottom:22px;
+  animation:fadeUp 0.5s ease both;
+}
+.hero-name{
+  font-size:clamp(2.4rem,5.5vw,4.4rem);font-weight:800;
+  line-height:1.05;letter-spacing:-0.04em;margin-bottom:14px;
+  white-space:nowrap;
+  animation:fadeUp 0.5s ease 0.08s both;
+}
+.hero-name em{color:var(--green);font-style:normal}
+.hero-role{
+  font-family:var(--mono);font-size:0.8rem;letter-spacing:2px;
+  color:var(--cyan);text-transform:uppercase;margin-bottom:20px;
+  animation:fadeUp 0.5s ease 0.16s both;
+  display:flex;align-items:center;gap:6px;
+}
+.hero-role::after{
+  content:'▋';color:var(--green);
+  animation:blink 1.1s step-start infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero-bio{
+  color:var(--muted);font-size:1rem;line-height:1.8;max-width:560px;
+  margin-bottom:32px;animation:fadeUp 0.5s ease 0.24s both;
+}
+.hero-bio strong{color:var(--text)}
+.hero-btns{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:44px;animation:fadeUp 0.5s ease 0.32s both}
+.hero-metrics{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--border);border-radius:var(--r16);overflow:hidden;
+  animation:fadeUp 0.5s ease 0.4s both;
+}
+.metric{background:var(--surface);padding:22px 14px;text-align:center;transition:background 0.2s}
+.metric:hover{background:var(--card)}
+.metric-val{
+  font-family:var(--mono);font-size:1.8rem;font-weight:700;
+  color:var(--green);display:block;line-height:1;margin-bottom:6px;
+}
+.metric-lbl{color:var(--dim);font-size:0.75rem;line-height:1.4}
+
+/* ══════════════════════════════════════
+   PROFILE CARD
+══════════════════════════════════════ */
+.profile-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r20);padding:30px;
+  animation:fadeUp 0.6s ease 0.2s both;
+  position:relative;overflow:hidden;
+}
+.profile-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--green),transparent);
+  animation:scanH 3.5s linear infinite;
+}
+@keyframes scanH{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.profile-card::after{
+  content:'';position:absolute;top:-100%;left:0;right:0;height:100%;
+  background:linear-gradient(to bottom,transparent 45%,rgba(0,255,136,0.025) 50%,transparent 55%);
+  animation:scanV 5s linear infinite;pointer-events:none;
+}
+@keyframes scanV{to{top:200%}}
+
+.avatar-wrap{
+  width:120px;height:120px;border-radius:50%;margin:0 auto 18px;
+  padding:3px;
+  background:conic-gradient(var(--green) 0deg,var(--cyan) 130deg,transparent 200deg,transparent 360deg);
+  position:relative;
+}
+.avatar-wrap::after{
+  content:'';position:absolute;inset:-6px;border-radius:50%;
+  background:conic-gradient(var(--green) 0deg,var(--cyan) 130deg,transparent 200deg,transparent 360deg);
+  filter:blur(10px);opacity:0.25;z-index:-1;
+  animation:ringPulse 3s ease-in-out infinite;
+}
+@keyframes ringPulse{0%,100%{opacity:0.18;transform:scale(0.97)}50%{opacity:0.35;transform:scale(1.02)}}
+
+.avatar-img{
+  width:100%;height:100%;border-radius:50%;object-fit:cover;
+  background:var(--card);display:block;
+}
+.avatar-ph{
+  width:100%;height:100%;border-radius:50%;background:var(--card);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:2rem;font-weight:700;color:var(--green);
+}
+.avatar-badge{
+  position:absolute;bottom:2px;right:2px;
+  width:30px;height:30px;border-radius:50%;
+  background:var(--bg);border:2px solid var(--green);
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.85rem;z-index:2;
+  box-shadow:0 0 0 3px var(--bg),0 0 12px rgba(0,255,136,0.4);
+}
+
+.profile-name{font-size:1.15rem;font-weight:800;text-align:center;margin-bottom:4px;letter-spacing:-0.01em}
+.profile-mono{
+  font-family:var(--mono);font-size:0.65rem;color:var(--green);
+  text-align:center;letter-spacing:1px;margin-bottom:20px;
+}
+.profile-divider{height:1px;background:var(--border);margin:4px 0 16px}
+.info-row{
+  display:flex;align-items:center;gap:10px;
+  color:var(--muted);font-size:0.82rem;padding:5px 0;
+}
+.info-ico{
+  width:26px;height:26px;border-radius:6px;flex-shrink:0;
+  background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.14);
+  display:flex;align-items:center;justify-content:center;
+}
+.info-ico svg{width:14px;height:14px}
+
+.profile-actions{display:flex;gap:8px;margin-top:20px}
+.pa{
+  flex:1;padding:10px 6px;border-radius:10px;text-align:center;
+  background:rgba(255,255,255,0.03);border:1px solid var(--border);
+  font-size:0.7rem;color:var(--muted);transition:all 0.2s;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+}
+.pa:hover{border-color:var(--green);color:var(--green);background:rgba(0,255,136,0.05)}
+.pa svg{width:18px;height:18px}
+
+.status-row{
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  margin-bottom:16px;padding:7px 14px;border-radius:50px;
+  background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.12);
+  font-family:var(--mono);font-size:0.63rem;color:var(--green);letter-spacing:1px;
+}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2.2s infinite;flex-shrink:0}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* ══════════════════════════════════════
+   SKILLS
+══════════════════════════════════════ */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:20px}
+.skill-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r16);padding:24px;transition:all 0.3s;
+}
+.skill-card:hover{border-color:rgba(0,255,136,0.22);transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,0.4)}
+.skill-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.skill-icon-tile{
+  width:46px;height:46px;border-radius:10px;flex-shrink:0;
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg,rgba(0,255,136,0.12),rgba(0,195,255,0.06));
+  border:1px solid rgba(0,255,136,0.18);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.25rem;
+  box-shadow:0 4px 12px rgba(0,0,0,0.25),inset 0 1px 0 rgba(255,255,255,0.06);
+}
+.skill-icon-tile::before{
+  content:'';position:absolute;top:0;right:0;
+  width:8px;height:8px;
+  background:linear-gradient(135deg,var(--green),transparent);
+  border-radius:0 0 0 4px;opacity:0.6;
+}
+.skill-title{font-size:0.87rem;font-weight:700;color:var(--green)}
+.skill-chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  padding:5px 13px;border-radius:50px;font-size:0.8rem;font-weight:500;
+  background:rgba(255,255,255,0.04);border:1px solid var(--border);
+  color:var(--muted);transition:all 0.2s;cursor:default;
+}
+.chip:hover{background:rgba(0,255,136,0.07);border-color:rgba(0,255,136,0.22);color:var(--text)}
+
+/* ══════════════════════════════════════
+   EXPERIENCE
+══════════════════════════════════════ */
+.timeline{display:flex;flex-direction:column;gap:20px}
+.exp-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-left:3px solid transparent;
+  border-radius:var(--r16);padding:28px 32px;transition:all 0.3s;
+}
+.exp-card:hover{border-left-color:var(--green);transform:translateX(4px);box-shadow:0 12px 40px rgba(0,0,0,0.35)}
+.exp-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
+.exp-role{font-size:1.18rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:5px}
+.exp-company{font-family:var(--mono);font-size:0.75rem;letter-spacing:1px;color:var(--cyan);margin-bottom:4px}
+.exp-meta{color:var(--dim);font-size:0.8rem;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.exp-pts{padding-left:16px;display:flex;flex-direction:column;gap:6px}
+.exp-pts li{color:var(--muted);font-size:0.89rem;line-height:1.65}
+.exp-pts li::marker{color:var(--green)}
+
+/* ══════════════════════════════════════
+   CARD GRID
+══════════════════════════════════════ */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px}
+.pcard{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r16);overflow:hidden;
+  transition:all 0.3s;position:relative;
+}
+.pcard:hover{border-color:rgba(0,255,136,0.22);transform:translateY(-5px);box-shadow:0 20px 50px rgba(0,0,0,0.45)}
+.pcard-img{position:relative;overflow:hidden}
+.pcard-img img{width:100%;height:205px;object-fit:cover;display:block;transition:transform 0.4s}
+.pcard:hover .pcard-img img{transform:scale(1.05)}
+.pcard-ph{
+  height:130px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  position:relative;overflow:hidden;
+}
+.pcard-ph::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse at 30% 40%,rgba(0,255,136,0.13) 0%,transparent 60%),
+    radial-gradient(ellipse at 80% 70%,rgba(0,195,255,0.09) 0%,transparent 55%),
+    linear-gradient(160deg,var(--card) 0%,#0a1620 100%);
+}
+.pcard-ph::after{
+  content:'';position:absolute;inset:0;
+  background:
+    linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);
+  background-size:20px 20px;
+}
+.pcard-ph-icon{
+  position:relative;z-index:1;
+  width:52px;height:52px;border-radius:12px;
+  background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.22);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.6rem;
+  box-shadow:0 8px 24px rgba(0,0,0,0.4),0 0 20px rgba(0,255,136,0.1);
+}
+.pcard-ph-label{
+  position:relative;z-index:1;
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:2px;
+  text-transform:uppercase;color:var(--dim);
+}
+.pcard-overlay{
+  position:absolute;inset:0;background:rgba(5,14,24,0.6);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:opacity 0.3s;cursor:pointer;font-size:1.5rem;
+}
+.pcard:hover .pcard-overlay{opacity:1}
+.pcard-body{padding:22px}
+.pcard-kicker{font-family:var(--mono);font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:7px}
+.pcard-title{font-size:1rem;font-weight:700;margin-bottom:8px;letter-spacing:-0.01em}
+.pcard-desc{color:var(--muted);font-size:0.86rem;line-height:1.7;margin-bottom:14px}
+.pcard-tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}
+.pcard-link{font-family:var(--mono);font-size:0.74rem;color:var(--cyan);letter-spacing:0.5px;transition:opacity 0.2s}
+.pcard-link:hover{opacity:0.7}
+.ribbon{
+  position:absolute;top:10px;left:10px;z-index:2;
+  padding:4px 10px;border-radius:50px;
+  font-family:var(--mono);font-size:0.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+}
+.rib-g{background:var(--green);color:#000}
+.rib-c{background:var(--cyan);color:#000}
+.rib-a{background:var(--amber);color:#000}
+.rib-r{background:var(--red);color:#fff}
+.medal-star{
+  position:absolute;top:10px;right:10px;z-index:2;
+  width:26px;height:26px;border-radius:50%;
+  background:var(--amber);color:#000;font-size:0.8rem;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* ══════════════════════════════════════
+   EDUCATION
+══════════════════════════════════════ */
+.edu-wrap{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r20);overflow:hidden;
+}
+.edu-banner{
+  height:175px;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#091420,#0d1a26);
+  display:flex;align-items:center;justify-content:center;
+}
+.edu-banner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.22}
+.edu-banner::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:50%;
+  background:linear-gradient(to bottom,transparent,var(--surface));
+}
+.edu-banner-inner{position:relative;z-index:1;text-align:center}
+.edu-icon{font-size:2.8rem;display:block;margin-bottom:6px}
+.edu-uni{font-family:var(--mono);font-size:0.68rem;letter-spacing:3px;color:var(--green);text-transform:uppercase}
+.edu-body{padding:30px 32px}
+.edu-degree{font-size:1.5rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:14px}
+.edu-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.edu-pill{padding:5px 14px;border-radius:50px;font-size:0.78rem;font-weight:600;border:1px solid}
+.ep-g{color:var(--green);border-color:rgba(0,255,136,0.25);background:rgba(0,255,136,0.07)}
+.ep-l{color:var(--muted);border-color:var(--border)}
+.ep-a{color:var(--amber);border-color:rgba(255,170,0,0.25);background:rgba(255,170,0,0.07)}
+.edu-desc{color:var(--muted);font-size:0.9rem;line-height:1.8}
+
+/* ══════════════════════════════════════
+   CURRENTLY LEARNING
+══════════════════════════════════════ */
+.learn-grid{display:flex;flex-wrap:wrap;gap:10px}
+.learn-chip{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 18px;border-radius:50px;
+  background:var(--surface);border:1px solid var(--border);
+  font-size:0.86rem;font-weight:500;color:var(--muted);
+  transition:all 0.2s;
+}
+.learn-chip:hover{border-color:rgba(0,255,136,0.28);color:var(--green);background:rgba(0,255,136,0.05)}
+.learn-chip::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0}
+
+/* ══════════════════════════════════════
+   VOLUNTEER / EVENTS
+══════════════════════════════════════ */
+.event-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+.event-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r16);overflow:hidden;transition:all 0.3s;cursor:pointer;
+}
+.event-card:hover{border-color:rgba(0,195,255,0.25);transform:translateY(-4px);box-shadow:var(--shadow)}
+.event-img{position:relative;padding-top:55%;overflow:hidden;background:var(--card)}
+.event-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 0.4s}
+.event-card:hover .event-img img{transform:scale(1.06)}
+.event-img-ph{
+  position:absolute;inset:0;align-items:center;justify-content:center;
+  font-size:2.2rem;display:none;
+  background:radial-gradient(ellipse at center,rgba(0,195,255,0.08),var(--card));
+}
+.event-body{padding:16px 20px}
+.event-title{font-size:0.92rem;font-weight:700;margin-bottom:3px}
+.event-org{font-family:var(--mono);font-size:0.65rem;color:var(--cyan);letter-spacing:1px;margin-bottom:6px}
+.event-desc{color:var(--dim);font-size:0.79rem;line-height:1.55}
+
+/* ══════════════════════════════════════
+   CONTACT — circular icon buttons (HORIZONTAL ROW)
+══════════════════════════════════════ */
+.contact-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px 0;
+}
+.contact-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.25s;
+  min-width: 80px;
+}
+.contact-box:hover { transform: translateY(-6px); }
+
+.c-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.c-circle svg {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+/* brand glow colors on hover */
+.contact-box.email:hover    .c-circle { border-color:rgba(234,67,53,0.7);   box-shadow:0 0 18px rgba(234,67,53,0.35);   background:rgba(234,67,53,0.08);   color:#ea4335; }
+.contact-box.linkedin:hover .c-circle { border-color:rgba(10,102,194,0.7);  box-shadow:0 0 18px rgba(10,102,194,0.35);  background:rgba(10,102,194,0.08);  color:#0a66c2; }
+.contact-box.github:hover   .c-circle { border-color:rgba(240,246,252,0.5); box-shadow:0 0 18px rgba(240,246,252,0.2);  background:rgba(240,246,252,0.06); color:#e6edf3; }
+.contact-box.resume:hover   .c-circle { border-color:rgba(255,170,0,0.7);   box-shadow:0 0 18px rgba(255,170,0,0.35);   background:rgba(255,170,0,0.08);   color:#ffaa00; }
+.contact-box.phone:hover    .c-circle { border-color:rgba(0,255,136,0.7);   box-shadow:0 0 18px rgba(0,255,136,0.3);    background:rgba(0,255,136,0.07);   color:var(--green); }
+.contact-box.location:hover .c-circle { border-color:rgba(0,195,255,0.7);   box-shadow:0 0 18px rgba(0,195,255,0.3);    background:rgba(0,195,255,0.07);   color:var(--cyan); }
+
+/* default icon colors */
+.contact-box.email    .c-circle { color: rgba(234,67,53,0.7); }
+.contact-box.linkedin .c-circle { color: rgba(10,102,194,0.8); }
+.contact-box.github   .c-circle { color: var(--muted); }
+.contact-box.resume   .c-circle { color: rgba(255,170,0,0.8); }
+.contact-box.phone    .c-circle { color: rgba(0,255,136,0.7); }
+.contact-box.location .c-circle { color: rgba(0,195,255,0.7); }
+
+.c-label {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--dim);
+  transition: color 0.25s;
+  text-align: center;
+}
+.contact-box:hover .c-label { color: var(--green); }
+
+/* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
+footer{
+  border-top:1px solid var(--border);padding:30px;
+  text-align:center;color:var(--dim);font-size:0.84rem;
+  position:relative;z-index:1;
+}
+footer em{color:var(--green);font-style:normal}
+
+/* ══════════════════════════════════════
+   LIGHTBOX
+══════════════════════════════════════ */
+#lb{
+  position:fixed;inset:0;z-index:9999;
+  background:rgba(5,10,18,0.96);backdrop-filter:blur(16px);
+  display:none;align-items:center;justify-content:center;padding:2rem;
+}
+#lb.open{display:flex}
+#lb-inner{position:relative;max-width:880px;width:100%}
+#lb-img{width:100%;max-height:82vh;object-fit:contain;border-radius:var(--r16);border:1px solid var(--border)}
+#lb-cap{text-align:center;margin-top:12px;color:var(--muted);font-family:var(--mono);font-size:0.72rem;letter-spacing:1px}
+#lb-close{
+  position:absolute;top:-42px;right:0;
+  background:none;border:none;cursor:pointer;
+  color:var(--muted);font-size:1.4rem;transition:color 0.2s;
+}
+#lb-close:hover{color:var(--green)}
+.lb-nav{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:40px;height:40px;border-radius:50%;
+  background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.2);
+  color:var(--green);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:1.2rem;transition:all 0.2s;
+}
+.lb-nav:hover{background:rgba(0,255,136,0.2)}
+#lb-prev{left:-54px}#lb-next{right:-54px}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
+@media(max-width:960px){
+  .hero-grid{grid-template-columns:1fr;gap:40px}
+  .profile-card{max-width:420px;margin:0 auto}
+  #lb-prev{left:-8px}#lb-next{right:-8px}
+}
+@media(max-width:640px){
+  section{padding:70px 0}
+  .hero-name{font-size:2.4rem;white-space:normal}
+  .hero-metrics{grid-template-columns:1fr}
+  .card-grid,.skills-grid{grid-template-columns:1fr}
+  .sh h2{font-size:1.9rem}
+  .nav-links,.nav-cta{display:none}
+  .nav-toggle{display:flex}
+  .exp-card{padding:22px 18px}
+  .contact-grid { gap: 14px; }
+  .c-circle { width: 58px; height: 58px; }
+  .c-circle svg { width: 26px; height: 26px; }
+  .contact-box { min-width: 60px; }
+}
+@media(min-width:641px){
+  .nav-drawer{display:none !important}
+  .nav-toggle{display:none}
+}
+
+/* ══════════════════════════════════════
+   ABOUT SECTION
+══════════════════════════════════════ */
+.about-p{color:var(--muted);font-size:0.95rem;line-height:1.85;margin-bottom:0}
+.about-p strong{color:var(--text)}
+
+/* company circles */
+.co-circle{
+  width:40px;height:40px;border-radius:50%;flex-shrink:0;
+  border:1.5px solid var(--border);background:var(--surface);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;position:relative;overflow:hidden;
+  transition:all 0.3s;
+}
+.co-circle img{
+  width:100%;height:100%;object-fit:contain;border-radius:50%;
+  padding:5px;filter:brightness(0.9);transition:filter 0.3s;
+}
+.co-circle:hover{transform:scale(1.1);box-shadow:0 0 14px rgba(0,255,136,0.2);border-color:rgba(0,255,136,0.35)}
+.co-circle:hover img{filter:brightness(1)}
+
+/* exp circle */
+.exp-co-circle{
+  width:50px;height:50px;border-radius:50%;flex-shrink:0;
+  border:1.5px solid var(--border);background:var(--card);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.35rem;overflow:hidden;transition:all 0.3s;
+}
+.exp-co-circle img{
+  width:100%;height:100%;object-fit:contain;border-radius:50%;
+  padding:6px;filter:brightness(0.85) saturate(0.8);transition:filter 0.3s;
+}
+.exp-card:hover .exp-co-circle{border-color:rgba(0,255,136,0.35);box-shadow:0 0 16px rgba(0,255,136,0.15)}
+.exp-card:hover .exp-co-circle img{filter:brightness(1) saturate(1)}
+
+/* tooltip */
+.co-tip{position:relative;display:inline-block}
+.co-tip-label{
+  position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
+  background:var(--surface);border:1px solid var(--border);
+  font-family:var(--mono);font-size:0.62rem;white-space:nowrap;
+  color:var(--muted);padding:4px 10px;border-radius:6px;
+  opacity:0;pointer-events:none;transition:opacity 0.2s;z-index:10;
+}
+.co-tip:hover .co-tip-label{opacity:1}
+
+/* ══════════════════════════════════════
+   LAST UPDATED BADGE
+══════════════════════════════════════ */
+.last-updated{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(0,195,255,0.06);border:1px solid rgba(0,195,255,0.18);
+  padding:7px 16px;border-radius:50px;
+  font-family:var(--mono);font-size:0.72rem;letter-spacing:1.5px;
+  color:var(--cyan);margin-bottom:18px;
+  animation:fadeUp 0.5s ease 0.05s both;
+  position:relative;overflow:hidden;
+}
+.last-updated::before{
+  content:'';position:absolute;left:-60%;top:0;bottom:0;width:40%;
+  background:linear-gradient(90deg,transparent,rgba(0,195,255,0.15),transparent);
+  animation:shimmer 3s ease-in-out infinite;
+}
+@keyframes shimmer{0%{left:-60%}100%{left:160%}}
+.lu-dot{width:5px;height:5px;border-radius:50%;background:var(--cyan);
+  animation:pulseCyan 2s infinite;flex-shrink:0}
+@keyframes pulseCyan{0%,100%{box-shadow:0 0 0 0 rgba(0,195,255,0.6)}50%{box-shadow:0 0 0 5px rgba(0,195,255,0)}}
+
+/* ══════════════════════════════════════
+   COMPANY LOGOS STRIP
+══════════════════════════════════════ */
+.logos-strip{
+  margin-bottom:54px;overflow:hidden;position:relative;
+}
+.logos-strip-label{
+  font-family:var(--mono);font-size:0.65rem;letter-spacing:3px;
+  text-transform:uppercase;color:var(--dim);text-align:center;
+  margin-bottom:20px;
+}
+.logos-track-wrap{
+  position:relative;overflow:hidden;
+  mask:linear-gradient(90deg,transparent,rgba(0,0,0,0.9) 10%,rgba(0,0,0,0.9) 90%,transparent);
+  -webkit-mask:linear-gradient(90deg,transparent,rgba(0,0,0,0.9) 10%,rgba(0,0,0,0.9) 90%,transparent);
+}
+.logos-track{
+  display:flex;gap:20px;width:max-content;
+  animation:scrollLogos 22s linear infinite;
+}
+.logos-track:hover{animation-play-state:paused}
+@keyframes scrollLogos{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+.logo-pill{
+  display:flex;align-items:center;gap:10px;flex-shrink:0;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:50px;padding:10px 22px;
+  transition:all 0.3s;cursor:default;
+  position:relative;overflow:hidden;
+}
+.logo-pill::before{
+  content:'';position:absolute;inset:0;border-radius:50px;
+  background:linear-gradient(135deg,rgba(0,255,136,0.04),rgba(0,195,255,0.04));
+  opacity:0;transition:opacity 0.3s;
+}
+.logo-pill:hover{
+  border-color:rgba(0,255,136,0.28);
+  transform:translateY(-3px);
+  box-shadow:0 8px 24px rgba(0,0,0,0.35);
+}
+.logo-pill:hover::before{opacity:1}
+.logo-emoji{font-size:1.2rem;line-height:1}
+.logo-img{
+  width:26px;height:26px;object-fit:contain;border-radius:4px;
+  filter:brightness(0.85) saturate(0.7);
+  transition:filter 0.3s;
+}
+.logo-pill:hover .logo-img{filter:brightness(1) saturate(1)}
+.logo-name{
+  font-family:var(--mono);font-size:0.73rem;font-weight:600;
+  color:var(--muted);letter-spacing:0.5px;white-space:nowrap;
+  transition:color 0.3s;
+}
+.logo-pill:hover .logo-name{color:var(--green)}
+.logo-badge-dot{
+  width:5px;height:5px;border-radius:50%;flex-shrink:0;
+  background:var(--green);opacity:0.5;
+}
+.logo-pill.active-co .logo-badge-dot{opacity:1;animation:pulse 2.2s infinite}
+
+/* ══════════════════════════════════════
+   EXTRA ANIMATIONS
+══════════════════════════════════════ */
+/* floating glow orbs on hero */
+.hero-orb{
+  position:absolute;border-radius:50%;pointer-events:none;z-index:0;
+  filter:blur(80px);opacity:0.07;
+  animation:orbFloat 8s ease-in-out infinite;
+}
+.hero-orb-1{width:380px;height:380px;background:var(--green);top:-80px;right:-60px;animation-delay:0s}
+.hero-orb-2{width:280px;height:280px;background:var(--cyan);bottom:60px;left:-80px;animation-delay:3s}
+@keyframes orbFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-20px) scale(1.05)}}
+
+/* tilt on skill cards */
+.skill-card{transform-style:preserve-3d}
+
+/* experience card left accent glow */
+.exp-card:hover{box-shadow:0 12px 40px rgba(0,0,0,0.35),-4px 0 20px rgba(0,255,136,0.12)}
+
+/* animated underline on exp-company */
+.exp-company{position:relative;display:inline-block}
+
+/* count-up pop on metrics */
+@keyframes metricPop{0%{transform:scale(0.8);opacity:0}70%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+.metric-val{animation:metricPop 0.6s ease both}
+.metric:nth-child(1) .metric-val{animation-delay:0.5s}
+.metric:nth-child(2) .metric-val{animation-delay:0.65s}
+.metric:nth-child(3) .metric-val{animation-delay:0.8s}
+</style>
+</head>
+<body>
+
+<script>
+const DATA = {
+  profile: {
+    name:     "Bilawal Ali",
+    badge:    "Open to SOC Analyst & Internship Roles",
+    title:    "SOC Analyst | Threat Hunter | Security Researcher",
+    mono:     "SOC L1 Analyst",
+    bio:      `SOC Analyst with hands-on experience in SIEM monitoring, incident response, threat detection, and blue team operations. Skilled in Wazuh, Splunk, ELK Stack, MITRE ATT&CK, and malware analysis.`,
+    photo:    "assets/profile/Gemini_Generated_Image_h54iwzh54iwzh54i.webp",
+    resume:   "resume/Bilawal_Ali_SOC_Analyst_Resume.pdf",
+    email:    "khooharobilawalali@gmail.com",
+    phone:    "+92 344 3559788",
+    linkedin: "https://linkedin.com/in/bilawal-ali-0b0211245",
+    github:   "https://github.com/Bila-Ali",
+    location: "Hyderabad, Sindh, Pakistan",
+    metrics: [
+      { val:"1K+",  lbl:"Daily Events\nMonitored"  },
+      { val:"150+", lbl:"PortSwigger\nLabs Done"   },
+      { val:"10+",  lbl:"Vulnerabilities\nFound"   },
+    ],
+  },
+
+  skills: [
+    { icon:"🛡️", title:"SIEM & Log Analysis",     items:["Wazuh","Splunk","ELK Stack","Kibana","Logstash","Alert Triage","Log Correlation"] },
+    { icon:"🔍", title:"Threat Detection & IR",   items:["Threat Hunting","Incident Response","MITRE ATT&CK","IOC Analysis","YARA","FIM"] },
+    { icon:"⚔️", title:"Offensive Security",       items:["Burp Suite","Nmap","Metasploit","SQLmap","Hydra","VAPT","Ncrack"] },
+    { icon:"🔬", title:"Forensics & Malware",      items:["Volatility","Autopsy","REMnux","FLARE-VM","DFIR","Static Analysis"] },
+    { icon:"💻", title:"Programming & Scripting",  items:["Python","Bash","Scapy","Pandas","Flask"] },
+    { icon:"🌐", title:"Network & Frameworks",     items:["Suricata IDS","pfSense","Wireshark","TCP/IP","NIST 800-61","OWASP Top 10","Cyber Kill Chain"] },
+  ],
+
+  experience: [
+    {
+      role:     "SOC Analyst Intern — L1",
+      company:  "Cyberster",
+      location: "Remote",
+      date:     "2026 – Present",
+      badge:    "BLUE TEAM",
+      color:    "green",
+      points: [
+        "Monitored and triaged 1,000+ daily security events using Wazuh SIEM, reducing mean time to detect through systematic alert prioritization.",
+        "Investigated brute-force attacks, authentication anomalies, and lateral movement across Linux and Windows endpoints.",
+        "Developed 5+ custom Wazuh detection rules, improving coverage for previously unmonitored attack vectors.",
+        "Configured File Integrity Monitoring (FIM) to detect unauthorized system changes and privilege escalation activity.",
+        "Implemented Active Response policies to auto-block malicious IPs, reducing manual remediation workload.",
+        "Mapped alerts to MITRE ATT&CK tactics; authored structured incident reports per SOC escalation procedures.",
+      ],
+    },
+    {
+      role:     "Red Team Intern",
+      company:  "ITSOLERA Pvt Ltd",
+      location: "Remote",
+      date:     "Jun 2024 – Aug 2024",
+      badge:    "RED TEAM",
+      color:    "red",
+      points: [
+        "Executed 20+ VAPT assessments against web applications using industry-standard methodologies.",
+        "Identified SQL Injection, XSS, CSRF, and broken authentication vulnerabilities; delivered formal client reports.",
+        "Leveraged Burp Suite for HTTP interception and Metasploit for post-exploitation and privilege escalation testing.",
+      ],
+    },
+    {
+      role:     "Independent Bug Hunter",
+      company:  "Security Researcher",
+      location: "Self-Employed",
+      date:     "Jan 2024 – Present",
+      badge:    "BUG BOUNTY",
+      color:    "amber",
+      points: [
+        "Conducted 10+ independent assessments across public web applications and APIs with responsible disclosure.",
+        "Discovered SQL Injection, XSS, and access-control flaws — including sensitive data exposure (names, emails, CNICs).",
+        "Awarded Consolation Prize at NADRA Bug Bounty Challenge 2026 as Team Lead at national level.",
+      ],
+    },
+    {
+      role:     "Cybersecurity Intern",
+      company:  "CodeAlpha",
+      location: "Remote",
+      date:     "2023",
+      badge:    "INTERN",
+      color:    "cyan",
+      points: [
+        "Developed a Python network traffic sniffer using Scapy for live packet capture and protocol analysis.",
+        "Built foundational skills in network analysis and security-focused Python scripting.",
+      ],
+    },
+  ],
+
+  vulnerabilities: [
+    { icon:"💉", kicker:"SQL Injection",  title:"Union-Based SQL Injection",       image:"assets/Vulnerabilities/union-sql-injection.webp", desc:"Identified a SQL Injection vulnerability capable of exposing database version and sensitive data through UNION query manipulation. Disclosed responsibly.", tags:["SQL Injection","MySQL","Burp Suite","OWASP"], link:"" },
+    { icon:"⏱️", kicker:"Blind SQLi",    title:"Time-Based Blind SQL Injection",   image:"assets/Vulnerabilities/time-base-sqli.webp",      desc:"Detected blind SQL Injection using SLEEP-based time-delay techniques, confirming backend database interaction and data exfiltration risk.",            tags:["Blind SQLi","OWASP","VAPT","SQLmap"], link:"" },
+    { icon:"🔀", kicker:"Access Control", title:"Sensitive Data Exposure (IDOR)",   image:"assets/Vulnerabilities/idor-vuln.webp",            desc:"Discovered an access-control flaw where modifying request parameters exposed large sets of user records including names, emails, CNICs, and financial data.", tags:["IDOR","Access Control","AppSec","Responsible Disclosure"], link:"" },
+    { icon:"⚡", kicker:"Web Security",   title:"Cross-Site Scripting (XSS)",       image:"assets/Vulnerabilities/XSS-injection.webp",       desc:"Tested and validated reflected XSS behavior in web application input fields during security assessments.",                                          tags:["XSS","Web Security","Burp Suite","AppSec"], link:"" },
+  ],
+
+  projects: [
+     { icon:"🤖", kicker:"Machine Learning (Ongoing)", title:"AI-Based PDF Malware Detection Final Year Project",          image:"assets/project/FYP.webp",    desc:"ML system trained on 10,000+ PDF samples with Explainable AI (SHAP) to surface feature importance for analyst-interpretable SOC triage decisions.",                        tags:["Python","Machine Learning","SHAP","Malware Analysis"], link:"" },
+    { icon:"📧", kicker:"DFIR Tool",       title:"MailForensics — Email Analysis Platform", image:"assets/project/mail-project.webp",  desc:"Open-source Python/Streamlit DFIR tool for SOC teams. Parses .eml files, extracts IOCs, runs SPF/DKIM/DMARC checks, detects phishing, and generates risk scores (0–100).", tags:["Python","Streamlit","DFIR","IOC","Phishing"], link:"https://github.com/Bila-Ali" },
+    { icon:"🖥️", kicker:"Home Lab",        title:"SOC & Threat Simulation Lab",             image:"assets/project/siem-tools.webp",        desc:"Full home lab with Splunk, Wazuh, ELK Stack, pfSense firewall, and Suricata IDS. Simulated attacks to validate detection rules and NIST SP 800-61 IR playbooks.",    tags:["Splunk","Wazuh","ELK","Suricata","pfSense"], link:"" },
+    { icon:"🔬", kicker:"Malware Analysis", title:"FlareVM Malware Analysis Lab",            image:"assets/project/flare-vm.webp",        desc:"Step-by-step VirtualBox setup of FlareVM and REMnux for malware analysis and reverse engineering with documented static and dynamic analysis workflows.",            tags:["FLARE-VM","VirtualBox","Reverse Engineering","REMnux"], link:"" },
+    { icon:"🕵️", kicker:"Network / OSINT", title:"Network Sniffer & OSINT Tools",           image:"assets/project/network-sniffer.webp",                                   desc:"Python-based network traffic sniffer using Scapy for live packet capture and protocol analysis. Also built automated OSINT information-gathering scripts.",            tags:["Python","Scapy","OSINT","Network Analysis"], link:"https://github.com/Bila-Ali" },
+    { icon:"🎯", kicker:"Red Team",         title:"HTB Professional Offensive Operations",  image:"assets/project/P.O.O-Hack-the-box.webp",        desc:"Completed the P.O.O. Pro Lab on Hack The Box simulating real red team operations: initial access, lateral movement, and Active Directory exploitation.",             tags:["Red Team","Active Directory","HTB","Pen Testing"], link:"" },
+    /*{ icon:"🤖", kicker:"Machine Learning", title:"AI-Based PDF Malware Detection",          image:"assets/projects/pdf-malware.png",    desc:"ML system trained on 10,000+ PDF samples with Explainable AI (SHAP) to surface feature importance for analyst-interpretable SOC triage decisions.",                        tags:["Python","Machine Learning","SHAP","Malware Analysis"], link:"" },*/
+  ],
+
+  certifications: [
+    { icon:"🏅", name:"Certified Ethical Hacker (CEH)",               issuer:"PFTP · Medal & Certificate",         medal:true,  image:"assets/certifications/CEH-PFTP-madel.webp",          verify:"" },
+    { icon:"⚔️", name:"Professional Offensive Operations Pro Lab",     issuer:"Hack The Box",                        medal:false, image:"assets/certifications/P.O.O-Hack-the-box.webp",      verify:"" },
+    { icon:"🔵", name:"Google Cybersecurity Professional Certificate",  issuer:"Google · v2",                         medal:false, image:"assets/certifications/Google-v2.webp",                verify:"" },
+    { icon:"📊", name:"Intro to Splunk (eLearning)",                   issuer:"Splunk · 2026",                       medal:false, image:"assets/certifications/splunk-cert.webp",              verify:"" },
+    { icon:"🌐", name:"Junior Cybersecurity Analyst Career Path",       issuer:"Cisco Networking Academy",            medal:false, image:"assets/certifications/junior-cybersecurity-analyst-path.webp", verify:"" },
+    { icon:"🖥️", name:"Endpoint Security",                             issuer:"Cisco Networking Academy",            medal:false, image:"assets/certifications/End-point-cisco.webp",          verify:"" },
+    { icon:"⚡", name:"Ethical Hacking Essentials",                     issuer:"EC-Council",                          medal:false, image:"assets/certifications/Ethical-Hacking-Essentials.webp", verify:"" },
+    { icon:"🐍", name:"Python Certification",                           issuer:"PFTP",                                medal:false, image:"assets/certifications/python.webp",                   verify:"" },
+  ],
+
+  achievements: [
+    { icon:"🥇", title:"QUEST CTF 2026",           ribbon:"1st Place",        color:"amber", image:"assets/achievements/quest-shield.webp",      desc:"Secured 1st place in a university-level Capture The Flag cybersecurity competition." },
+    { icon:"🏆", title:"NADRA Bug Bounty 2026",    ribbon:"Consolation Prize", color:"green", image:"assets/achievements/nadar-check-photo.webp", desc:"Led a team as Team Lead in Pakistan's national NADRA bug bounty. Identified and responsibly reported live vulnerabilities." },
+    { icon:"🎯", title:"Ignite CTF Hackathon",     ribbon:"Rank 29th",         color:"cyan",  image:"assets/achievements/ignite.webp",             desc:"Competed nationally with Muet Cyber Squad, ranking 29th in a real-world cybersecurity challenge." },
+    { icon:"🎤", title:"Guest Speaker — MUET",     ribbon:"Invited Speaker",   color:"green", image:"assets/achievements/muet-guest-speaker.webp", desc:"Delivered a cybersecurity session for BSc Cyber Security 25th Batch at MUET Jamshoro." },
+    { icon:"🔬", title:"PortSwigger Web Security", ribbon:"150+ Labs",         color:"cyan",  image:"assets/achievements/portswigger.webp",        desc:"Completed 150+ hands-on labs covering SQLi, XSS, CSRF, SSRF, and advanced web security topics." },
+    { icon:"🏅", title:"CEH Medal Award",          ribbon:"Medal Awarded",     color:"amber", image:"assets/achievements/CEH-PFTP-madel.webp",     desc:"Awarded a medal alongside the CEH certificate by PFTP for outstanding performance." },
+  ],
+
+  education: {
+    degree:    "Bachelor of Science in Cyber Security",
+    university:"Mehran University of Engineering & Technology",
+    cgpa:      "3.31 / 4.0",
+    year:      "Final Year / 7th Semester",
+    location:  "Jamshoro, Pakistan",
+    banner:    "assets/muet-log/muet-logo.webp",
+    desc:      "Focused on network security, digital forensics, ethical hacking, and security operations. Led the university team at NADRA's national bug bounty and secured 1st place at QUEST CTF 2026. Active in the MUET Cyber Security Society. Final-year project: AI-based PDF malware detection with explainable machine learning.",
+  },
+
+  learning: [
+    "Advanced Threat Hunting","Detection Engineering","Malware Reverse Engineering",
+    "Splunk SPL & Dashboards","Cloud Security (AWS)","SIEM Tuning","Elastic SIEM","Sigma Rules",
+  ],
+
+  volunteer: [
+    { icon:"🤝", title:"MUET Job Fair 2025",         org:"MUET · ORIC Team",           image:"assets/Volunteer/Muet-job-fair.webp",          desc:"Facilitated placements and internship opportunities; coordinated with 20+ participating companies." },
+    { icon:"💡", title:"MUET Tech Show",              org:"Mehran University",           image:"assets/Volunteer/tech-show.webp",              desc:"Volunteered at the annual showcase where final-year students presented innovative projects to industry." },
+    { icon:"🎓", title:"MUET Alumni Convention 2025", org:"Mehran University",           image:"assets/Volunteer/muet-alumni.webp",            desc:"Volunteer enabling networking and reconnection among university graduates." },
+    { icon:"🎤", title:"Cybersecurity Guest Speaker", org:"MUET Cyber Security Society", image:"assets/Volunteer/guest-speaker.webp",          desc:"Delivered a cybersecurity session for the 25th Batch BSc Cyber Security; received certificate of appreciation." },
+  ],
+};
+</script>
+
+<!-- ══════════ NAV ══════════ -->
+<nav id="nav">
+  <div class="nav-inner">
+    <div class="nav-logo" id="nav-logo">
+      <span style="font-size:1.1rem">🛡️</span><span style="color:var(--green)">BA</span>
+    </div>
+    <div class="nav-links" id="nav-links-d"></div>
+    <a id="nav-cta" class="nav-cta">Hire Me</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-drawer" id="nav-drawer"></div>
+</nav>
+
+<!-- ══════════ ABOUT (merged hero + about) ══════════ -->
+<section id="about" style="min-height:100vh;display:flex;align-items:center;padding-top:74px;padding-bottom:96px;position:relative;overflow:hidden">
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="wrap" style="width:100%">
+
+    <div class="last-updated" style="margin-bottom:32px">
+      <span class="lu-dot"></span>
+      <span>Last Updated:&nbsp;<strong id="lu-date">10/05/2026</strong></span>
+    </div>
+
+    <div class="hero-grid">
+
+      <!-- LEFT: identity + bio -->
+      <div>
+        <span class="sh-label" style="margin-bottom:18px;display:inline-block">About Me</span>
+        <h1 class="hero-name" id="h-name"></h1>
+        <div class="hero-role" id="h-role"></div>
+        <p class="hero-bio" id="h-bio"></p>
+
+        <p class="about-p" style="margin-bottom:14px">I'm a <strong>SOC Analyst</strong> and <strong>Security Researcher</strong> based in Hyderabad, Pakistan — currently in my final year of BSc Cyber Security at Mehran University. I specialize in blue team operations, SIEM monitoring, and incident response, while maintaining offensive security skills through bug bounty research and red team internships.</p>
+        <p class="about-p" style="margin-bottom:28px">I've monitored thousands of daily security events, built custom detection rules, and led a team at Pakistan's national NADRA Bug Bounty. I believe in learning by doing — every lab, CTF, and real-world assessment sharpens the instincts that matter in a SOC.</p>
+
+        <div class="hero-metrics" id="h-metrics"></div>
+      </div>
+
+      <!-- RIGHT: profile card -->
+      <div>
+        <div class="profile-card">
+          <div class="avatar-wrap">
+            <div id="p-avatar"></div>
+            <div class="avatar-badge" id="p-badge-ico" title="SOC Analyst"></div>
+          </div>
+          <div class="status-row">
+            <span class="status-dot"></span>
+            <span id="p-status-text">AVAILABLE FOR HIRE</span>
+          </div>
+          <div class="profile-name" id="p-name"></div>
+          <div class="profile-mono" id="p-mono"></div>
+          <div class="profile-divider"></div>
+          <div id="p-info"></div>
+          <div class="profile-actions" id="p-actions"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SKILLS ══════════ -->
+<section id="skills" class="sec-alt">
+  <div class="wrap">
+    <div class="sh r"><span class="sh-label">Technical Arsenal</span><h2>Technical <em>Skills</em></h2><p>Cybersecurity tools, SIEM platforms, and frameworks used in SOC operations, threat hunting, incident response, and offensive security.</p></div>
+    <div class="skills-grid" id="skills-grid"></div>
+  </div>
+</section>
+
+<!-- ══════════ EXPERIENCE ══════════ -->
+<section id="experience">
+  <div class="wrap">
+    <div class="sh r"><span class="sh-label">Career Path</span><h2>Professional <em>Experience</em></h2><p>Hands-on cybersecurity experience in SOC monitoring, threat analysis, vulnerability assessment, and incident response.</p></div>
+    <div class="timeline" id="timeline"></div>
+  </div>
+</section>
+
+<!-- ══════════ VULNERABILITY RESEARCH ══════════ -->
+<section id="vulnerabilities" class="sec-alt">
+  <div class="wrap">
+    <div class="sh r"><span class="sh-label">Bug Bounty & Research</span><h2>Vulnerability <em>Research</em></h2><p>Security vulnerabilities responsibly identified during web application testing, bug bounty practice, and security research.</p></div>
+    <div class="card-grid" id="vuln-grid"></div>
+  </div>
+</section>
+
+<!-- ══════════ PROJECTS ══════════ -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sh r"><span class="sh-label">Built Things</span><h2>Featured <em>Projects</em></h2><p>Real-world cybersecurity, DFIR, malware analysis, and SOC engineering projects.</p></div>
+    <div class="card-grid" id="proj-grid"></div>
+  </div>
+</section>
+
+<!-- ══════════ CERTIFICATIONS ══════════ -->
+<section id="certifications" class="sec-alt">
+  <div class="wrap">
+    <div class="sh r"><span class="sh-label">Verified Credentials</span><h2>Certifications <em>&amp; Training</em></h2><p>Professional certifications, cybersecurity training, and hands-on learning achievements. Click any card to view the full certificate.</p></div>
+    <div class="card-grid" id="cert-grid"></div>
+  </div>
+</section>
+
+<!-- ══════════ ACHIEVEMENTS ══════════ -->
+<section id="achievements">
+  <div class="wrap">
+    <div class="sh r"><span class="sh-label">Recognition &amp; Wins</span><h2>Achievements <em>&amp; Awards</em></h2><p>Competitions, bug bounty achievements, public speaking, and cybersecurity recognition.</p></div>
+    <div class="card-grid" id="ach-grid"></div>
+  </div>
+</section>
+
+<!-- ══════════ EDUCATION ══════════ -->
+<section id="education" class="sec-alt">
+  <div class="wrap" style="max-width:760px">
+    <div class="sh r"><span class="sh-label">Academic Background</span><h2>Education</h2></div>
+    <div id="edu-slot"></div>
+  </div>
+</section>
+
+<!-- ══════════ CURRENTLY LEARNING ══════════ -->
+<section id="learning">
+  <div class="wrap">
+    <div class="sh r"><span class="sh-label">Growth Mindset</span><h2>Currently <em>Learning</em></h2><p>Topics actively being studied to level up as a security professional.</p></div>
+    <div class="learn-grid" id="learn-grid"></div>
+  </div>
+</section>
+
+<!-- ══════════ VOLUNTEER ══════════ -->
+<section id="volunteer" class="sec-alt">
+  <div class="wrap">
+    <div class="sh r"><span class="sh-label">Community</span><h2>Volunteer <em>&amp; Events</em></h2><p>Community contributions, university events, and public speaking engagements.</p></div>
+    <div class="event-grid" id="event-grid"></div>
+  </div>
+</section>
+
+<!-- ══════════ CONTACT ══════════ -->
+<section id="contact">
+  <div class="wrap">
+    <div class="sh r"><span class="sh-label">Get In Touch</span><h2>Contact <em>Me</em></h2><p>Open for SOC Analyst, Blue Team, Threat Hunting, and Cybersecurity Internship opportunities.</p></div>
+    <div class="contact-grid" id="contact-grid"></div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>© 2026 <em>Bilawal Ali</em> · SOC Analyst · Cybersecurity Researcher · Hyderabad, Pakistan</footer>
+
+<!-- ══════════ LIGHTBOX ══════════ -->
+<div id="lb">
+  <div id="lb-inner">
+    <button id="lb-close" onclick="closeLb()">✕</button>
+    <button class="lb-nav" id="lb-prev" onclick="lbMove(-1)">‹</button>
+    <button class="lb-nav" id="lb-next" onclick="lbMove(1)">›</button>
+    <img id="lb-img" src="" alt="">
+    <div id="lb-cap"></div>
+  </div>
+</div>
+
+<!-- ══════════ SVG ICON LIBRARY ══════════ -->
+<script>
+const ICONS = {
+  email: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,7 12,14 22,7"/></svg>`,
+  linkedin: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>`,
+  github: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>`,
+  resume: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>`,
+  phone: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`,
+  location: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`,
+  email_sm: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,7 12,14 22,7"/></svg>`,
+  location_sm: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`,
+  phone_sm: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`,
+  github_sm: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>`,
+  linkedin_sm: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>`,
+  resume_sm: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`,
+};
+</script>
+
+<!-- ══════════ RENDERER ══════════ -->
+<script>
+const $ = id => document.getElementById(id);
+const mk = t => document.createElement(t);
+
+/* ── NAV ── */
+const NAV_ITEMS = [
+  ["about","About"],["skills","Skills"],["experience","Experience"],["vulnerabilities","Research"],
+  ["projects","Projects"],["certifications","Certs"],["achievements","Achievements"],
+  ["education","Education"],["volunteer","Volunteer"],["contact","Contact"],
+];
+NAV_ITEMS.forEach(([id, lbl]) => {
+  const a = mk("a"); a.href = `#${id}`; a.textContent = lbl;
+  $("nav-links-d").appendChild(a);
+  const b = mk("a"); b.href = `#${id}`; b.textContent = lbl;
+  b.onclick = () => $("nav-drawer").classList.remove("open");
+  $("nav-drawer").appendChild(b);
+});
+$("nav-cta").href = `mailto:${DATA.profile.email}`;
+$("nav-toggle").onclick = () => $("nav-drawer").classList.toggle("open");
+
+window.addEventListener("scroll", () => {
+  $("nav").classList.toggle("scrolled", scrollY > 20);
+  let cur = "";
+  document.querySelectorAll("section[id]").forEach(s => { if (scrollY >= s.offsetTop - 100) cur = s.id; });
+  document.querySelectorAll(".nav-links a, .nav-drawer a").forEach(a => {
+    a.classList.toggle("active", a.getAttribute("href") === `#${cur}`);
+  });
+});
+
+/* ── HERO ── */
+const nameParts = DATA.profile.name.split(" ");
+$("h-name").innerHTML = `${nameParts[0]} <em>${nameParts.slice(1).join(" ")}</em>`;
+$("h-role").textContent = DATA.profile.title;
+$("h-bio").innerHTML = DATA.profile.bio;
+$("h-metrics").innerHTML = DATA.profile.metrics.map(m =>
+  `<div class="metric">
+    <span class="metric-val">${m.val}</span>
+    <span class="metric-lbl">${m.lbl.replace("\n","<br>")}</span>
+  </div>`).join("");
+
+/* ── PROFILE CARD ── */
+const avatarContainer = $("p-avatar");
+const avImg = mk("img");
+avImg.src = DATA.profile.photo;
+avImg.className = "avatar-img";
+avImg.alt = DATA.profile.name;
+avImg.onerror = function() {
+  const ph = mk("div");
+  ph.className = "avatar-ph";
+  ph.textContent = DATA.profile.name.split(" ").map(n => n[0]).join("");
+  avImg.replaceWith(ph);
+};
+avatarContainer.appendChild(avImg);
+$("p-badge-ico").textContent = "🛡️";
+$("p-name").textContent = DATA.profile.name;
+$("p-mono").textContent = DATA.profile.mono;
+
+$("p-info").innerHTML = [
+  { ico: ICONS.email_sm,    val: DATA.profile.email,    href: `mailto:${DATA.profile.email}`,  color:"rgba(0,255,136,0.5)" },
+  { ico: ICONS.location_sm, val: DATA.profile.location, href: "#",                               color:"rgba(0,195,255,0.5)" },
+  { ico: ICONS.phone_sm,    val: DATA.profile.phone,    href: `tel:${DATA.profile.phone}`,       color:"rgba(0,255,136,0.5)" },
+].map(r => `
+  <div class="info-row">
+    <span class="info-ico" style="color:${r.color}">${r.ico}</span>
+    <a href="${r.href}" style="color:var(--muted);transition:color 0.2s" onmouseover="this.style.color='var(--green)'" onmouseout="this.style.color='var(--muted)'">${r.val}</a>
+  </div>`).join("");
+
+$("p-actions").innerHTML = "";
+
+/* ── SKILLS ── */
+$("skills-grid").innerHTML = DATA.skills.map((g, i) => `
+  <div class="skill-card r" style="transition-delay:${i*0.07}s">
+    <div class="skill-header">
+      <div class="skill-icon-tile">${g.icon}</div>
+      <div class="skill-title">${g.title}</div>
+    </div>
+    <div class="skill-chips">${g.items.map(s => `<span class="chip">${s}</span>`).join("")}</div>
+  </div>`).join("");
+
+/* ── EXPERIENCE ── */
+const tagCls = {green:"tg",cyan:"tc",amber:"ta",red:"tr"};
+// company logo map — add real logo paths here if you have them
+const CO_LOGO = {
+  "Cyberster":           { img:"assets/company/cyberster.png",  fallback:"🛡️" },
+  "ITSOLERA Pvt Ltd":    { img:"assets/company/itsolera.png",   fallback:"🔴" },
+  "Security Researcher": { img:"",                               fallback:"🔎" },
+  "CodeAlpha":           { img:"assets/company/codealpha.png",  fallback:"💻" },
+};
+function coCircle(company, cls="exp-co-circle") {
+  const co = CO_LOGO[company] || { img:"", fallback:"🏢" };
+  if (co.img) {
+    return `<div class="${cls}"><img src="${co.img}" alt="${company}" onerror="this.replaceWith(Object.assign(document.createElement('span'),{textContent:'${co.fallback}',style:'font-size:1.3rem'}))"></div>`;
+  }
+  return `<div class="${cls}" style="font-size:1.4rem">${co.fallback}</div>`;
+}
+
+$("timeline").innerHTML = DATA.experience.map((e, i) => `
+  <div class="exp-card r" style="transition-delay:${i*0.1}s">
+    <div class="exp-head">
+      ${coCircle(e.company)}
+      <div style="flex:1;min-width:0">
+        <div class="exp-role">${e.role}</div>
+        <div class="exp-company">${e.company}</div>
+        <div class="exp-meta"><span>📍 ${e.location}</span>&nbsp;·&nbsp;<span>📅 ${e.date}</span></div>
+      </div>
+      <span class="tag ${tagCls[e.color]||'tg'}">${e.badge}</span>
+    </div>
+    <ul class="exp-pts">${e.points.map(p => `<li>${p}</li>`).join("")}</ul>
+  </div>`).join("");
+
+/* ── CARD BUILDER ── */
+const ribCls = {green:"rib-g",cyan:"rib-c",amber:"rib-a",red:"rib-r"};
+
+function buildCard({icon,image,kicker,title,desc,tags,link,verify,ribbon,color,medal,lbGroup,lbCap,extraFooter=""}, i, delay=0.07) {
+  const lbAttr = lbGroup
+    ? `data-lb-group="${lbGroup}" data-lb-src="${image||''}" data-lb-cap="${lbCap||title}" onclick="openLb(this,'${lbGroup}')"` : "";
+  let imgHtml;
+  if (image) {
+    imgHtml = `<img src="${image}" alt="${title}"
+      style="width:100%;height:205px;object-fit:cover;display:block;transition:transform 0.4s"
+      onerror="this.replaceWith(makePlaceholder('${icon}','${kicker||title}'))">`;
+  } else {
+    imgHtml = `<div class="pcard-ph">
+      <div class="pcard-ph-icon">${icon}</div>
+      <div class="pcard-ph-label">${kicker||title}</div>
+    </div>`;
+  }
+  return `
+  <div class="pcard r" ${lbAttr} style="transition-delay:${i*delay}s;cursor:${lbGroup?'pointer':'default'}">
+    ${ribbon ? `<div class="ribbon ${ribCls[color]||'rib-g'}">${ribbon}</div>` : ""}
+    ${medal  ? `<div class="medal-star">⭐</div>` : ""}
+    <div class="pcard-img">
+      ${imgHtml}
+      ${lbGroup ? `<div class="pcard-overlay">🔍</div>` : ""}
+    </div>
+    <div class="pcard-body">
+      ${kicker ? `<div class="pcard-kicker">${kicker}</div>` : ""}
+      <div class="pcard-title">${title}</div>
+      ${desc   ? `<div class="pcard-desc">${desc}</div>` : ""}
+      ${tags && tags.length ? `<div class="pcard-tags">${tags.map(t=>`<span class="tag tg">${t}</span>`).join("")}</div>` : ""}
+      ${extraFooter}
+      ${link   ? `<a href="${link}" target="_blank" class="pcard-link" onclick="event.stopPropagation()">View on GitHub →</a>` : ""}
+      ${verify ? `<a href="${verify}" target="_blank" class="pcard-link" onclick="event.stopPropagation()">Verify Certificate →</a>` : ""}
+    </div>
+  </div>`;
+}
+
+window.makePlaceholder = function(icon, label) {
+  const d = document.createElement("div");
+  d.className = "pcard-ph";
+  d.innerHTML = `<div class="pcard-ph-icon">${icon}</div><div class="pcard-ph-label">${label}</div>`;
+  return d;
+};
+
+/* ── SECTIONS ── */
+$("vuln-grid").innerHTML = DATA.vulnerabilities.map((v, i) =>
+  buildCard({...v, lbGroup:"vulns", lbCap:v.title,
+    extraFooter: v.link ? `<a href="${v.link}" class="pcard-link">Responsible Disclosure →</a>` : ""
+  }, i)).join("");
+
+$("proj-grid").innerHTML = DATA.projects.map((p, i) =>
+  buildCard({...p, lbGroup:"proj", lbCap:p.title}, i)).join("");
+
+$("cert-grid").innerHTML = DATA.certifications.map((c, i) =>
+  buildCard({...c, kicker:c.issuer, title:c.name, tags:[], lbGroup:"certs", lbCap:`${c.name} · ${c.issuer}`}, i, 0.05)).join("");
+
+$("ach-grid").innerHTML = DATA.achievements.map((a, i) =>
+  buildCard({...a, tags:[], lbGroup:"achs", lbCap:a.title}, i)).join("");
+
+/* ── EDUCATION ── */
+const ed = DATA.education;
+$("edu-slot").innerHTML = `
+  <div class="edu-wrap r">
+    <div class="edu-banner">
+      <img src="${ed.banner}" alt="${ed.university}" onerror="this.style.display='none'">
+      <div class="edu-banner-inner">
+        <span class="edu-icon">🎓</span>
+        <div class="edu-uni">${ed.university}</div>
+      </div>
+    </div>
+    <div class="edu-body">
+      <div class="edu-degree">${ed.degree}</div>
+      <div class="edu-pills">
+        <span class="edu-pill ep-g">CGPA ${ed.cgpa}</span>
+        <span class="edu-pill ep-l">📍 ${ed.location}</span>
+        <span class="edu-pill ep-a">Class of ${ed.year}</span>
+      </div>
+      <div class="edu-desc">${ed.desc}</div>
+    </div>
+  </div>`;
+
+/* ── CURRENTLY LEARNING ── */
+$("learn-grid").innerHTML = DATA.learning.map((item, i) =>
+  `<div class="learn-chip r" style="transition-delay:${i*0.05}s">${item}</div>`).join("");
+
+/* ── VOLUNTEER ── */
+$("event-grid").innerHTML = DATA.volunteer.map((v, i) => `
+  <div class="event-card r" style="transition-delay:${i*0.08}s"
+       data-lb-group="events" data-lb-src="${v.image}" data-lb-cap="${v.title}"
+       onclick="openLb(this,'events')">
+    <div class="event-img">
+      <img src="${v.image}" alt="${v.title}"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="event-img-ph">${v.icon}</div>
+      <div class="pcard-overlay">🔍</div>
+    </div>
+    <div class="event-body">
+      <div class="event-title">${v.title}</div>
+      <div class="event-org">${v.org}</div>
+      <div class="event-desc">${v.desc}</div>
+    </div>
+  </div>`).join("");
+
+/* ── CONTACT: horizontal circular icon buttons using inline SVGs ── */
+$("contact-grid").innerHTML = [
+  { key:"email",    svg: ICONS.email,    label:"Email",    href:`mailto:${DATA.profile.email}`,   dl:false },
+  { key:"linkedin", svg: ICONS.linkedin, label:"LinkedIn", href:DATA.profile.linkedin,             dl:false },
+  { key:"github",   svg: ICONS.github,   label:"GitHub",   href:DATA.profile.github,               dl:false },
+  { key:"resume",   svg: ICONS.resume,   label:"Resume",   href:DATA.profile.resume,               dl:true  },
+  { key:"phone",    svg: ICONS.phone,    label:"Phone",    href:`tel:${DATA.profile.phone}`,        dl:false },
+  { key:"location", svg: ICONS.location, label:"Location", href:"#",                               dl:false },
+].map((c, i) => `
+  <a class="contact-box ${c.key} r" style="transition-delay:${i*0.07}s"
+     href="${c.href}" target="${c.dl || c.key==='phone' || c.key==='location' ? '_self' : '_blank'}"
+     ${c.dl ? 'download' : ''}>
+    <div class="c-circle">${c.svg}</div>
+    <div class="c-label">${c.label}</div>
+  </a>`).join("");
+
+/* ── SCROLL REVEAL ── */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("in"); });
+}, { threshold:0.06, rootMargin:"0px 0px -30px 0px" });
+document.querySelectorAll(".r").forEach(el => io.observe(el));
+
+/* ── LIGHTBOX ── */
+let lbGroup = [], lbIdx = 0;
+function openLb(card, group) {
+  lbGroup = Array.from(document.querySelectorAll(`[data-lb-group="${group}"]`));
+  lbIdx = lbGroup.indexOf(card);
+  showLb(lbIdx); $("lb").classList.add("open"); document.body.style.overflow = "hidden";
+}
+function showLb(idx) {
+  const c = lbGroup[idx];
+  $("lb-img").src = c.dataset.lbSrc || "";
+  $("lb-img").style.display = c.dataset.lbSrc ? "block" : "none";
+  $("lb-cap").textContent = c.dataset.lbCap || "";
+  $("lb-prev").style.display = $("lb-next").style.display = lbGroup.length > 1 ? "flex" : "none";
+}
+function closeLb() { $("lb").classList.remove("open"); document.body.style.overflow = ""; }
+function lbMove(d) { lbIdx = (lbIdx + d + lbGroup.length) % lbGroup.length; showLb(lbIdx); }
+$("lb").addEventListener("click", e => { if (e.target === $("lb")) closeLb(); });
+document.addEventListener("keydown", e => {
+  if (!$("lb").classList.contains("open")) return;
+  if (e.key === "Escape") closeLb();
+  if (e.key === "ArrowLeft")  lbMove(-1);
+  if (e.key === "ArrowRight") lbMove(1);
+});
+</script>
+</body>
+</html>
