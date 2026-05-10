@@ -175,7 +175,7 @@ section{padding:96px 0;position:relative;z-index:1}
 /* ══════════════════════════════════════
    HERO
 ══════════════════════════════════════ */
-#hero,#about[style*="min-height"]{min-height:100vh;display:flex;align-items:center;padding-top:74px}
+#hero{min-height:100vh;display:flex;align-items:center;padding-top:74px}
 .hero-grid{
   display:grid;grid-template-columns:1fr 420px;
   gap:60px;align-items:center;
@@ -966,33 +966,22 @@ const DATA = {
   <div class="nav-drawer" id="nav-drawer"></div>
 </nav>
 
-<!-- ══════════ ABOUT (merged hero + about) ══════════ -->
-<section id="about" style="min-height:100vh;display:flex;align-items:center;padding-top:74px;padding-bottom:96px;position:relative;overflow:hidden">
+<!-- ══════════ HERO ══════════ -->
+<section id="hero" style="position:relative;overflow:hidden">
   <div class="hero-orb hero-orb-1"></div>
   <div class="hero-orb hero-orb-2"></div>
-  <div class="wrap" style="width:100%">
-
-    <div class="last-updated" style="margin-bottom:32px">
+  <div class="wrap">
+    <div class="last-updated">
       <span class="lu-dot"></span>
       <span>Last Updated:&nbsp;<strong id="lu-date">10/05/2026</strong></span>
     </div>
-
     <div class="hero-grid">
-
-      <!-- LEFT: identity + bio -->
       <div>
-        <span class="sh-label" style="margin-bottom:18px;display:inline-block">About Me</span>
         <h1 class="hero-name" id="h-name"></h1>
         <div class="hero-role" id="h-role"></div>
         <p class="hero-bio" id="h-bio"></p>
-
-        <p class="about-p" style="margin-bottom:14px">I'm a <strong>SOC Analyst</strong> and <strong>Security Researcher</strong> based in Hyderabad, Pakistan — currently in my final year of BSc Cyber Security at Mehran University. I specialize in blue team operations, SIEM monitoring, and incident response, while maintaining offensive security skills through bug bounty research and red team internships.</p>
-        <p class="about-p" style="margin-bottom:28px">I've monitored thousands of daily security events, built custom detection rules, and led a team at Pakistan's national NADRA Bug Bounty. I believe in learning by doing — every lab, CTF, and real-world assessment sharpens the instincts that matter in a SOC.</p>
-
         <div class="hero-metrics" id="h-metrics"></div>
       </div>
-
-      <!-- RIGHT: profile card -->
       <div>
         <div class="profile-card">
           <div class="avatar-wrap">
@@ -1010,7 +999,6 @@ const DATA = {
           <div class="profile-actions" id="p-actions"></div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
@@ -1134,7 +1122,7 @@ const mk = t => document.createElement(t);
 
 /* ── NAV ── */
 const NAV_ITEMS = [
-  ["about","About"],["skills","Skills"],["experience","Experience"],["vulnerabilities","Research"],
+  ["skills","Skills"],["experience","Experience"],["vulnerabilities","Research"],
   ["projects","Projects"],["certifications","Certs"],["achievements","Achievements"],
   ["education","Education"],["volunteer","Volunteer"],["contact","Contact"],
 ];
