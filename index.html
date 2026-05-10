@@ -106,7 +106,22 @@ section{padding:96px 0;position:relative;z-index:1}
 }
 .nav-logo{
   font-family:var(--mono);font-size:0.88rem;font-weight:700;
-  color:var(--green);display:flex;align-items:center;gap:8px;
+  color:var(--green);display:flex;align-items:center;gap:10px;
+}
+.nl-img-wrap{
+  width:34px;height:34px;border-radius:50%;flex-shrink:0;
+  border:2px solid rgba(0,255,136,0.35);overflow:hidden;
+  background:var(--surface);
+  display:flex;align-items:center;justify-content:center;
+}
+.nl-img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.nl-initials{
+  font-family:var(--mono);font-size:0.72rem;font-weight:800;
+  color:var(--green);letter-spacing:0.5px;
+}
+.nl-name{
+  font-family:var(--mono);font-size:0.82rem;font-weight:700;
+  color:var(--green);letter-spacing:0.5px;
 }
 .live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2.2s infinite;flex-shrink:0}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(0,255,136,0.6)}50%{box-shadow:0 0 0 6px rgba(0,255,136,0)}}
@@ -806,6 +821,8 @@ footer em{color:var(--green);font-style:normal}
 const DATA = {
   profile: {
     name:     "Bilawal Ali",
+    navLogoImg:  "",           /* ← put image path here e.g. "assets/profile/logo.png" */
+    navLogoName: "Bilawal Ali", /* ← name shown next to logo in nav */
     badge:    "Open to SOC Analyst & Internship Roles",
     title:    "SOC Analyst | Threat Hunter | Security Researcher",
     mono:     "SOC L1 Analyst",
@@ -954,9 +971,7 @@ const DATA = {
 <!-- ══════════ NAV ══════════ -->
 <nav id="nav">
   <div class="nav-inner">
-    <div class="nav-logo" id="nav-logo">
-      <span style="font-size:1.1rem">🛡️</span><span style="color:var(--green)">BA</span>
-    </div>
+    <div class="nav-logo" id="nav-logo"></div>
     <div class="nav-links" id="nav-links-d"></div>
     <a id="nav-cta" class="nav-cta">Hire Me</a>
     <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
@@ -980,6 +995,7 @@ const DATA = {
         <h1 class="hero-name" id="h-name"></h1>
         <div class="hero-role" id="h-role"></div>
         <p class="hero-bio" id="h-bio"></p>
+        <div class="hero-btns" id="h-btns"></div>
         <div class="hero-metrics" id="h-metrics"></div>
       </div>
       <div>
@@ -1136,6 +1152,14 @@ NAV_ITEMS.forEach(([id, lbl]) => {
 $("nav-cta").href = `mailto:${DATA.profile.email}`;
 $("nav-toggle").onclick = () => $("nav-drawer").classList.toggle("open");
 
+/* ── NAV LOGO ── */
+const logoImg = DATA.profile.navLogoImg;
+const logoName = DATA.profile.navLogoName || DATA.profile.name;
+const initials = logoName.split(" ").map(n=>n[0]).join("").slice(0,2).toUpperCase();
+$("nav-logo").innerHTML = logoImg
+  ? `<div class="nl-img-wrap"><img src="${logoImg}" alt="${logoName}" class="nl-img" onerror="this.parentElement.innerHTML='<span class=nl-initials>${initials}</span>'"></div><span class="nl-name">${logoName}</span>`
+  : `<div class="nl-img-wrap"><span class="nl-initials">${initials}</span></div><span class="nl-name">${logoName}</span>`;
+
 window.addEventListener("scroll", () => {
   $("nav").classList.toggle("scrolled", scrollY > 20);
   let cur = "";
@@ -1150,6 +1174,7 @@ const nameParts = DATA.profile.name.split(" ");
 $("h-name").innerHTML = `${nameParts[0]} <em>${nameParts.slice(1).join(" ")}</em>`;
 $("h-role").textContent = DATA.profile.title;
 $("h-bio").innerHTML = DATA.profile.bio;
+$("h-btns").innerHTML = ``;
 $("h-metrics").innerHTML = DATA.profile.metrics.map(m =>
   `<div class="metric">
     <span class="metric-val">${m.val}</span>
@@ -1183,7 +1208,11 @@ $("p-info").innerHTML = [
     <a href="${r.href}" style="color:var(--muted);transition:color 0.2s" onmouseover="this.style.color='var(--green)'" onmouseout="this.style.color='var(--muted)'">${r.val}</a>
   </div>`).join("");
 
-$("p-actions").innerHTML = "";
+$("p-actions").innerHTML = [
+  { ico: ICONS.github_sm,   lbl:"GitHub",   href: DATA.profile.github,   dl:false },
+  { ico: ICONS.linkedin_sm, lbl:"LinkedIn", href: DATA.profile.linkedin,  dl:false },
+  { ico: ICONS.resume_sm,   lbl:"Resume",   href: DATA.profile.resume,   dl:true  },
+].map(l => `<a href="${l.href}" target="_blank" class="pa" ${l.dl?'download':''}>${l.ico}${l.lbl}</a>`).join("");
 
 /* ── SKILLS ── */
 $("skills-grid").innerHTML = DATA.skills.map((g, i) => `
@@ -1199,9 +1228,9 @@ $("skills-grid").innerHTML = DATA.skills.map((g, i) => `
 const tagCls = {green:"tg",cyan:"tc",amber:"ta",red:"tr"};
 // company logo map — add real logo paths here if you have them
 const CO_LOGO = {
-  "Cyberster":           { img:"assets/company/cyberster.png",  fallback:"🛡️" },
-  "ITSOLERA Pvt Ltd":    { img:"assets/company/itsolera.png",   fallback:"🔴" },
-  "Security Researcher": { img:"",                               fallback:"🔎" },
+  "Cyberster":           { img:"assets/companies-logs/cyberster-log.webp",  fallback:"🛡️" },
+  "ITSOLERA Pvt Ltd":    { img:"assets/companies-logs/ITSOLERA-log.webp",   fallback:"🔴" },
+  "Security Researcher": { img:"assets/companies-logs/Bugbounty-companies.webp",                               fallback:"🔎" },
   "CodeAlpha":           { img:"assets/company/codealpha.png",  fallback:"💻" },
 };
 function coCircle(company, cls="exp-co-circle") {
