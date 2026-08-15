@@ -39,9 +39,14 @@
             --r-md: 14px;
             --r-lg: 18px;
             --r-xl: 24px;
+            --r-2xl: 28px;
 
             --shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
             --shadow-sm: 0 8px 24px rgba(0, 0, 0, 0.3);
+            --shadow-lift: 0 18px 40px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.28);
+            --shadow-glow: 0 30px 70px -20px rgba(10, 132, 255, 0.35), 0 12px 28px rgba(0, 0, 0, 0.5);
+            --glass: rgba(255, 255, 255, 0.045);
+            --inset-hi: inset 0 1px 0 rgba(255, 255, 255, 0.06);
 
             --ease: cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -51,7 +56,13 @@
             ══════════════════════════════════════ */
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-        body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.65; overflow-x: hidden; }
+        body {
+            font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.65; overflow-x: hidden;
+            background-image:
+                radial-gradient(1100px 600px at 82% -8%, rgba(10, 132, 255, 0.14), transparent 60%),
+                radial-gradient(900px 500px at -10% 8%, rgba(10, 132, 255, 0.07), transparent 55%);
+            background-repeat: no-repeat;
+        }
         img { display: block; max-width: 100%; }
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
@@ -108,7 +119,7 @@
             cursor: pointer; border: none; font-size: 0.88rem; padding: 12px 26px;
         }
         .btn-primary { background: var(--text); color: #060607; }
-        .btn-primary:hover { background: var(--accent); color: #fff; transform: translateY(-1px); }
+        .btn-primary:hover { background: var(--accent); color: #fff; transform: translateY(-1px); box-shadow: 0 10px 26px rgba(10, 132, 255, 0.32); }
         .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
         .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
 
@@ -210,9 +221,10 @@
         .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 64px; align-items: center; }
 
         .hero-badge {
-            display: inline-flex; align-items: center; gap: 9px; background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border); padding: 7px 16px; border-radius: 50px;
+            display: inline-flex; align-items: center; gap: 9px; background: var(--accent-soft);
+            border: 1px solid rgba(10, 132, 255, 0.22); padding: 7px 16px; border-radius: 50px;
             color: var(--text2); font-size: 0.78rem; font-weight: 500; margin-bottom: 26px;
+            backdrop-filter: blur(10px);
         }
         .hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse-dot 2.4s infinite; }
         @keyframes pulse-dot { 0%,100% { box-shadow: 0 0 0 0 rgba(10,132,255,0.45); } 50% { box-shadow: 0 0 0 5px rgba(10,132,255,0); } }
@@ -237,54 +249,71 @@
         .metric-label { color: var(--dim); font-size: 0.72rem; line-height: 1.45; letter-spacing: 0.2px; }
 
         /* ── Profile Card ── */
+        .profile-card-wrap { position: relative; }
+        .profile-card-wrap::before {
+            content: ''; position: absolute; inset: -40px; z-index: 0; pointer-events: none;
+            background: radial-gradient(closest-side, rgba(10, 132, 255, 0.22), transparent 70%);
+            filter: blur(10px); opacity: 0.9;
+        }
         .profile-card {
-            background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-xl);
-            padding: 34px 28px 28px; box-shadow: var(--shadow);
+            position: relative; z-index: 1;
+            background: linear-gradient(180deg, var(--card-hover) 0%, var(--surface) 100%);
+            border: 1px solid var(--border); border-radius: var(--r-2xl);
+            padding: 40px 30px 28px; box-shadow: var(--shadow-glow), var(--inset-hi);
+            backdrop-filter: blur(20px);
         }
 
         .profile-avatar-wrap {
-            width: 104px; height: 104px; border-radius: 50%; margin: 0 auto 18px;
-            border: 1px solid var(--border); padding: 3px;
+            width: 112px; height: 112px; border-radius: 50%; margin: 0 auto 20px; position: relative;
+            padding: 3px;
+            background: conic-gradient(from 220deg, rgba(10,132,255,0.9), rgba(10,132,255,0) 30%, rgba(10,132,255,0) 70%, rgba(10,132,255,0.9));
+            box-shadow: 0 8px 24px rgba(10, 132, 255, 0.25);
         }
-        .profile-avatar { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: var(--card); display: block; }
+        .profile-avatar-wrap::after {
+            content: ''; position: absolute; inset: -6px; border-radius: 50%;
+            border: 1px solid rgba(10, 132, 255, 0.18); pointer-events: none;
+        }
+        .profile-avatar { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: var(--card); display: block; border: 3px solid var(--surface); }
         .profile-avatar-fallback {
-            width: 100%; height: 100%; border-radius: 50%; background: var(--card);
+            width: 100%; height: 100%; border-radius: 50%; background: var(--card); border: 3px solid var(--surface);
             display: flex; align-items: center; justify-content: center;
             font-family: var(--mono); font-size: 1.9rem; font-weight: 600; color: var(--text2);
         }
 
         .profile-status {
-            display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 18px;
-            padding: 6px 14px; border-radius: 50px; background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center; gap: 8px; margin: 0 auto 20px; width: fit-content;
+            padding: 6px 15px; border-radius: 50px; background: var(--accent-soft); border: 1px solid rgba(10, 132, 255, 0.22);
             font-family: var(--mono); font-size: 0.62rem; color: var(--text2); letter-spacing: 1.2px; text-transform: uppercase;
         }
         .profile-status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse-dot 2.4s infinite; flex-shrink: 0; }
 
-        .profile-name { font-size: 1.15rem; font-weight: 700; text-align: center; letter-spacing: -0.01em; margin-bottom: 3px; }
-        .profile-mono { font-family: var(--mono); font-size: 0.66rem; color: var(--muted); text-align: center; letter-spacing: 1.2px; margin-bottom: 20px; text-transform: uppercase; }
-        .profile-divider { height: 1px; background: var(--border); margin: 4px 0 16px; }
+        .profile-name { font-size: 1.28rem; font-weight: 800; text-align: center; letter-spacing: -0.02em; margin-bottom: 4px; }
+        .profile-mono { font-family: var(--mono); font-size: 0.66rem; color: var(--accent); text-align: center; letter-spacing: 1.4px; margin-bottom: 22px; text-transform: uppercase; font-weight: 600; }
+        .profile-divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent); margin: 4px 0 18px; }
 
-        .profile-info-row { display: flex; align-items: center; gap: 11px; color: var(--text2); font-size: 0.81rem; padding: 5px 0; }
+        .profile-info-row { display: flex; align-items: center; gap: 12px; color: var(--text2); font-size: 0.81rem; padding: 6px 4px; border-radius: var(--r-sm); transition: background 0.2s ease; }
+        .profile-info-row:hover { background: rgba(255,255,255,0.025); }
         .profile-info-icon {
-            width: 26px; height: 26px; border-radius: 7px; flex-shrink: 0; background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border); display: flex; align-items: center; justify-content: center;
+            width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0; background: var(--accent-dim);
+            border: 1px solid rgba(10, 132, 255, 0.16); display: flex; align-items: center; justify-content: center;
         }
-        .profile-info-icon svg { width: 13px; height: 13px; color: var(--muted); }
+        .profile-info-icon svg { width: 14px; height: 14px; color: var(--accent); }
+        .profile-info-row a { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .profile-info-row a:hover { color: var(--accent); }
 
-        .profile-actions-row { display: flex; gap: 8px; margin-top: 20px; }
+        .profile-actions-row { display: flex; gap: 8px; margin-top: 22px; }
         .profile-action {
-            flex: 1; padding: 11px 6px; border-radius: var(--r-sm); text-align: center;
-            background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border);
+            flex: 1; padding: 12px 6px; border-radius: var(--r-md); text-align: center;
+            background: rgba(255, 255, 255, 0.025); border: 1px solid var(--border);
             font-size: 0.68rem; color: var(--muted); transition: all 0.25s var(--ease); cursor: pointer;
-            display: flex; flex-direction: column; align-items: center; gap: 5px; font-weight: 500;
+            display: flex; flex-direction: column; align-items: center; gap: 6px; font-weight: 600;
         }
-        .profile-action:hover { border-color: var(--accent); color: var(--text); transform: translateY(-2px); }
+        .profile-action:hover { border-color: var(--accent); color: var(--text); background: var(--accent-soft); transform: translateY(-2px); box-shadow: 0 8px 18px rgba(10,132,255,0.18); }
         .profile-action svg { width: 16px; height: 16px; }
 
         @media (max-width: 960px) {
             .hero-grid { grid-template-columns: 1fr; gap: 44px; }
-            .profile-card { max-width: 400px; margin: 0 auto; }
+            .profile-card-wrap { max-width: 400px; margin: 0 auto; }
         }
         @media (max-width: 640px) {
             #hero { padding-top: 104px; min-height: auto; }
@@ -300,6 +329,7 @@
             width: 42px; height: 42px; border-radius: 10px; flex-shrink: 0;
             background: var(--accent-dim); border: 1px solid rgba(10, 132, 255, 0.16);
             display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 14px rgba(10, 132, 255, 0.1);
         }
         .icon-tile svg { width: 20px; height: 20px; color: var(--accent); stroke-width: 1.6; }
         .icon-tile.sm { width: 34px; height: 34px; border-radius: 9px; }
@@ -308,9 +338,17 @@
         /* ══════════════════════════════════════
                SKILLS
             ══════════════════════════════════════ */
-        .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
-        .skill-card { background: var(--surface); padding: 28px 26px; transition: background 0.3s ease; }
-        .skill-card:hover { background: var(--card); }
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 16px; }
+        .skill-card {
+            background: linear-gradient(180deg, var(--card-hover) 0%, var(--surface) 100%);
+            border: 1px solid var(--border); border-radius: var(--r-lg);
+            padding: 28px 26px; transition: all 0.32s var(--ease);
+            box-shadow: var(--shadow-lift), var(--inset-hi);
+        }
+        .skill-card:hover {
+            border-color: rgba(10, 132, 255, 0.32); transform: translateY(-4px);
+            box-shadow: var(--shadow-glow), var(--inset-hi);
+        }
         .skill-header { display: flex; align-items: center; gap: 13px; margin-bottom: 18px; }
         .skill-title { font-size: 0.9rem; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
         .skill-chips { display: flex; flex-wrap: wrap; gap: 7px; }
@@ -318,9 +356,17 @@
         /* ══════════════════════════════════════
                EXPERIENCE — timeline
             ══════════════════════════════════════ */
-        .timeline { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
-        .exp-card { background: var(--surface); padding: 30px 32px; transition: background 0.3s ease; }
-        .exp-card:hover { background: var(--card); }
+        .timeline { display: flex; flex-direction: column; gap: 16px; }
+        .exp-card {
+            background: linear-gradient(180deg, var(--card-hover) 0%, var(--surface) 100%);
+            border: 1px solid var(--border); border-radius: var(--r-lg);
+            padding: 30px 32px; transition: all 0.32s var(--ease);
+            box-shadow: var(--shadow-lift), var(--inset-hi);
+        }
+        .exp-card:hover {
+            border-color: rgba(10, 132, 255, 0.32); transform: translateY(-3px);
+            box-shadow: var(--shadow-glow), var(--inset-hi);
+        }
         .exp-head { display: flex; align-items: flex-start; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
         .exp-logo {
             width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0; border: 1px solid var(--border);
@@ -346,23 +392,45 @@
         /* ══════════════════════════════════════
                CARD GRID — Projects, Research, Certs, Achievements
             ══════════════════════════════════════ */
-        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(288px, 1fr)); gap: 20px; }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(288px, 1fr)); gap: 22px; }
 
         .card {
-            background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg);
+            background: linear-gradient(180deg, var(--card-hover) 0%, var(--surface) 100%);
+            border: 1px solid var(--border); border-radius: var(--r-lg);
             overflow: hidden; transition: all 0.32s var(--ease); position: relative;
+            box-shadow: var(--shadow-lift), var(--inset-hi);
         }
-        .card:hover { border-color: rgba(255,255,255,0.16); transform: translateY(-3px); box-shadow: var(--shadow-sm); background: var(--card); }
+        .card:hover {
+            border-color: rgba(10, 132, 255, 0.32); transform: translateY(-4px);
+            box-shadow: var(--shadow-glow), var(--inset-hi);
+        }
 
-        .card-img { position: relative; overflow: hidden; height: 176px; background: var(--card); }
-        .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-        .card:hover .card-img img { transform: scale(1.03); }
+        .card-img { position: relative; overflow: hidden; height: 180px; background: var(--card); }
+        .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease); }
+        .card:hover .card-img img { transform: scale(1.05); }
+        .card-img::after {
+            content: ''; position: absolute; inset: 0; pointer-events: none;
+            background: linear-gradient(180deg, transparent 55%, rgba(5,5,6,0.35) 100%);
+        }
 
         .card-img-placeholder {
             height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            gap: 12px; background: var(--card);
+            gap: 13px; position: relative; overflow: hidden;
+            background:
+                radial-gradient(circle at 30% 20%, rgba(10, 132, 255, 0.16), transparent 55%),
+                radial-gradient(circle at 80% 85%, rgba(10, 132, 255, 0.08), transparent 50%),
+                var(--card);
         }
-        .card-img-placeholder-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 1.6px; text-transform: uppercase; color: var(--dim); }
+        .card-img-placeholder::before {
+            content: ''; position: absolute; inset: 0; opacity: 0.5;
+            background-image: radial-gradient(rgba(255,255,255,0.055) 1px, transparent 1px);
+            background-size: 16px 16px;
+            -webkit-mask-image: radial-gradient(circle at center, black, transparent 75%);
+            mask-image: radial-gradient(circle at center, black, transparent 75%);
+        }
+        .card-img-placeholder .icon-tile { position: relative; z-index: 1; width: 50px; height: 50px; background: var(--accent-dim); border-color: rgba(10,132,255,0.28); box-shadow: 0 8px 20px rgba(10,132,255,0.16); }
+        .card-img-placeholder .icon-tile svg { width: 24px; height: 24px; }
+        .card-img-placeholder-label { position: relative; z-index: 1; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 1.6px; text-transform: uppercase; color: var(--muted); }
 
         .card-overlay {
             position: absolute; inset: 0; background: rgba(5, 5, 6, 0.55); display: flex;
@@ -376,20 +444,66 @@
             font-family: var(--mono); font-size: 0.6rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
             background: rgba(5, 5, 6, 0.72); backdrop-filter: blur(6px); color: var(--text2); border: 1px solid var(--border);
         }
-        .card-ribbon.gold { color: var(--gold); border-color: rgba(245, 185, 92, 0.3); }
+        .card-ribbon.gold { color: var(--gold); border-color: rgba(245, 185, 92, 0.35); background: rgba(245, 185, 92, 0.1); }
 
         .card-body { padding: 22px 24px 24px; }
-        .card-kicker { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 1.6px; text-transform: uppercase; color: var(--dim); margin-bottom: 8px; }
+        .card-kicker { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 1.6px; text-transform: uppercase; color: var(--accent); margin-bottom: 9px; font-weight: 600; }
         .card-title { font-size: 1rem; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.01em; line-height: 1.35; color: var(--text); }
         .card-desc { color: var(--muted); font-size: 0.84rem; line-height: 1.7; margin-bottom: 15px; }
         .card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 15px; }
-        .card-link { font-family: var(--mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.3px; transition: opacity 0.2s ease; }
-        .card-link:hover { opacity: 0.7; }
+        .card-link { display: inline-flex; align-items: center; gap: 5px; font-family: var(--mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.3px; transition: gap 0.2s ease; }
+        .card-link:hover { gap: 8px; }
+
+        /* ══════════════════════════════════════
+               CREDENTIALS — dedicated compact cert card
+            ══════════════════════════════════════ */
+        .cert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+        .cert-card {
+            display: flex; align-items: center; gap: 16px; padding: 18px 20px;
+            background: linear-gradient(180deg, var(--card-hover) 0%, var(--surface) 100%);
+            border: 1px solid var(--border); border-radius: var(--r-lg);
+            transition: all 0.28s var(--ease); position: relative; overflow: hidden;
+            box-shadow: var(--shadow-lift), var(--inset-hi);
+        }
+        .cert-card:hover { border-color: rgba(10, 132, 255, 0.32); transform: translateY(-3px); box-shadow: var(--shadow-glow), var(--inset-hi); }
+        .cert-thumb {
+            width: 52px; height: 52px; border-radius: 13px; flex-shrink: 0; overflow: hidden; position: relative;
+            background: var(--accent-dim); border: 1px solid rgba(10, 132, 255, 0.18);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .cert-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .cert-thumb svg { width: 24px; height: 24px; color: var(--accent); stroke-width: 1.6; }
+        .cert-medal {
+            position: absolute; bottom: -3px; right: -3px; width: 20px; height: 20px; border-radius: 50%;
+            background: var(--gold); border: 2px solid var(--surface); display: flex; align-items: center; justify-content: center;
+        }
+        .cert-medal svg { width: 10px; height: 10px; color: #1a1206; stroke-width: 2.4; }
+        .cert-body { flex: 1; min-width: 0; }
+        .cert-name { font-size: 0.87rem; font-weight: 700; color: var(--text); letter-spacing: -0.005em; line-height: 1.35; margin-bottom: 3px; }
+        .cert-issuer { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); letter-spacing: 0.3px; }
+        .cert-verify {
+            flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center; color: var(--muted);
+            transition: all 0.25s var(--ease);
+        }
+        .cert-verify:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+        .cert-verify svg { width: 13px; height: 13px; }
 
         /* ══════════════════════════════════════
                EDUCATION
             ══════════════════════════════════════ */
-        .edu-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-xl); overflow: hidden; }
+        .edu-card-wrap { position: relative; }
+        .edu-card-wrap::before {
+            content: ''; position: absolute; inset: -30px; z-index: 0; pointer-events: none;
+            background: radial-gradient(closest-side, rgba(10, 132, 255, 0.16), transparent 70%);
+            filter: blur(10px);
+        }
+        .edu-card {
+            position: relative; z-index: 1;
+            background: linear-gradient(180deg, var(--card-hover) 0%, var(--surface) 100%);
+            border: 1px solid var(--border); border-radius: var(--r-xl); overflow: hidden;
+            box-shadow: var(--shadow-glow), var(--inset-hi);
+        }
         .edu-banner {
             height: 128px; position: relative; overflow: hidden; background: var(--card);
             display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--border);
@@ -420,8 +534,13 @@
                COMMUNITY
             ══════════════════════════════════════ */
         .community-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(258px, 1fr)); gap: 20px; }
-        .community-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; transition: all 0.32s var(--ease); cursor: pointer; }
-        .community-card:hover { border-color: rgba(255,255,255,0.16); transform: translateY(-3px); box-shadow: var(--shadow-sm); }
+        .community-card {
+            background: linear-gradient(180deg, var(--card-hover) 0%, var(--surface) 100%);
+            border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden;
+            transition: all 0.32s var(--ease); cursor: pointer;
+            box-shadow: var(--shadow-lift), var(--inset-hi);
+        }
+        .community-card:hover { border-color: rgba(10, 132, 255, 0.32); transform: translateY(-4px); box-shadow: var(--shadow-glow), var(--inset-hi); }
         .community-img { position: relative; padding-top: 54%; overflow: hidden; background: var(--card); }
         .community-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
         .community-card:hover .community-img img { transform: scale(1.04); }
@@ -535,14 +654,16 @@
                 </div>
 
                 <div>
-                    <div class="profile-card">
-                        <div class="profile-avatar-wrap"><div id="profileAvatar"></div></div>
-                        <div class="profile-status"><span class="profile-status-dot"></span><span>Available for Hire</span></div>
-                        <div class="profile-name" id="profileName">Bilawal Ali</div>
-                        <div class="profile-mono" id="profileMono">SOC L1 Analyst</div>
-                        <div class="profile-divider"></div>
-                        <div id="profileInfo"></div>
-                        <div class="profile-actions-row" id="profileActions"></div>
+                    <div class="profile-card-wrap">
+                        <div class="profile-card">
+                            <div class="profile-avatar-wrap"><div id="profileAvatar"></div></div>
+                            <div class="profile-status"><span class="profile-status-dot"></span><span>Available for Hire</span></div>
+                            <div class="profile-name" id="profileName">Bilawal Ali</div>
+                            <div class="profile-mono" id="profileMono">SOC L1 Analyst</div>
+                            <div class="profile-divider"></div>
+                            <div id="profileInfo"></div>
+                            <div class="profile-actions-row" id="profileActions"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -605,7 +726,7 @@
                 <h2 class="section-title">Certifications &amp; Training</h2>
                 <p class="section-desc">Professional certifications, cybersecurity training, and hands-on learning achievements.</p>
             </div>
-            <div class="card-grid" id="certGrid"></div>
+            <div class="cert-grid" id="certGrid"></div>
         </div>
     </section>
 
@@ -1019,7 +1140,9 @@
             github: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>`,
             resume: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`,
             phone: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`,
-            location: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`
+            location: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`,
+            check: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
+            arrowUpRight: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>`
         };
     </script>
 
@@ -1164,25 +1287,51 @@
 
         $("researchGrid").innerHTML = DATA.research.map((r,i) => buildCard({...r, tags: r.tags||[]}, "research", 0.05+i*0.03)).join("");
         $("projectsGrid").innerHTML = DATA.projects.map((pr,i) => buildCard({...pr, tags: pr.tags||[]}, "projects", 0.05+i*0.03)).join("");
-        $("certGrid").innerHTML = DATA.certifications.map((c,i) => buildCard({...c, kicker: c.issuer, title: c.name, tags: [], desc: ""}, "certs", 0.05+i*0.03)).join("");
         $("achievementsGrid").innerHTML = DATA.achievements.map((a,i) => buildCard({...a, tags: []}, "achievements", 0.05+i*0.03)).join("");
+
+        /* ── CERTIFICATIONS — compact credential cards ── */
+        function buildCertCard(c, delay) {
+            const thumbHtml = c.image
+                ? `<img src="${c.image}" alt="${c.name}" onerror="this.replaceWith(makeCertIcon('${c.icon}'))">`
+                : SVG[c.icon] || SVG.award;
+            const medal = c.medal ? `<span class="cert-medal">${SVG.check}</span>` : "";
+            const verify = c.verify
+                ? `<a href="${c.verify}" target="_blank" class="cert-verify" aria-label="Verify certificate" onclick="event.stopPropagation()">${SVG.arrowUpRight}</a>`
+                : "";
+            return `<div class="cert-card reveal" style="transition-delay:${delay}s">
+              <div class="cert-thumb">${thumbHtml}${medal}</div>
+              <div class="cert-body">
+                <div class="cert-name">${c.name}</div>
+                <div class="cert-issuer">${c.issuer}</div>
+              </div>
+              ${verify}
+            </div>`;
+        }
+        window.makeCertIcon = function(icon) {
+            const s = document.createElement("span");
+            s.innerHTML = SVG[icon] || SVG.award;
+            return s.firstElementChild;
+        };
+        $("certGrid").innerHTML = DATA.certifications.map((c,i) => buildCertCard(c, 0.04+i*0.03)).join("");
 
         /* ── EDUCATION ── */
         const ed = DATA.education;
         $("educationSlot").innerHTML = `
-          <div class="edu-card reveal">
-            <div class="edu-banner">
-              <img src="${ed.banner}" alt="${ed.university}" onerror="this.style.display='none'">
-              <div class="edu-banner-inner"><div class="edu-banner-uni">${ed.university}</div></div>
-            </div>
-            <div class="edu-body">
-              <div class="edu-degree">${ed.degree}</div>
-              <div class="edu-pills">
-                <span class="badge accent">CGPA ${ed.cgpa}</span>
-                <span class="badge">${ed.location}</span>
-                <span class="badge">${ed.year}</span>
+          <div class="edu-card-wrap reveal">
+            <div class="edu-card">
+              <div class="edu-banner">
+                <img src="${ed.banner}" alt="${ed.university}" onerror="this.style.display='none'">
+                <div class="edu-banner-inner"><div class="edu-banner-uni">${ed.university}</div></div>
               </div>
-              <div class="edu-desc">${ed.desc}</div>
+              <div class="edu-body">
+                <div class="edu-degree">${ed.degree}</div>
+                <div class="edu-pills">
+                  <span class="badge accent">CGPA ${ed.cgpa}</span>
+                  <span class="badge">${ed.location}</span>
+                  <span class="badge">${ed.year}</span>
+                </div>
+                <div class="edu-desc">${ed.desc}</div>
+              </div>
             </div>
           </div>`;
 
