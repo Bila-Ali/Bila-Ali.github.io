@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bilawal Ali — SOC Analyst &amp; Security Researcher</title>
+    <meta name="description" content="Bilawal Ali — SOC Analyst and Security Researcher specializing in SIEM, incident response, and digital forensics." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+    <style>
+        /* ══════════════════════════════════════
+               TOKENS — quiet, restrained, one accent
+            ══════════════════════════════════════ */
+        :root {
+            --bg: #050506;
+            --bg2: #0b0b0d;
+            --surface: #121214;
+            --card: #17171a;
+            --card-hover: #1c1c20;
+            --border: rgba(255, 255, 255, 0.09);
+            --border-soft: rgba(255, 255, 255, 0.05);
+
+            --accent: #0a84ff;
+            --accent-dim: rgba(10, 132, 255, 0.12);
+            --accent-soft: rgba(10, 132, 255, 0.06);
+            --gold: #f5b95c;
+
+            --text: #f5f5f7;
+            --text2: #c4c4c8;
+            --muted: #8c8c92;
+            --dim: #59595e;
+
+            --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --mono: 'JetBrains Mono', 'SF Mono', ui-monospace, monospace;
+
+            --r-sm: 8px;
+            --r-md: 14px;
+            --r-lg: 18px;
+            --r-xl: 24px;
+
+            --shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+            --shadow-sm: 0 8px 24px rgba(0, 0, 0, 0.3);
+
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* ══════════════════════════════════════
+               RESET & BASE
+            ══════════════════════════════════════ */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.65; overflow-x: hidden; }
+        img { display: block; max-width: 100%; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.14); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.24); }
+        ::selection { background: var(--accent); color: #fff; }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+        /* ══════════════════════════════════════
+               LAYOUT
+            ══════════════════════════════════════ */
+        .wrap { width: min(1120px, 90%); margin: 0 auto; position: relative; z-index: 1; }
+        section { padding: 108px 0; position: relative; z-index: 1; }
+        .section-alt { background: var(--bg2); border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); }
+
+        /* ══════════════════════════════════════
+               SECTION HEADER
+            ══════════════════════════════════════ */
+        .section-label {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--accent);
+            display: block;
+            margin-bottom: 14px;
+            font-weight: 600;
+        }
+        .section-title {
+            font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin-bottom: 14px;
+            color: var(--text);
+        }
+        .section-desc { color: var(--muted); font-size: 0.95rem; max-width: 580px; line-height: 1.75; }
+        .section-head { margin-bottom: 52px; max-width: 640px; }
+
+        /* ══════════════════════════════════════
+               BUTTONS
+            ══════════════════════════════════════ */
+        .btn {
+            display: inline-flex; align-items: center; gap: 8px; font-weight: 600;
+            border-radius: 50px; font-family: var(--sans); transition: all 0.28s var(--ease);
+            cursor: pointer; border: none; font-size: 0.88rem; padding: 12px 26px;
+        }
+        .btn-primary { background: var(--text); color: #060607; }
+        .btn-primary:hover { background: var(--accent); color: #fff; transform: translateY(-1px); }
+        .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+        .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+        .link-arrow {
+            display: inline-flex; align-items: center; gap: 6px; font-weight: 600;
+            color: var(--muted); transition: color 0.25s var(--ease); font-size: 0.88rem;
+        }
+        .link-arrow:hover { color: var(--accent); }
+        .link-arrow svg { width: 13px; height: 13px; transition: transform 0.25s var(--ease); }
+        .link-arrow:hover svg { transform: translateX(3px); }
+
+        /* ══════════════════════════════════════
+               QUIET CHIPS / BADGES
+            ══════════════════════════════════════ */
+        .chip {
+            padding: 5px 13px; border-radius: 50px; font-size: 0.77rem; font-weight: 500;
+            background: rgba(255, 255, 255, 0.035); border: 1px solid var(--border);
+            color: var(--text2); transition: all 0.25s ease; cursor: default;
+        }
+        .chip:hover { border-color: var(--accent); color: var(--text); }
+
+        .badge {
+            font-family: var(--mono); font-size: 0.62rem; letter-spacing: 1.4px; text-transform: uppercase;
+            font-weight: 600; color: var(--text2); border: 1px solid var(--border);
+            padding: 5px 12px; border-radius: 5px; white-space: nowrap;
+        }
+        .badge.accent { color: var(--accent); border-color: rgba(10, 132, 255, 0.3); }
+
+        /* ══════════════════════════════════════
+               SCROLL REVEAL — subtle only
+            ══════════════════════════════════════ */
+        .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+        .reveal.in { opacity: 1; transform: translateY(0); }
+
+        /* ══════════════════════════════════════
+               NAVIGATION
+            ══════════════════════════════════════ */
+        #nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+            background: transparent; backdrop-filter: blur(0px); -webkit-backdrop-filter: blur(0px);
+            border-bottom: 1px solid transparent;
+            transition: background 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease;
+        }
+        #nav.scrolled {
+            background: rgba(5, 5, 6, 0.78); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom-color: var(--border-soft);
+        }
+        .nav-inner {
+            width: min(1120px, 90%); margin: 0 auto; display: flex; align-items: center;
+            justify-content: space-between; padding: 18px 0; transition: padding 0.4s ease;
+        }
+        #nav.scrolled .nav-inner { padding: 13px 0; }
+
+        .nav-logo { display: flex; align-items: center; gap: 10px; }
+        .nav-avatar {
+            width: 30px; height: 30px; border-radius: 50%; overflow: hidden; flex-shrink: 0;
+            background: var(--surface); border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--mono); font-size: 0.62rem; font-weight: 600; color: var(--text2);
+        }
+        .nav-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+        .nav-logo-name { font-size: 0.86rem; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
+
+        .nav-links { display: flex; align-items: center; gap: 2px; }
+        .nav-links a {
+            color: var(--muted); font-size: 0.82rem; font-weight: 500; padding: 7px 13px;
+            border-radius: var(--r-sm); transition: all 0.2s ease; letter-spacing: 0.1px;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--text); }
+
+        .nav-cta {
+            font-size: 0.8rem; font-weight: 600; padding: 9px 20px; border-radius: 50px;
+            background: var(--text); color: #060607; transition: all 0.28s var(--ease); white-space: nowrap;
+        }
+        .nav-cta:hover { background: var(--accent); color: #fff; }
+
+        .nav-toggle {
+            display: none; flex-direction: column; gap: 5px; background: none; border: none;
+            cursor: pointer; padding: 6px;
+        }
+        .nav-toggle span { display: block; width: 19px; height: 1.5px; background: var(--text); transition: all 0.3s ease; }
+        .nav-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .nav-toggle.open span:nth-child(2) { opacity: 0; }
+        .nav-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+        .nav-drawer { display: none; flex-direction: column; background: var(--bg2); border-top: 1px solid var(--border-soft); padding: 4px 0; }
+        .nav-drawer.open { display: flex; }
+        .nav-drawer a { color: var(--muted); padding: 14px 22px; font-size: 0.9rem; font-weight: 500; border-bottom: 1px solid var(--border-soft); }
+        .nav-drawer a:hover { color: var(--text); }
+
+        @media (max-width: 860px) { .nav-links, .nav-cta { display: none; } .nav-toggle { display: flex; } }
+        @media (min-width: 861px) { .nav-drawer { display: none !important; } .nav-toggle { display: none !important; } }
+
+        /* ══════════════════════════════════════
+               HERO
+            ══════════════════════════════════════ */
+        #hero { min-height: 94vh; display: flex; align-items: center; padding-top: 90px; }
+
+        .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 64px; align-items: center; }
+
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 9px; background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border); padding: 7px 16px; border-radius: 50px;
+            color: var(--text2); font-size: 0.78rem; font-weight: 500; margin-bottom: 26px;
+        }
+        .hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse-dot 2.4s infinite; }
+        @keyframes pulse-dot { 0%,100% { box-shadow: 0 0 0 0 rgba(10,132,255,0.45); } 50% { box-shadow: 0 0 0 5px rgba(10,132,255,0); } }
+
+        .hero-name { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; line-height: 1.04; letter-spacing: -0.035em; margin-bottom: 16px; color: var(--text); }
+        .hero-name em { color: var(--accent); font-style: normal; }
+
+        .hero-role {
+            font-family: var(--mono); font-size: 0.78rem; letter-spacing: 2px; color: var(--muted);
+            text-transform: uppercase; margin-bottom: 22px;
+        }
+
+        .hero-bio { color: var(--text2); font-size: 1.02rem; line-height: 1.8; max-width: 540px; margin-bottom: 34px; }
+        .hero-bio strong { color: var(--text); font-weight: 600; }
+
+        .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-bottom: 52px; }
+
+        .hero-metrics { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--border); }
+        .metric { padding: 22px 20px 0; border-right: 1px solid var(--border); }
+        .metric:last-child { border-right: none; }
+        .metric-value { font-size: 1.7rem; font-weight: 700; color: var(--text); display: block; line-height: 1; margin-bottom: 8px; letter-spacing: -0.02em; }
+        .metric-label { color: var(--dim); font-size: 0.72rem; line-height: 1.45; letter-spacing: 0.2px; }
+
+        /* ── Profile Card ── */
+        .profile-card {
+            background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-xl);
+            padding: 34px 28px 28px; box-shadow: var(--shadow);
+        }
+
+        .profile-avatar-wrap {
+            width: 104px; height: 104px; border-radius: 50%; margin: 0 auto 18px;
+            border: 1px solid var(--border); padding: 3px;
+        }
+        .profile-avatar { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: var(--card); display: block; }
+        .profile-avatar-fallback {
+            width: 100%; height: 100%; border-radius: 50%; background: var(--card);
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--mono); font-size: 1.9rem; font-weight: 600; color: var(--text2);
+        }
+
+        .profile-status {
+            display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 18px;
+            padding: 6px 14px; border-radius: 50px; background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+            font-family: var(--mono); font-size: 0.62rem; color: var(--text2); letter-spacing: 1.2px; text-transform: uppercase;
+        }
+        .profile-status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse-dot 2.4s infinite; flex-shrink: 0; }
+
+        .profile-name { font-size: 1.15rem; font-weight: 700; text-align: center; letter-spacing: -0.01em; margin-bottom: 3px; }
+        .profile-mono { font-family: var(--mono); font-size: 0.66rem; color: var(--muted); text-align: center; letter-spacing: 1.2px; margin-bottom: 20px; text-transform: uppercase; }
+        .profile-divider { height: 1px; background: var(--border); margin: 4px 0 16px; }
+
+        .profile-info-row { display: flex; align-items: center; gap: 11px; color: var(--text2); font-size: 0.81rem; padding: 5px 0; }
+        .profile-info-icon {
+            width: 26px; height: 26px; border-radius: 7px; flex-shrink: 0; background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border); display: flex; align-items: center; justify-content: center;
+        }
+        .profile-info-icon svg { width: 13px; height: 13px; color: var(--muted); }
+        .profile-info-row a:hover { color: var(--accent); }
+
+        .profile-actions-row { display: flex; gap: 8px; margin-top: 20px; }
+        .profile-action {
+            flex: 1; padding: 11px 6px; border-radius: var(--r-sm); text-align: center;
+            background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border);
+            font-size: 0.68rem; color: var(--muted); transition: all 0.25s var(--ease); cursor: pointer;
+            display: flex; flex-direction: column; align-items: center; gap: 5px; font-weight: 500;
+        }
+        .profile-action:hover { border-color: var(--accent); color: var(--text); transform: translateY(-2px); }
+        .profile-action svg { width: 16px; height: 16px; }
+
+        @media (max-width: 960px) {
+            .hero-grid { grid-template-columns: 1fr; gap: 44px; }
+            .profile-card { max-width: 400px; margin: 0 auto; }
+        }
+        @media (max-width: 640px) {
+            #hero { padding-top: 104px; min-height: auto; }
+            .hero-metrics { grid-template-columns: 1fr; }
+            .metric { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 18px; margin-bottom: 4px; }
+            .metric:last-child { border-bottom: none; }
+        }
+
+        /* ══════════════════════════════════════
+               ICON TILE — single quiet system, reused
+            ══════════════════════════════════════ */
+        .icon-tile {
+            width: 42px; height: 42px; border-radius: 10px; flex-shrink: 0;
+            background: var(--accent-dim); border: 1px solid rgba(10, 132, 255, 0.16);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .icon-tile svg { width: 20px; height: 20px; color: var(--accent); stroke-width: 1.6; }
+        .icon-tile.sm { width: 34px; height: 34px; border-radius: 9px; }
+        .icon-tile.sm svg { width: 16px; height: 16px; }
+
+        /* ══════════════════════════════════════
+               SKILLS
+            ══════════════════════════════════════ */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
+        .skill-card { background: var(--surface); padding: 28px 26px; transition: background 0.3s ease; }
+        .skill-card:hover { background: var(--card); }
+        .skill-header { display: flex; align-items: center; gap: 13px; margin-bottom: 18px; }
+        .skill-title { font-size: 0.9rem; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
+        .skill-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+
+        /* ══════════════════════════════════════
+               EXPERIENCE — timeline
+            ══════════════════════════════════════ */
+        .timeline { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
+        .exp-card { background: var(--surface); padding: 30px 32px; transition: background 0.3s ease; }
+        .exp-card:hover { background: var(--card); }
+        .exp-head { display: flex; align-items: flex-start; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
+        .exp-logo {
+            width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0; border: 1px solid var(--border);
+            background: var(--card); display: flex; align-items: center; justify-content: center;
+            font-family: var(--mono); font-size: 0.72rem; font-weight: 600; color: var(--text2); overflow: hidden;
+        }
+        .exp-logo img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; padding: 6px; }
+
+        .exp-meta-wrap { flex: 1; min-width: 0; }
+        .exp-role { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 3px; color: var(--text); }
+        .exp-company { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.6px; color: var(--muted); }
+        .exp-meta { color: var(--dim); font-size: 0.78rem; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 4px; }
+
+        .exp-points { padding-left: 18px; display: flex; flex-direction: column; gap: 6px; }
+        .exp-points li { color: var(--text2); font-size: 0.87rem; line-height: 1.7; position: relative; padding-left: 4px; }
+        .exp-points li::before { content: ''; position: absolute; left: -14px; top: 0.7em; width: 5px; height: 1.5px; background: var(--dim); }
+
+        @media (max-width: 640px) {
+            .exp-card { padding: 24px 20px; }
+            .exp-head { flex-direction: column; align-items: stretch; gap: 12px; }
+        }
+
+        /* ══════════════════════════════════════
+               CARD GRID — Projects, Research, Certs, Achievements
+            ══════════════════════════════════════ */
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(288px, 1fr)); gap: 20px; }
+
+        .card {
+            background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg);
+            overflow: hidden; transition: all 0.32s var(--ease); position: relative;
+        }
+        .card:hover { border-color: rgba(255,255,255,0.16); transform: translateY(-3px); box-shadow: var(--shadow-sm); background: var(--card); }
+
+        .card-img { position: relative; overflow: hidden; height: 176px; background: var(--card); }
+        .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .card:hover .card-img img { transform: scale(1.03); }
+
+        .card-img-placeholder {
+            height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: 12px; background: var(--card);
+        }
+        .card-img-placeholder-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 1.6px; text-transform: uppercase; color: var(--dim); }
+
+        .card-overlay {
+            position: absolute; inset: 0; background: rgba(5, 5, 6, 0.55); display: flex;
+            align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; cursor: pointer;
+        }
+        .card-overlay svg { width: 22px; height: 22px; color: var(--text); }
+        .card:hover .card-overlay { opacity: 1; }
+
+        .card-ribbon {
+            position: absolute; top: 12px; left: 12px; z-index: 2; padding: 5px 12px; border-radius: 50px;
+            font-family: var(--mono); font-size: 0.6rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+            background: rgba(5, 5, 6, 0.72); backdrop-filter: blur(6px); color: var(--text2); border: 1px solid var(--border);
+        }
+        .card-ribbon.gold { color: var(--gold); border-color: rgba(245, 185, 92, 0.3); }
+
+        .card-body { padding: 22px 24px 24px; }
+        .card-kicker { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 1.6px; text-transform: uppercase; color: var(--dim); margin-bottom: 8px; }
+        .card-title { font-size: 1rem; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.01em; line-height: 1.35; color: var(--text); }
+        .card-desc { color: var(--muted); font-size: 0.84rem; line-height: 1.7; margin-bottom: 15px; }
+        .card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 15px; }
+        .card-link { font-family: var(--mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.3px; transition: opacity 0.2s ease; }
+        .card-link:hover { opacity: 0.7; }
+
+        /* ══════════════════════════════════════
+               EDUCATION
+            ══════════════════════════════════════ */
+        .edu-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-xl); overflow: hidden; }
+        .edu-banner {
+            height: 128px; position: relative; overflow: hidden; background: var(--card);
+            display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--border);
+        }
+        .edu-banner img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.12; }
+        .edu-banner-inner { position: relative; z-index: 1; text-align: center; }
+        .edu-banner-uni { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 2.2px; color: var(--text2); text-transform: uppercase; }
+        .edu-body { padding: 32px 34px; }
+        .edu-degree { font-size: 1.32rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 14px; color: var(--text); }
+        .edu-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+        .edu-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.8; }
+
+        @media (max-width: 640px) { .edu-body { padding: 24px 20px; } .edu-degree { font-size: 1.12rem; } }
+
+        /* ══════════════════════════════════════
+               FOCUS
+            ══════════════════════════════════════ */
+        .focus-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+        .focus-chip {
+            display: flex; align-items: center; gap: 9px; padding: 10px 18px; border-radius: 50px;
+            background: var(--surface); border: 1px solid var(--border); font-size: 0.84rem; font-weight: 500;
+            color: var(--text2); transition: all 0.25s var(--ease);
+        }
+        .focus-chip:hover { border-color: var(--accent); color: var(--text); }
+        .focus-chip::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+        /* ══════════════════════════════════════
+               COMMUNITY
+            ══════════════════════════════════════ */
+        .community-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(258px, 1fr)); gap: 20px; }
+        .community-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; transition: all 0.32s var(--ease); cursor: pointer; }
+        .community-card:hover { border-color: rgba(255,255,255,0.16); transform: translateY(-3px); box-shadow: var(--shadow-sm); }
+        .community-img { position: relative; padding-top: 54%; overflow: hidden; background: var(--card); }
+        .community-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+        .community-card:hover .community-img img { transform: scale(1.04); }
+        .community-img-ph { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; background: var(--card); }
+        .community-body { padding: 17px 20px 20px; }
+        .community-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 3px; color: var(--text); }
+        .community-org { font-family: var(--mono); font-size: 0.62rem; color: var(--muted); letter-spacing: 0.8px; margin-bottom: 7px; text-transform: uppercase; }
+        .community-desc { color: var(--dim); font-size: 0.79rem; line-height: 1.6; }
+
+        /* ══════════════════════════════════════
+               CONTACT
+            ══════════════════════════════════════ */
+        .contact-row { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; padding: 8px 0; }
+        .contact-item { display: flex; flex-direction: column; align-items: center; gap: 9px; cursor: pointer; min-width: 74px; transition: transform 0.28s var(--ease); }
+        .contact-item:hover { transform: translateY(-4px); }
+        .contact-circle {
+            width: 66px; height: 66px; border-radius: 50%; border: 1px solid var(--border); background: var(--surface);
+            display: flex; align-items: center; justify-content: center; transition: all 0.28s var(--ease); color: var(--text2);
+        }
+        .contact-item:hover .contact-circle { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+        .contact-circle svg { width: 26px; height: 26px; flex-shrink: 0; }
+        .contact-label { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 1.2px; text-transform: uppercase; color: var(--dim); transition: color 0.28s var(--ease); }
+        .contact-item:hover .contact-label { color: var(--text2); }
+
+        @media (max-width: 640px) {
+            .contact-circle { width: 56px; height: 56px; }
+            .contact-circle svg { width: 22px; height: 22px; }
+            .contact-item { min-width: 58px; }
+        }
+
+        /* ══════════════════════════════════════
+               FOOTER
+            ══════════════════════════════════════ */
+        footer { border-top: 1px solid var(--border-soft); padding: 30px 0; color: var(--dim); font-size: 0.8rem; }
+        footer .wrap { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+        .footer-top { color: var(--dim); font-size: 0.78rem; border: 1px solid var(--border); padding: 6px 16px; border-radius: 50px; transition: all 0.25s ease; }
+        .footer-top:hover { border-color: var(--accent); color: var(--text2); }
+
+        /* ══════════════════════════════════════
+               LIGHTBOX
+            ══════════════════════════════════════ */
+        #lightbox {
+            position: fixed; inset: 0; z-index: 9999; background: rgba(3, 3, 4, 0.92);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            display: none; align-items: center; justify-content: center; padding: 2rem;
+        }
+        #lightbox.open { display: flex; }
+        .lb-inner { position: relative; max-width: 840px; width: 100%; }
+        .lb-img { width: 100%; max-height: 78vh; object-fit: contain; border-radius: var(--r-lg); border: 1px solid var(--border); }
+        .lb-cap { text-align: center; margin-top: 12px; color: var(--muted); font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.8px; }
+        .lb-close { position: absolute; top: -42px; right: 0; background: none; border: none; cursor: pointer; color: var(--muted); font-size: 1.3rem; }
+        .lb-close:hover { color: var(--text); }
+        .lb-nav {
+            position: absolute; top: 50%; transform: translateY(-50%); width: 38px; height: 38px; border-radius: 50%;
+            background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--text2);
+            display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem;
+        }
+        .lb-nav:hover { border-color: var(--accent); color: var(--accent); }
+        .lb-prev { left: -52px; } .lb-next { right: -52px; }
+        @media (max-width: 860px) { .lb-prev { left: -6px; } .lb-next { right: -6px; } }
+
+        /* ══════════════════════════════════════
+               RESPONSIVE
+            ══════════════════════════════════════ */
+        @media (max-width: 768px) {
+            section { padding: 76px 0; }
+            .skills-grid, .card-grid, .community-grid { grid-template-columns: 1fr; }
+            .card-img { height: 156px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav id="nav" role="navigation" aria-label="Primary">
+        <div class="nav-inner">
+            <a href="#hero" class="nav-logo" id="navLogo">
+                <span class="nav-avatar" id="navAvatar"></span>
+                <span class="nav-logo-name" id="navLogoName">Bilawal Ali</span>
+            </a>
+            <div class="nav-links" id="navLinks"></div>
+            <a class="nav-cta" id="navCta" href="#contact">Contact</a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <div class="nav-drawer" id="navDrawer"></div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero">
+        <div class="wrap">
+            <div class="hero-grid">
+                <div>
+                    <div class="hero-badge">
+                        <span class="hero-badge-dot"></span>
+                        <span id="heroBadge">Open to SOC Analyst &amp; Internship Roles</span>
+                    </div>
+                    <h1 class="hero-name" id="heroName">Bilawal <em>Ali</em></h1>
+                    <div class="hero-role" id="heroRole">SOC Analyst · Threat Hunter · Security Researcher</div>
+                    <p class="hero-bio" id="heroBio"></p>
+                    <div class="hero-actions">
+                        <a href="#projects" class="btn btn-primary">View Projects</a>
+                        <a href="resume/Bilawal_Ali_SOC_Analyst_Resume.pdf" class="btn btn-ghost" download>Download Resume</a>
+                        <a href="https://linkedin.com/in/bilawal-ali-0b0211245" target="_blank" rel="noopener" class="link-arrow">
+                            LinkedIn
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                        </a>
+                    </div>
+                    <div class="hero-metrics" id="heroMetrics"></div>
+                </div>
+
+                <div>
+                    <div class="profile-card">
+                        <div class="profile-avatar-wrap"><div id="profileAvatar"></div></div>
+                        <div class="profile-status"><span class="profile-status-dot"></span><span>Available for Hire</span></div>
+                        <div class="profile-name" id="profileName">Bilawal Ali</div>
+                        <div class="profile-mono" id="profileMono">SOC L1 Analyst</div>
+                        <div class="profile-divider"></div>
+                        <div id="profileInfo"></div>
+                        <div class="profile-actions-row" id="profileActions"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="section-alt">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <span class="section-label">Technical Arsenal</span>
+                <h2 class="section-title">Core Capabilities</h2>
+                <p class="section-desc">SIEM platforms, threat detection, offensive security, and forensic tooling used in SOC operations and security research.</p>
+            </div>
+            <div class="skills-grid" id="skillsGrid"></div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <span class="section-label">Career Path</span>
+                <h2 class="section-title">Professional Experience</h2>
+                <p class="section-desc">Hands-on cybersecurity experience across SOC monitoring, threat analysis, vulnerability assessment, and incident response.</p>
+            </div>
+            <div class="timeline" id="timeline"></div>
+        </div>
+    </section>
+
+    <!-- RESEARCH -->
+    <section id="research" class="section-alt">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <span class="section-label">Bug Bounty &amp; Research</span>
+                <h2 class="section-title">Vulnerability Research</h2>
+                <p class="section-desc">Security vulnerabilities responsibly identified during web application testing, bug bounty practice, and security research.</p>
+            </div>
+            <div class="card-grid" id="researchGrid"></div>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <span class="section-label">Selected Work</span>
+                <h2 class="section-title">Featured Projects</h2>
+                <p class="section-desc">Applied cybersecurity, DFIR, malware analysis, and SOC engineering projects.</p>
+            </div>
+            <div class="card-grid" id="projectsGrid"></div>
+        </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section id="certifications" class="section-alt">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <span class="section-label">Verified Credentials</span>
+                <h2 class="section-title">Certifications &amp; Training</h2>
+                <p class="section-desc">Professional certifications, cybersecurity training, and hands-on learning achievements.</p>
+            </div>
+            <div class="card-grid" id="certGrid"></div>
+        </div>
+    </section>
+
+    <!-- ACHIEVEMENTS -->
+    <section id="achievements">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <span class="section-label">Recognition</span>
+                <h2 class="section-title">Achievements &amp; Awards</h2>
+                <p class="section-desc">Competitions, bug bounty results, public speaking, and cybersecurity recognition.</p>
+            </div>
+            <div class="card-grid" id="achievementsGrid"></div>
+        </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education" class="section-alt">
+        <div class="wrap" style="max-width:740px">
+            <div class="section-head reveal">
+                <span class="section-label">Academic Background</span>
+                <h2 class="section-title">Education</h2>
+            </div>
+            <div id="educationSlot"></div>
+        </div>
+    </section>
+
+    <!-- FOCUS -->
+    <section id="focus">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <span class="section-label">Growth</span>
+                <h2 class="section-title">Currently Learning</h2>
+                <p class="section-desc">Topics actively being studied to level up as a security professional.</p>
+            </div>
+            <div class="focus-grid" id="focusGrid"></div>
+        </div>
+    </section>
+
+    <!-- COMMUNITY -->
+    <section id="community" class="section-alt">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <span class="section-label">Community</span>
+                <h2 class="section-title">Volunteer &amp; Events</h2>
+                <p class="section-desc">Community contributions, university events, and public speaking engagements.</p>
+            </div>
+            <div class="community-grid" id="communityGrid"></div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <span class="section-label">Get In Touch</span>
+                <h2 class="section-title">Contact</h2>
+                <p class="section-desc">Open to SOC Analyst, Blue Team, Threat Hunting, and cybersecurity internship opportunities.</p>
+            </div>
+            <div class="contact-row" id="contactRow"></div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="wrap">
+            <span>© 2026 Bilawal Ali · SOC Analyst · Hyderabad, Pakistan</span>
+            <a href="#hero" class="footer-top">Back to top</a>
+        </div>
+    </footer>
+
+    <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image preview">
+        <div class="lb-inner">
+            <button class="lb-close" id="lbClose" aria-label="Close preview">✕</button>
+            <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous">‹</button>
+            <button class="lb-nav lb-next" id="lbNext" aria-label="Next">›</button>
+            <img class="lb-img" id="lbImg" src="" alt="" />
+            <div class="lb-cap" id="lbCap"></div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+    DATA
+    ══════════════════════════════════════ -->
+    <script>
+        const DATA = {
+            profile: {
+                name: "Bilawal Ali",
+                photo: "assets/profile/profile-image.webp",
+                email: "khooharobilawalali@gmail.com",
+                phone: "+92 344 3559788",
+                linkedin: "https://linkedin.com/in/bilawal-ali-0b0211245",
+                github: "https://github.com/Bila-Ali",
+                location: "Hyderabad, Sindh, Pakistan",
+                resume: "resume/Bilawal_Ali_SOC_Analyst_Resume.pdf",
+                metrics: [
+                    { value: "1K+", label: "Daily events\nmonitored" },
+                    { value: "150+", label: "PortSwigger\nlabs completed" },
+                    { value: "10+", label: "Vulnerabilities\nidentified" }
+                ]
+            },
+
+            skills: [
+                { icon: "shield", title: "SIEM &amp; Log Analysis", items: ["Wazuh", "Splunk", "ELK Stack", "Kibana", "Logstash", "Alert Triage", "Log Correlation"] },
+                { icon: "radar", title: "Threat Detection &amp; IR", items: ["Threat Hunting", "Incident Response", "MITRE ATT&amp;CK", "IOC Analysis", "YARA", "FIM"] },
+                { icon: "target", title: "Offensive Security", items: ["Burp Suite", "Nmap", "Metasploit", "SQLmap", "Hydra", "VAPT", "Ncrack"] },
+                { icon: "search", title: "Forensics &amp; Malware", items: ["Volatility", "Autopsy", "REMnux", "FLARE-VM", "DFIR", "Static Analysis"] },
+                { icon: "code", title: "Programming &amp; Scripting", items: ["Python", "Bash", "Scapy", "Pandas", "Flask"] },
+                { icon: "network", title: "Network &amp; Frameworks", items: ["Suricata IDS", "pfSense", "Wireshark", "TCP/IP", "NIST 800-61", "OWASP Top 10", "Cyber Kill Chain"] }
+            ],
+
+            experience: [{
+                role: "SOC Analyst Intern — L1",
+                company: "Cyberster",
+                location: "Remote",
+                date: "2026 – Present",
+                badge: "Blue Team",
+                logo: "assets/companies-logs/cyberster-log.webp",
+                points: [
+                    "Monitored and triaged 1,000+ daily security events using Wazuh SIEM, reducing mean time to detect through systematic alert prioritization.",
+                    "Investigated brute-force attacks, authentication anomalies, and lateral movement across Linux and Windows endpoints.",
+                    "Developed 5+ custom Wazuh detection rules, improving coverage for previously unmonitored attack vectors.",
+                    "Configured File Integrity Monitoring (FIM) to detect unauthorized system changes and privilege escalation activity.",
+                    "Implemented Active Response policies to auto-block malicious IPs, reducing manual remediation workload.",
+                    "Mapped alerts to MITRE ATT&amp;CK tactics; authored structured incident reports per SOC escalation procedures."
+                ]
+            }, {
+                role: "Red Team Intern",
+                company: "ITSOLERA Pvt Ltd",
+                location: "Remote",
+                date: "Jun 2024 – Aug 2024",
+                badge: "Red Team",
+                logo: "assets/companies-logs/ITSOLERA-log.webp",
+                points: [
+                    "Executed 20+ VAPT assessments against web applications using industry-standard methodologies.",
+                    "Identified SQL Injection, XSS, CSRF, and broken authentication vulnerabilities; delivered formal client reports.",
+                    "Leveraged Burp Suite for HTTP interception and Metasploit for post-exploitation and privilege escalation testing."
+                ]
+            }, {
+                role: "Independent Bug Hunter",
+                company: "Security Researcher",
+                location: "Self-Employed",
+                date: "Jan 2024 – Present",
+                badge: "Bug Bounty",
+                logo: "",
+                points: [
+                    "Conducted 10+ independent assessments across public web applications and APIs with responsible disclosure.",
+                    "Discovered SQL Injection, XSS, and access-control flaws — including sensitive data exposure (names, emails, CNICs).",
+                    "Awarded Consolation Prize at NADRA Bug Bounty Challenge 2026 as Team Lead at national level."
+                ]
+            }, {
+                role: "Cybersecurity Intern",
+                company: "CodeAlpha",
+                location: "Remote",
+                date: "2023",
+                badge: "Intern",
+                logo: "assets/company/codealpha.png",
+                points: [
+                    "Developed a Python network traffic sniffer using Scapy for live packet capture and protocol analysis.",
+                    "Built foundational skills in network analysis and security-focused Python scripting."
+                ]
+            }],
+
+            research: [{
+                icon: "bug",
+                kicker: "SQL Injection",
+                title: "Union-Based SQL Injection",
+                image: "assets/Vulnerabilities/union-sql-injection.webp",
+                desc: "Identified a SQL Injection vulnerability capable of exposing database version and sensitive data through UNION query manipulation.",
+                tags: ["SQL Injection", "MySQL", "Burp Suite", "OWASP"],
+                link: ""
+            }, {
+                icon: "bug",
+                kicker: "Blind SQLi",
+                title: "Time-Based Blind SQL Injection",
+                image: "assets/Vulnerabilities/time-base-sqli.webp",
+                desc: "Detected blind SQL Injection using SLEEP-based time-delay techniques, confirming backend database interaction and data exfiltration risk.",
+                tags: ["Blind SQLi", "OWASP", "VAPT", "SQLmap"],
+                link: ""
+            }, {
+                icon: "bug",
+                kicker: "Access Control",
+                title: "Sensitive Data Exposure (IDOR)",
+                image: "assets/Vulnerabilities/idor-vuln.webp",
+                desc: "Discovered an access-control flaw where modifying request parameters exposed large sets of user records including names, emails, CNICs, and financial data.",
+                tags: ["IDOR", "Access Control", "AppSec", "Responsible Disclosure"],
+                link: ""
+            }, {
+                icon: "bug",
+                kicker: "Web Security",
+                title: "Cross-Site Scripting (XSS)",
+                image: "assets/Vulnerabilities/XSS-injection.webp",
+                desc: "Tested and validated reflected XSS behavior in web application input fields during security assessments.",
+                tags: ["XSS", "Web Security", "Burp Suite", "AppSec"],
+                link: ""
+            }],
+
+            projects: [{
+                icon: "cpu",
+                kicker: "Machine Learning · Ongoing",
+                title: "AI-Based PDF Malware Detection",
+                image: "assets/project/FYP.webp",
+                desc: "ML system trained on 10,000+ PDF samples with Explainable AI (SHAP) to surface feature importance for analyst-interpretable SOC triage decisions.",
+                tags: ["Python", "Machine Learning", "SHAP", "Malware Analysis"],
+                link: ""
+            }, {
+                icon: "mail",
+                kicker: "DFIR Tool",
+                title: "MailForensics — Email Analysis Platform",
+                image: "assets/project/mail-project.webp",
+                desc: "Open-source Python/Streamlit DFIR tool for SOC teams. Parses .eml files, extracts IOCs, runs SPF/DKIM/DMARC checks, detects phishing, and generates risk scores.",
+                tags: ["Python", "Streamlit", "DFIR", "IOC", "Phishing"],
+                link: "https://github.com/Bila-Ali"
+            }, {
+                icon: "server",
+                kicker: "Home Lab",
+                title: "SOC &amp; Threat Simulation Lab",
+                image: "assets/project/siem-tools.webp",
+                desc: "Full home lab with Splunk, Wazuh, ELK Stack, pfSense firewall, and Suricata IDS. Simulated attacks to validate detection rules and NIST SP 800-61 IR playbooks.",
+                tags: ["Splunk", "Wazuh", "ELK", "Suricata", "pfSense"],
+                link: ""
+            }, {
+                icon: "search",
+                kicker: "Malware Analysis",
+                title: "FlareVM Malware Analysis Lab",
+                image: "assets/project/flare-vm.webp",
+                desc: "Step-by-step VirtualBox setup of FlareVM and REMnux for malware analysis and reverse engineering with documented static and dynamic analysis workflows.",
+                tags: ["FLARE-VM", "VirtualBox", "Reverse Engineering", "REMnux"],
+                link: ""
+            }, {
+                icon: "network",
+                kicker: "Network / OSINT",
+                title: "Network Sniffer &amp; OSINT Tools",
+                image: "assets/project/network-sniffer.webp",
+                desc: "Python-based network traffic sniffer using Scapy for live packet capture and protocol analysis. Also built automated OSINT information-gathering scripts.",
+                tags: ["Python", "Scapy", "OSINT", "Network Analysis"],
+                link: "https://github.com/Bila-Ali"
+            }, {
+                icon: "target",
+                kicker: "Red Team",
+                title: "HTB Professional Offensive Operations",
+                image: "assets/project/P.O.O-Hack-the-box.webp",
+                desc: "Completed the P.O.O. Pro Lab on Hack The Box simulating real red team operations: initial access, lateral movement, and Active Directory exploitation.",
+                tags: ["Red Team", "Active Directory", "HTB", "Pen Testing"],
+                link: ""
+            }],
+
+            certifications: [{
+                icon: "award",
+                name: "Certified Ethical Hacker (CEH)",
+                issuer: "PFTP · Medal &amp; Certificate",
+                medal: true,
+                image: "assets/certifications/CEH-PFTP-madel.webp",
+                verify: ""
+            }, {
+                icon: "target",
+                name: "Professional Offensive Operations Pro Lab",
+                issuer: "Hack The Box",
+                medal: false,
+                image: "assets/certifications/P.O.O-Hack-the-box.webp",
+                verify: ""
+            }, {
+                icon: "award",
+                name: "Google Cybersecurity Professional Certificate",
+                issuer: "Google · v2",
+                medal: false,
+                image: "assets/certifications/Google-v2.webp",
+                verify: ""
+            }, {
+                icon: "award",
+                name: "Intro to Splunk (eLearning)",
+                issuer: "Splunk · 2026",
+                medal: false,
+                image: "assets/certifications/splunk-cert.webp",
+                verify: ""
+            }, {
+                icon: "network",
+                name: "Junior Cybersecurity Analyst Career Path",
+                issuer: "Cisco Networking Academy",
+                medal: false,
+                image: "assets/certifications/junior-cybersecurity-analyst-path.webp",
+                verify: ""
+            }, {
+                icon: "shield",
+                name: "Endpoint Security",
+                issuer: "Cisco Networking Academy",
+                medal: false,
+                image: "assets/certifications/End-point-cisco.webp",
+                verify: ""
+            }, {
+                icon: "award",
+                name: "Ethical Hacking Essentials",
+                issuer: "EC-Council",
+                medal: false,
+                image: "assets/certifications/Ethical-Hacking-Essentials.webp",
+                verify: ""
+            }, {
+                icon: "code",
+                name: "Python Certification",
+                issuer: "PFTP",
+                medal: false,
+                image: "assets/certifications/python.webp",
+                verify: ""
+            }],
+
+            achievements: [{
+                icon: "trophy",
+                title: "QUEST CTF 2026",
+                ribbon: "1st Place",
+                gold: true,
+                image: "assets/achievements/quest-shield.webp",
+                desc: "Secured 1st place in a university-level Capture The Flag cybersecurity competition."
+            }, {
+                icon: "trophy",
+                title: "NADRA Bug Bounty 2026",
+                ribbon: "Consolation Prize",
+                gold: false,
+                image: "assets/achievements/nadar-check-photo.webp",
+                desc: "Led a team as Team Lead in Pakistan's national NADRA bug bounty. Identified and responsibly reported live vulnerabilities."
+            }, {
+                icon: "trophy",
+                title: "Ignite CTF Hackathon",
+                ribbon: "Rank 29th",
+                gold: false,
+                image: "assets/achievements/ignite.webp",
+                desc: "Competed nationally with Muet Cyber Squad, ranking 29th in a real-world cybersecurity challenge."
+            }, {
+                icon: "mic",
+                title: "Guest Speaker — MUET",
+                ribbon: "Invited Speaker",
+                gold: false,
+                image: "assets/achievements/muet-guest-speaker.webp",
+                desc: "Delivered a cybersecurity session for BSc Cyber Security 25th Batch at MUET Jamshoro."
+            }, {
+                icon: "search",
+                title: "PortSwigger Web Security",
+                ribbon: "150+ Labs",
+                gold: false,
+                image: "assets/achievements/portswigger.webp",
+                desc: "Completed 150+ hands-on labs covering SQLi, XSS, CSRF, SSRF, and advanced web security topics."
+            }, {
+                icon: "award",
+                title: "CEH Medal Award",
+                ribbon: "Medal Awarded",
+                gold: true,
+                image: "assets/achievements/CEH-PFTP-madel.webp",
+                desc: "Awarded a medal alongside the CEH certificate by PFTP for outstanding performance."
+            }],
+
+            education: {
+                degree: "Bachelor of Science in Cyber Security",
+                university: "Mehran University of Engineering &amp; Technology",
+                cgpa: "3.31 / 4.0",
+                year: "Final Year · 7th Semester",
+                location: "Jamshoro, Pakistan",
+                banner: "assets/muet-log/muet-logo.webp",
+                desc: "Focused on network security, digital forensics, ethical hacking, and security operations. Led the university team at NADRA's national bug bounty and secured 1st place at QUEST CTF 2026. Active in the MUET Cyber Security Society. Final-year project: AI-based PDF malware detection with explainable machine learning."
+            },
+
+            focus: ["Advanced Threat Hunting", "Detection Engineering", "Malware Reverse Engineering", "Splunk SPL & Dashboards", "Cloud Security (AWS)", "SIEM Tuning", "Elastic SIEM", "Sigma Rules"],
+
+            community: [{
+                icon: "users",
+                title: "MUET Job Fair 2025",
+                org: "MUET · ORIC Team",
+                image: "assets/Volunteer/Muet-job-fair.webp",
+                desc: "Facilitated placements and internship opportunities; coordinated with 20+ participating companies."
+            }, {
+                icon: "users",
+                title: "MUET Tech Show",
+                org: "Mehran University",
+                image: "assets/Volunteer/tech-show.webp",
+                desc: "Volunteered at the annual showcase where final-year students presented innovative projects to industry."
+            }, {
+                icon: "users",
+                title: "MUET Alumni Convention 2025",
+                org: "Mehran University",
+                image: "assets/Volunteer/muet-alumni.webp",
+                desc: "Volunteer enabling networking and reconnection among university graduates."
+            }, {
+                icon: "mic",
+                title: "Cybersecurity Guest Speaker",
+                org: "MUET Cyber Security Society",
+                image: "assets/Volunteer/guest-speaker.webp",
+                desc: "Delivered a cybersecurity session for the 25th Batch BSc Cyber Security; received certificate of appreciation."
+            }]
+        };
+    </script>
+
+    <!-- ══════════════════════════════════════
+    ICONS — one restrained line-icon set, reused throughout (no emoji)
+    ══════════════════════════════════════ -->
+    <script>
+        const SVG = {
+            shield: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6z"/></svg>`,
+            radar: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><path d="M12 3v3M21 12h-3"/></svg>`,
+            target: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="0.8" fill="currentColor"/></svg>`,
+            search: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>`,
+            code: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="8,6 3,12 8,18"/><polyline points="16,6 21,12 16,18"/></svg>`,
+            network: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2.2"/><circle cx="19" cy="6" r="2.2"/><circle cx="12" cy="18" r="2.2"/><path d="M6.8 7.3L11 16.5M17.2 7.3L13 16.5"/></svg>`,
+            bug: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="8" height="10" rx="4"/><path d="M12 8V5M9 5l1.5 1.5M15 5l-1.5 1.5M4 12h4M16 12h4M5.5 17.5l3-2M18.5 17.5l-3-2"/></svg>`,
+            cpu: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M7 3v2M17 3v2M7 19v2M17 19v2"/></svg>`,
+            mail: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>`,
+            server: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/><path d="M7 7h.01M7 17h.01"/></svg>`,
+            award: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M8.5 12.5L7 21l5-2.5 5 2.5-1.5-8.5"/></svg>`,
+            trophy: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v4a4 4 0 0 1-8 0V4z"/><path d="M8 5H5a2 2 0 0 0 2 4M16 5h3a2 2 0 0 1-2 4"/><path d="M12 12v3M9 19h6M9 19c0-2 1-3 1-3M15 19c0-2-1-3-1-3"/></svg>`,
+            mic: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>`,
+            users: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5"/><circle cx="17.5" cy="8.5" r="2.3"/><path d="M15.5 14c2.3.3 4 2 4 4.5"/></svg>`,
+            building: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h.01M15 7h.01M9 11h.01M15 11h.01M9 15h.01M15 15h.01"/></svg>`,
+            chevron: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9,6 15,12 9,18"/></svg>`,
+            email: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,7 12,14 22,7"/></svg>`,
+            linkedin: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>`,
+            github: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>`,
+            resume: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`,
+            phone: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`,
+            location: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`
+        };
+    </script>
+
+    <!-- ══════════════════════════════════════
+    RENDERER
+    ══════════════════════════════════════ -->
+    <script>
+        const $ = id => document.getElementById(id);
+        const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; };
+
+        /* ── NAV ── */
+        const NAV_ITEMS = [
+            ["skills", "Skills"], ["experience", "Experience"], ["research", "Research"],
+            ["projects", "Projects"], ["certifications", "Certs"], ["achievements", "Achievements"],
+            ["education", "Education"], ["community", "Community"], ["contact", "Contact"]
+        ];
+        NAV_ITEMS.forEach(([id, label]) => {
+            const a = el("a", "", label); a.href = `#${id}`; $("navLinks").appendChild(a);
+            const d = el("a", "", label); d.href = `#${id}`;
+            d.onclick = () => { $("navDrawer").classList.remove("open"); $("navToggle").classList.remove("open"); $("navToggle").setAttribute("aria-expanded","false"); };
+            $("navDrawer").appendChild(d);
+        });
+        $("navToggle").onclick = () => {
+            const open = $("navToggle").classList.toggle("open");
+            $("navDrawer").classList.toggle("open", open);
+            $("navToggle").setAttribute("aria-expanded", String(open));
+        };
+
+        const p = DATA.profile;
+        const initials = p.name.split(" ").map(n => n[0]).join("").slice(0,2).toUpperCase();
+        const navAvatar = $("navAvatar");
+        if (p.photo) {
+            const img = el("img",""); img.src = p.photo; img.alt = p.name;
+            img.onerror = function(){ this.replaceWith(document.createTextNode(initials)); };
+            navAvatar.appendChild(img);
+        } else { navAvatar.textContent = initials; }
+
+        window.addEventListener("scroll", () => {
+            $("nav").classList.toggle("scrolled", scrollY > 20);
+            let cur = "";
+            document.querySelectorAll("section[id]").forEach(s => { if (scrollY >= s.offsetTop - 100) cur = s.id; });
+            document.querySelectorAll(".nav-links a, .nav-drawer a").forEach(a => a.classList.toggle("active", a.getAttribute("href") === `#${cur}`));
+        }, { passive: true });
+
+        /* ── HERO ── */
+        const nameParts = p.name.split(" ");
+        $("heroName").innerHTML = `${nameParts[0]} <em>${nameParts.slice(1).join(" ")}</em>`;
+        $("heroBio").innerHTML = `SOC Analyst with hands-on experience in SIEM monitoring, incident response, threat detection, and blue team operations. Skilled in <strong>Wazuh</strong>, <strong>Splunk</strong>, <strong>ELK Stack</strong>, <strong>MITRE ATT&amp;CK</strong>, and malware analysis.`;
+        $("heroBadge").textContent = "Open to SOC Analyst & Internship Roles";
+        $("heroMetrics").innerHTML = p.metrics.map(m =>
+            `<div class="metric"><span class="metric-value">${m.value}</span><span class="metric-label">${m.label.replace("\n","<br>")}</span></div>`
+        ).join("");
+
+        /* ── PROFILE CARD ── */
+        const avatarWrap = $("profileAvatar");
+        if (p.photo) {
+            const img = el("img","profile-avatar"); img.src = p.photo; img.alt = p.name;
+            img.onerror = function(){ const fb = el("div","profile-avatar-fallback"); fb.textContent = initials; this.replaceWith(fb); };
+            avatarWrap.appendChild(img);
+        } else { const fb = el("div","profile-avatar-fallback"); fb.textContent = initials; avatarWrap.appendChild(fb); }
+
+        $("profileMono").textContent = "SOC L1 Analyst";
+        $("profileInfo").innerHTML = [
+            { ico: SVG.email, val: p.email, href: `mailto:${p.email}` },
+            { ico: SVG.location, val: p.location, href: "#" },
+            { ico: SVG.phone, val: p.phone, href: `tel:${p.phone.replace(/\s+/g,'')}` }
+        ].map(r => `<div class="profile-info-row"><span class="profile-info-icon">${r.ico}</span><a href="${r.href}" target="${r.href==='#'?'_self':'_blank'}" rel="noopener">${r.val}</a></div>`).join("");
+
+        $("profileActions").innerHTML = [
+            { ico: SVG.github, lbl: "GitHub", href: p.github },
+            { ico: SVG.linkedin, lbl: "LinkedIn", href: p.linkedin },
+            { ico: SVG.resume, lbl: "Resume", href: p.resume, dl: true }
+        ].map(a => `<a href="${a.href}" target="_blank" class="profile-action" ${a.dl?'download':''} rel="noopener">${a.ico}${a.lbl}</a>`).join("");
+
+        /* ── SKILLS ── */
+        $("skillsGrid").innerHTML = DATA.skills.map((s,i) =>
+            `<div class="skill-card reveal" style="transition-delay:${i*0.05}s">
+              <div class="skill-header">
+                <span class="icon-tile sm">${SVG[s.icon] || SVG.shield}</span>
+                <span class="skill-title">${s.title}</span>
+              </div>
+              <div class="skill-chips">${s.items.map(t => `<span class="chip">${t}</span>`).join("")}</div>
+            </div>`
+        ).join("");
+
+        /* ── EXPERIENCE ── */
+        $("timeline").innerHTML = DATA.experience.map((e,i) => {
+            const logoHtml = e.logo
+                ? `<img src="${e.logo}" alt="${e.company}" onerror="this.replaceWith(document.createTextNode('${initialsOf(e.company)}'))">`
+                : initialsOf(e.company);
+            return `<div class="exp-card reveal" style="transition-delay:${i*0.06}s">
+              <div class="exp-head">
+                <div class="exp-logo">${logoHtml}</div>
+                <div class="exp-meta-wrap">
+                  <div class="exp-role">${e.role}</div>
+                  <div class="exp-company">${e.company}</div>
+                  <div class="exp-meta"><span>${e.location}</span> · <span>${e.date}</span></div>
+                </div>
+                <span class="badge accent">${e.badge}</span>
+              </div>
+              <ul class="exp-points">${e.points.map(pt => `<li>${pt}</li>`).join("")}</ul>
+            </div>`;
+        }).join("");
+
+        function initialsOf(name){ return name.split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase(); }
+
+        /* ── CARD BUILDER ── */
+        function buildCard(item, group, delay = 0.05) {
+            const imgHtml = item.image
+                ? `<img src="${item.image}" alt="${item.title}" onerror="this.replaceWith(makePlaceholder('${item.icon}','${(item.kicker||item.title).replace(/'/g,"")}'))">`
+                : `<div class="card-img-placeholder"><span class="icon-tile">${SVG[item.icon]||SVG.shield}</span><div class="card-img-placeholder-label">${item.kicker || item.title}</div></div>`;
+
+            const ribbon = item.ribbon ? `<span class="card-ribbon ${item.gold?'gold':''}">${item.ribbon}</span>` : "";
+
+            const lbAttr = group
+                ? `data-lb-group="${group}" data-lb-src="${item.image||''}" data-lb-cap="${item.title}" onclick="openLb(this,'${group}')"`
+                : "";
+
+            return `<div class="card reveal" style="transition-delay:${delay}s" ${lbAttr}>
+              <div class="card-img">
+                ${imgHtml}
+                ${ribbon}
+                ${group ? `<div class="card-overlay">${SVG.search}</div>` : ""}
+              </div>
+              <div class="card-body">
+                ${item.kicker ? `<div class="card-kicker">${item.kicker}</div>` : ""}
+                <div class="card-title">${item.title}</div>
+                ${item.desc ? `<div class="card-desc">${item.desc}</div>` : ""}
+                ${item.tags && item.tags.length ? `<div class="card-tags">${item.tags.map(t => `<span class="chip">${t}</span>`).join("")}</div>` : ""}
+                ${item.link ? `<a href="${item.link}" target="_blank" class="card-link" onclick="event.stopPropagation()">View on GitHub →</a>` : ""}
+                ${item.verify ? `<a href="${item.verify}" target="_blank" class="card-link" onclick="event.stopPropagation()">Verify Certificate →</a>` : ""}
+              </div>
+            </div>`;
+        }
+
+        window.makePlaceholder = function(icon, label) {
+            const d = document.createElement("div");
+            d.className = "card-img-placeholder";
+            d.innerHTML = `<span class="icon-tile">${SVG[icon]||SVG.shield}</span><div class="card-img-placeholder-label">${label}</div>`;
+            return d;
+        };
+
+        $("researchGrid").innerHTML = DATA.research.map((r,i) => buildCard({...r, tags: r.tags||[]}, "research", 0.05+i*0.03)).join("");
+        $("projectsGrid").innerHTML = DATA.projects.map((pr,i) => buildCard({...pr, tags: pr.tags||[]}, "projects", 0.05+i*0.03)).join("");
+        $("certGrid").innerHTML = DATA.certifications.map((c,i) => buildCard({...c, kicker: c.issuer, title: c.name, tags: [], desc: ""}, "certs", 0.05+i*0.03)).join("");
+        $("achievementsGrid").innerHTML = DATA.achievements.map((a,i) => buildCard({...a, tags: []}, "achievements", 0.05+i*0.03)).join("");
+
+        /* ── EDUCATION ── */
+        const ed = DATA.education;
+        $("educationSlot").innerHTML = `
+          <div class="edu-card reveal">
+            <div class="edu-banner">
+              <img src="${ed.banner}" alt="${ed.university}" onerror="this.style.display='none'">
+              <div class="edu-banner-inner"><div class="edu-banner-uni">${ed.university}</div></div>
+            </div>
+            <div class="edu-body">
+              <div class="edu-degree">${ed.degree}</div>
+              <div class="edu-pills">
+                <span class="badge accent">CGPA ${ed.cgpa}</span>
+                <span class="badge">${ed.location}</span>
+                <span class="badge">${ed.year}</span>
+              </div>
+              <div class="edu-desc">${ed.desc}</div>
+            </div>
+          </div>`;
+
+        /* ── FOCUS ── */
+        $("focusGrid").innerHTML = DATA.focus.map((f,i) => `<div class="focus-chip reveal" style="transition-delay:${i*0.03}s">${f}</div>`).join("");
+
+        /* ── COMMUNITY ── */
+        $("communityGrid").innerHTML = DATA.community.map((c,i) =>
+            `<div class="community-card reveal" style="transition-delay:${i*0.06}s" data-lb-group="community" data-lb-src="${c.image}" data-lb-cap="${c.title}" onclick="openLb(this,'community')">
+              <div class="community-img">
+                <img src="${c.image}" alt="${c.title}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                <div class="community-img-ph"><span class="icon-tile sm">${SVG[c.icon]||SVG.users}</span></div>
+                <div class="card-overlay">${SVG.search}</div>
+              </div>
+              <div class="community-body">
+                <div class="community-title">${c.title}</div>
+                <div class="community-org">${c.org}</div>
+                <div class="community-desc">${c.desc}</div>
+              </div>
+            </div>`
+        ).join("");
+
+        /* ── CONTACT ── */
+        $("contactRow").innerHTML = [
+            { svg: SVG.email, label: "Email", href: `mailto:${p.email}` },
+            { svg: SVG.linkedin, label: "LinkedIn", href: p.linkedin },
+            { svg: SVG.github, label: "GitHub", href: p.github },
+            { svg: SVG.resume, label: "Resume", href: p.resume, dl: true },
+            { svg: SVG.phone, label: "Phone", href: `tel:${p.phone.replace(/\s+/g,'')}` },
+            { svg: SVG.location, label: "Location", href: "#", self: true }
+        ].map((c,i) =>
+            `<a class="contact-item reveal" style="transition-delay:${i*0.05}s" href="${c.href}" target="${c.self?'_self':'_blank'}" ${c.dl?'download':''} rel="noopener">
+              <div class="contact-circle">${c.svg}</div>
+              <span class="contact-label">${c.label}</span>
+            </a>`
+        ).join("");
+
+        /* ── SCROLL REVEAL ── */
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("in"); });
+        }, { threshold: 0.06, rootMargin: "0px 0px -30px 0px" });
+        document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+        /* ── LIGHTBOX ── */
+        let lbGroup = [], lbIdx = 0;
+        function openLb(card, group) {
+            lbGroup = Array.from(document.querySelectorAll(`[data-lb-group="${group}"]`));
+            lbIdx = lbGroup.indexOf(card);
+            showLb(lbIdx);
+            $("lightbox").classList.add("open");
+            document.body.style.overflow = "hidden";
+        }
+        function showLb(idx) {
+            const c = lbGroup[idx];
+            const src = c.dataset.lbSrc || "";
+            $("lbImg").src = src; $("lbImg").style.display = src ? "block" : "none";
+            $("lbCap").textContent = c.dataset.lbCap || "";
+            $("lbPrev").style.display = $("lbNext").style.display = lbGroup.length > 1 ? "flex" : "none";
+        }
+        function closeLb() { $("lightbox").classList.remove("open"); document.body.style.overflow = ""; }
+        function lbMove(d) { lbIdx = (lbIdx + d + lbGroup.length) % lbGroup.length; showLb(lbIdx); }
+        $("lbClose").onclick = closeLb;
+        $("lbPrev").onclick = () => lbMove(-1);
+        $("lbNext").onclick = () => lbMove(1);
+        $("lightbox").addEventListener("click", e => { if (e.target === $("lightbox")) closeLb(); });
+        document.addEventListener("keydown", e => {
+            if (!$("lightbox").classList.contains("open")) return;
+            if (e.key === "Escape") closeLb();
+            if (e.key === "ArrowLeft") lbMove(-1);
+            if (e.key === "ArrowRight") lbMove(1);
+        });
+    </script>
+
+</body>
+</html>
