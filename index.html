@@ -236,55 +236,68 @@
         .metric-value { font-size: 1.7rem; font-weight: 700; color: var(--text); display: block; line-height: 1; margin-bottom: 8px; letter-spacing: -0.02em; }
         .metric-label { color: var(--dim); font-size: 0.72rem; line-height: 1.45; letter-spacing: 0.2px; }
 
-        /* ── Profile Card ── */
+        /* ── Profile Panel — open layout, no card box ── */
         .profile-card {
-            background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-xl);
-            padding: 34px 28px 28px; box-shadow: var(--shadow);
+            position: relative;
+            padding: 4px 0 0;
+            border-top: 1px solid var(--border);
         }
+
+        .profile-top { display: flex; align-items: center; gap: 18px; padding-top: 28px; margin-bottom: 22px; }
 
         .profile-avatar-wrap {
-            width: 104px; height: 104px; border-radius: 50%; margin: 0 auto 18px;
-            border: 1px solid var(--border); padding: 3px;
+            width: 76px; height: 76px; border-radius: 50%; flex-shrink: 0; position: relative;
+            box-shadow: 0 14px 28px rgba(0,0,0,0.5);
         }
-        .profile-avatar { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: var(--card); display: block; }
+        .profile-avatar { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: var(--card); border: 1px solid rgba(255,255,255,0.14); display: block; }
         .profile-avatar-fallback {
-            width: 100%; height: 100%; border-radius: 50%; background: var(--card);
+            width: 100%; height: 100%; border-radius: 50%; background: var(--card); border: 1px solid rgba(255,255,255,0.14);
             display: flex; align-items: center; justify-content: center;
-            font-family: var(--mono); font-size: 1.9rem; font-weight: 600; color: var(--text2);
+            font-family: var(--mono); font-size: 1.3rem; font-weight: 600; color: var(--text2);
         }
 
+        .profile-id { min-width: 0; }
+        .profile-name-row { display: flex; align-items: center; gap: 6px; margin-bottom: 3px; }
+        .profile-name { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.015em; color: var(--text); }
+        .profile-verified { width: 15px; height: 15px; color: var(--accent); flex-shrink: 0; }
+        .profile-verified svg { width: 100%; height: 100%; }
+        .profile-mono { font-family: var(--mono); font-size: 0.66rem; color: var(--muted); letter-spacing: 1.2px; margin-bottom: 8px; text-transform: uppercase; }
+
         .profile-status {
-            display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 18px;
-            padding: 6px 14px; border-radius: 50px; background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-            font-family: var(--mono); font-size: 0.62rem; color: var(--text2); letter-spacing: 1.2px; text-transform: uppercase;
+            display: inline-flex; align-items: center; gap: 7px;
+            padding: 5px 13px; border-radius: 50px; background: rgba(10,132,255,0.05); border: 1px solid rgba(10,132,255,0.18);
+            font-family: var(--mono); font-size: 0.6rem; color: var(--text2); letter-spacing: 1px; text-transform: uppercase;
         }
         .profile-status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse-dot 2.4s infinite; flex-shrink: 0; }
 
-        .profile-name { font-size: 1.15rem; font-weight: 700; text-align: center; letter-spacing: -0.01em; margin-bottom: 3px; }
-        .profile-mono { font-family: var(--mono); font-size: 0.66rem; color: var(--muted); text-align: center; letter-spacing: 1.2px; margin-bottom: 20px; text-transform: uppercase; }
-        .profile-divider { height: 1px; background: var(--border); margin: 4px 0 16px; }
+        .profile-divider { height: 1px; background: var(--border); margin: 0 0 4px; }
 
-        .profile-info-row { display: flex; align-items: center; gap: 11px; color: var(--text2); font-size: 0.81rem; padding: 5px 0; }
-        .profile-info-icon {
-            width: 26px; height: 26px; border-radius: 7px; flex-shrink: 0; background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border); display: flex; align-items: center; justify-content: center;
+        .profile-list { display: flex; flex-direction: column; margin-bottom: 24px; }
+        .profile-list-row {
+            display: flex; align-items: center; gap: 13px; padding: 12px 0;
+            border-bottom: 1px solid var(--border-soft); font-size: 0.83rem; color: var(--text2);
         }
-        .profile-info-icon svg { width: 13px; height: 13px; color: var(--muted); }
-        .profile-info-row a:hover { color: var(--accent); }
+        .profile-list-row:last-child { border-bottom: none; }
+        .profile-list-row svg { width: 15px; height: 15px; color: var(--dim); flex-shrink: 0; transition: color 0.2s ease; }
+        .profile-list-row a { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; transition: color 0.2s ease; }
+        .profile-list-row:hover svg { color: var(--accent); }
+        .profile-list-row:hover a { color: var(--text); }
 
-        .profile-actions-row { display: flex; gap: 8px; margin-top: 20px; }
-        .profile-action {
-            flex: 1; padding: 11px 6px; border-radius: var(--r-sm); text-align: center;
-            background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border);
-            font-size: 0.68rem; color: var(--muted); transition: all 0.25s var(--ease); cursor: pointer;
-            display: flex; flex-direction: column; align-items: center; gap: 5px; font-weight: 500;
+        .profile-actions-row { display: flex; gap: 22px; }
+        .profile-action { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; }
+        .profile-action-circle {
+            width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            border: 1px solid var(--border); background: rgba(255,255,255,0.02); color: var(--text2);
+            transition: all 0.25s var(--ease);
         }
-        .profile-action:hover { border-color: var(--accent); color: var(--text); transform: translateY(-2px); }
-        .profile-action svg { width: 16px; height: 16px; }
+        .profile-action-circle svg { width: 17px; height: 17px; }
+        .profile-action:hover .profile-action-circle { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); transform: translateY(-3px); }
+        .profile-action-label { font-family: var(--mono); font-size: 0.6rem; color: var(--dim); letter-spacing: 0.6px; text-transform: uppercase; transition: color 0.25s ease; }
+        .profile-action:hover .profile-action-label { color: var(--text2); }
 
         @media (max-width: 960px) {
             .hero-grid { grid-template-columns: 1fr; gap: 44px; }
-            .profile-card { max-width: 400px; margin: 0 auto; }
+            .profile-card { max-width: 420px; margin: 0 auto; }
         }
         @media (max-width: 640px) {
             #hero { padding-top: 104px; min-height: auto; }
@@ -536,12 +549,21 @@
 
                 <div>
                     <div class="profile-card">
-                        <div class="profile-avatar-wrap"><div id="profileAvatar"></div></div>
-                        <div class="profile-status"><span class="profile-status-dot"></span><span>Available for Hire</span></div>
-                        <div class="profile-name" id="profileName">Bilawal Ali</div>
-                        <div class="profile-mono" id="profileMono">SOC L1 Analyst</div>
+                        <div class="profile-top">
+                            <div class="profile-avatar-wrap"><div id="profileAvatar"></div></div>
+                            <div class="profile-id">
+                                <div class="profile-name-row">
+                                    <div class="profile-name" id="profileName">Bilawal Ali</div>
+                                    <span class="profile-verified" title="Verified professional profile">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 1.4 2.8-.3 1.4 2.4 2.4 1.4-.3 2.8 1.4 2.4-1.4 2.4.3 2.8-2.4 1.4-1.4 2.4-2.8-.3L12 22l-2.4-1.4-2.8.3-1.4-2.4-2.4-1.4.3-2.8L2 12l1.4-2.4-.3-2.8L5.5 5.4 6.9 3l2.8.3z"/><path d="M9 12l2 2 4-4"/></svg>
+                                    </span>
+                                </div>
+                                <div class="profile-mono" id="profileMono">SOC L1 Analyst</div>
+                                <div class="profile-status"><span class="profile-status-dot"></span><span>Available for work</span></div>
+                            </div>
+                        </div>
                         <div class="profile-divider"></div>
-                        <div id="profileInfo"></div>
+                        <div class="profile-list" id="profileInfo"></div>
                         <div class="profile-actions-row" id="profileActions"></div>
                     </div>
                 </div>
@@ -1086,13 +1108,13 @@
             { ico: SVG.email, val: p.email, href: `mailto:${p.email}` },
             { ico: SVG.location, val: p.location, href: "#" },
             { ico: SVG.phone, val: p.phone, href: `tel:${p.phone.replace(/\s+/g,'')}` }
-        ].map(r => `<div class="profile-info-row"><span class="profile-info-icon">${r.ico}</span><a href="${r.href}" target="${r.href==='#'?'_self':'_blank'}" rel="noopener">${r.val}</a></div>`).join("");
+        ].map(r => `<div class="profile-list-row">${r.ico}<a href="${r.href}" target="${r.href==='#'?'_self':'_blank'}" rel="noopener">${r.val}</a></div>`).join("");
 
         $("profileActions").innerHTML = [
             { ico: SVG.github, lbl: "GitHub", href: p.github },
             { ico: SVG.linkedin, lbl: "LinkedIn", href: p.linkedin },
             { ico: SVG.resume, lbl: "Resume", href: p.resume, dl: true }
-        ].map(a => `<a href="${a.href}" target="_blank" class="profile-action" ${a.dl?'download':''} rel="noopener">${a.ico}${a.lbl}</a>`).join("");
+        ].map(a => `<a href="${a.href}" target="_blank" class="profile-action" ${a.dl?'download':''} rel="noopener"><span class="profile-action-circle">${a.ico}</span><span class="profile-action-label">${a.lbl}</span></a>`).join("");
 
         /* ── SKILLS ── */
         $("skillsGrid").innerHTML = DATA.skills.map((s,i) =>
