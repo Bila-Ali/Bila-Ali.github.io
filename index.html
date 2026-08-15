@@ -58,11 +58,6 @@
         html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
         body {
             font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.65; overflow-x: hidden;
-        }
-        /* Fixed backdrop — position:fixed (not background-attachment:fixed) so it
-           stays visually pinned behind the page on every browser, including iOS Safari. */
-        #bgLayer {
-            position: fixed; inset: 0; z-index: -1; pointer-events: none;
             background-image:
                 radial-gradient(1100px 600px at 82% -8%, rgba(10, 132, 255, 0.14), transparent 60%),
                 radial-gradient(900px 500px at -10% 8%, rgba(10, 132, 255, 0.07), transparent 55%);
@@ -89,14 +84,7 @@
             ══════════════════════════════════════ */
         .wrap { width: min(1120px, 90%); margin: 0 auto; position: relative; z-index: 1; }
         section { padding: 108px 0; position: relative; z-index: 1; }
-        /* Tonal separation only — no hard borders/blur, so the fixed backdrop
-           reads as one continuous layer instead of boxed panels. */
-        .section-alt {
-            background: linear-gradient(180deg,
-                rgba(255, 255, 255, 0.014) 0%,
-                rgba(255, 255, 255, 0.024) 50%,
-                rgba(255, 255, 255, 0.014) 100%);
-        }
+        .section-alt { background: var(--bg2); border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); }
 
         /* ══════════════════════════════════════
                SECTION HEADER
@@ -626,7 +614,6 @@
 </head>
 
 <body>
-    <div id="bgLayer" aria-hidden="true"></div>
 
     <nav id="nav" role="navigation" aria-label="Primary">
         <div class="nav-inner">
