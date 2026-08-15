@@ -338,9 +338,17 @@
         /* ══════════════════════════════════════
                SKILLS
             ══════════════════════════════════════ */
-        .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
-        .skill-card { background: var(--surface); padding: 28px 26px; transition: background 0.3s ease; }
-        .skill-card:hover { background: var(--card); }
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 16px; }
+        .skill-card {
+            background: linear-gradient(180deg, var(--card-hover) 0%, var(--surface) 100%);
+            border: 1px solid var(--border); border-radius: var(--r-lg);
+            padding: 28px 26px; transition: all 0.32s var(--ease);
+            box-shadow: var(--shadow-lift), var(--inset-hi);
+        }
+        .skill-card:hover {
+            border-color: rgba(10, 132, 255, 0.32); transform: translateY(-4px);
+            box-shadow: var(--shadow-glow), var(--inset-hi);
+        }
         .skill-header { display: flex; align-items: center; gap: 13px; margin-bottom: 18px; }
         .skill-title { font-size: 0.9rem; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
         .skill-chips { display: flex; flex-wrap: wrap; gap: 7px; }
@@ -348,9 +356,17 @@
         /* ══════════════════════════════════════
                EXPERIENCE — timeline
             ══════════════════════════════════════ */
-        .timeline { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
-        .exp-card { background: var(--surface); padding: 30px 32px; transition: background 0.3s ease; }
-        .exp-card:hover { background: var(--card); }
+        .timeline { display: flex; flex-direction: column; gap: 16px; }
+        .exp-card {
+            background: linear-gradient(180deg, var(--card-hover) 0%, var(--surface) 100%);
+            border: 1px solid var(--border); border-radius: var(--r-lg);
+            padding: 30px 32px; transition: all 0.32s var(--ease);
+            box-shadow: var(--shadow-lift), var(--inset-hi);
+        }
+        .exp-card:hover {
+            border-color: rgba(10, 132, 255, 0.32); transform: translateY(-3px);
+            box-shadow: var(--shadow-glow), var(--inset-hi);
+        }
         .exp-head { display: flex; align-items: flex-start; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
         .exp-logo {
             width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0; border: 1px solid var(--border);
@@ -379,13 +395,14 @@
         .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(288px, 1fr)); gap: 22px; }
 
         .card {
-            background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg);
+            background: linear-gradient(180deg, var(--card-hover) 0%, var(--surface) 100%);
+            border: 1px solid var(--border); border-radius: var(--r-lg);
             overflow: hidden; transition: all 0.32s var(--ease); position: relative;
-            box-shadow: 0 1px 0 rgba(255,255,255,0.02) inset;
+            box-shadow: var(--shadow-lift), var(--inset-hi);
         }
         .card:hover {
-            border-color: rgba(10, 132, 255, 0.3); transform: translateY(-4px);
-            box-shadow: var(--shadow-lift), 0 0 0 1px rgba(10, 132, 255, 0.08); background: var(--card);
+            border-color: rgba(10, 132, 255, 0.32); transform: translateY(-4px);
+            box-shadow: var(--shadow-glow), var(--inset-hi);
         }
 
         .card-img { position: relative; overflow: hidden; height: 180px; background: var(--card); }
@@ -443,10 +460,12 @@
         .cert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
         .cert-card {
             display: flex; align-items: center; gap: 16px; padding: 18px 20px;
-            background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg);
+            background: linear-gradient(180deg, var(--card-hover) 0%, var(--surface) 100%);
+            border: 1px solid var(--border); border-radius: var(--r-lg);
             transition: all 0.28s var(--ease); position: relative; overflow: hidden;
+            box-shadow: var(--shadow-lift), var(--inset-hi);
         }
-        .cert-card:hover { border-color: rgba(10, 132, 255, 0.3); background: var(--card); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+        .cert-card:hover { border-color: rgba(10, 132, 255, 0.32); transform: translateY(-3px); box-shadow: var(--shadow-glow), var(--inset-hi); }
         .cert-thumb {
             width: 52px; height: 52px; border-radius: 13px; flex-shrink: 0; overflow: hidden; position: relative;
             background: var(--accent-dim); border: 1px solid rgba(10, 132, 255, 0.18);
@@ -473,7 +492,18 @@
         /* ══════════════════════════════════════
                EDUCATION
             ══════════════════════════════════════ */
-        .edu-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-xl); overflow: hidden; }
+        .edu-card-wrap { position: relative; }
+        .edu-card-wrap::before {
+            content: ''; position: absolute; inset: -30px; z-index: 0; pointer-events: none;
+            background: radial-gradient(closest-side, rgba(10, 132, 255, 0.16), transparent 70%);
+            filter: blur(10px);
+        }
+        .edu-card {
+            position: relative; z-index: 1;
+            background: linear-gradient(180deg, var(--card-hover) 0%, var(--surface) 100%);
+            border: 1px solid var(--border); border-radius: var(--r-xl); overflow: hidden;
+            box-shadow: var(--shadow-glow), var(--inset-hi);
+        }
         .edu-banner {
             height: 128px; position: relative; overflow: hidden; background: var(--card);
             display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--border);
@@ -504,8 +534,13 @@
                COMMUNITY
             ══════════════════════════════════════ */
         .community-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(258px, 1fr)); gap: 20px; }
-        .community-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; transition: all 0.32s var(--ease); cursor: pointer; }
-        .community-card:hover { border-color: rgba(255,255,255,0.16); transform: translateY(-3px); box-shadow: var(--shadow-sm); }
+        .community-card {
+            background: linear-gradient(180deg, var(--card-hover) 0%, var(--surface) 100%);
+            border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden;
+            transition: all 0.32s var(--ease); cursor: pointer;
+            box-shadow: var(--shadow-lift), var(--inset-hi);
+        }
+        .community-card:hover { border-color: rgba(10, 132, 255, 0.32); transform: translateY(-4px); box-shadow: var(--shadow-glow), var(--inset-hi); }
         .community-img { position: relative; padding-top: 54%; overflow: hidden; background: var(--card); }
         .community-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
         .community-card:hover .community-img img { transform: scale(1.04); }
@@ -1282,19 +1317,21 @@
         /* ── EDUCATION ── */
         const ed = DATA.education;
         $("educationSlot").innerHTML = `
-          <div class="edu-card reveal">
-            <div class="edu-banner">
-              <img src="${ed.banner}" alt="${ed.university}" onerror="this.style.display='none'">
-              <div class="edu-banner-inner"><div class="edu-banner-uni">${ed.university}</div></div>
-            </div>
-            <div class="edu-body">
-              <div class="edu-degree">${ed.degree}</div>
-              <div class="edu-pills">
-                <span class="badge accent">CGPA ${ed.cgpa}</span>
-                <span class="badge">${ed.location}</span>
-                <span class="badge">${ed.year}</span>
+          <div class="edu-card-wrap reveal">
+            <div class="edu-card">
+              <div class="edu-banner">
+                <img src="${ed.banner}" alt="${ed.university}" onerror="this.style.display='none'">
+                <div class="edu-banner-inner"><div class="edu-banner-uni">${ed.university}</div></div>
               </div>
-              <div class="edu-desc">${ed.desc}</div>
+              <div class="edu-body">
+                <div class="edu-degree">${ed.degree}</div>
+                <div class="edu-pills">
+                  <span class="badge accent">CGPA ${ed.cgpa}</span>
+                  <span class="badge">${ed.location}</span>
+                  <span class="badge">${ed.year}</span>
+                </div>
+                <div class="edu-desc">${ed.desc}</div>
+              </div>
             </div>
           </div>`;
 
