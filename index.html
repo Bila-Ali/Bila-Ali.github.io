@@ -59,20 +59,14 @@
         body {
             font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.65; overflow-x: hidden;
         }
+        /* Fixed backdrop — position:fixed (not background-attachment:fixed) so it
+           stays visually pinned behind the page on every browser, including iOS Safari. */
         #bgLayer {
             position: fixed; inset: 0; z-index: -1; pointer-events: none;
             background-image:
-                radial-gradient(900px 900px at 88% 12%, rgba(10, 132, 255, 0.18), transparent 60%),
-                radial-gradient(800px 800px at 6% 55%, rgba(10, 132, 255, 0.10), transparent 60%),
-                radial-gradient(760px 700px at 50% 100%, rgba(10, 132, 255, 0.10), transparent 62%);
+                radial-gradient(1100px 600px at 82% -8%, rgba(10, 132, 255, 0.14), transparent 60%),
+                radial-gradient(900px 500px at -10% 8%, rgba(10, 132, 255, 0.07), transparent 55%);
             background-repeat: no-repeat;
-        }
-        #bgLayer::before {
-            content: ''; position: absolute; inset: 0;
-            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-            background-size: 26px 26px;
-            -webkit-mask-image: radial-gradient(circle at 50% 40%, black, transparent 78%);
-            mask-image: radial-gradient(circle at 50% 40%, black, transparent 78%);
         }
         img { display: block; max-width: 100%; }
         a { text-decoration: none; color: inherit; }
@@ -95,7 +89,14 @@
             ══════════════════════════════════════ */
         .wrap { width: min(1120px, 90%); margin: 0 auto; position: relative; z-index: 1; }
         section { padding: 108px 0; position: relative; z-index: 1; }
-        .section-alt { background: rgba(11, 11, 13, 0.6); backdrop-filter: blur(2px); border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); }
+        /* Tonal separation only — no hard borders/blur, so the fixed backdrop
+           reads as one continuous layer instead of boxed panels. */
+        .section-alt {
+            background: linear-gradient(180deg,
+                rgba(255, 255, 255, 0.014) 0%,
+                rgba(255, 255, 255, 0.024) 50%,
+                rgba(255, 255, 255, 0.014) 100%);
+        }
 
         /* ══════════════════════════════════════
                SECTION HEADER
