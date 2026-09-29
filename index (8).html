@@ -1,0 +1,2037 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+    <title>Bilawal Ali — SOC Analyst &amp; Security Researcher</title>
+    <meta name="description" content="Bilawal Ali — SOC analyst and final-year BS Cyber Security student at MUET. Threat detection with Wazuh, Splunk and ELK, offensive security and VAPT, digital forensics, and machine learning for PDF malware detection." />
+    <meta name="author" content="Bilawal Ali" />
+    <link rel="canonical" href="https://github.com/Bila-Ali" />
+
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content="Bilawal Ali — SOC Analyst &amp; Security Researcher" />
+    <meta property="og:description" content="Threat detection and security operations with Wazuh, Splunk and ELK. Offensive security, digital forensics, and machine learning for malware detection." />
+    <meta property="og:locale" content="en_US" />
+    <meta property="profile:first_name" content="Bilawal" />
+    <meta property="profile:last_name" content="Ali" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Bilawal Ali — SOC Analyst &amp; Security Researcher" />
+    <meta name="twitter:description" content="Threat detection and security operations with Wazuh, Splunk and ELK. Offensive security, digital forensics, and ML for malware detection." />
+
+    <meta name="theme-color" content="#05070d" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f3f5fb" media="(prefers-color-scheme: light)" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+
+    <!-- Theme applied before first paint to avoid a flash. Dark is the default. -->
+    <script>
+        (function () {
+            try {
+                var stored = localStorage.getItem("theme");
+                document.documentElement.setAttribute("data-theme", stored === "light" ? "light" : "dark");
+            } catch (e) { /* storage blocked — dark stays */ }
+            document.documentElement.classList.add("is-loading");
+        })();
+    </script>
+
+    <style>
+        /* ==========================================================
+           1. TOKENS — dark "command centre" default, light via swap
+           ========================================================== */
+        :root {
+            --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+            --r-s: 10px; --r-m: 14px; --r-l: 22px;
+            --ease: cubic-bezier(0.22, 1, 0.36, 1);
+            --container: 1180px;
+            --nav-h: 72px;
+            --gutter: clamp(20px, 5vw, 40px);
+            --sec: clamp(72px, 11vw, 132px);
+        }
+        :root, [data-theme="dark"] {
+            --bg: #05070d;
+            --bg-2: #080b15;
+            --glass: rgba(11, 16, 32, 0.74);
+            --glass-2: rgba(20, 28, 52, 0.62);
+            --line: rgba(140, 170, 255, 0.12);
+            --line-soft: rgba(140, 170, 255, 0.07);
+            --line-strong: rgba(120, 190, 255, 0.34);
+            --fill-1: rgba(140, 170, 255, 0.045);
+            --fill-2: rgba(140, 170, 255, 0.085);
+            --text: #f4f6fb;
+            --text-2: #b9c1d6;
+            --muted: #8390ad;
+            --dim: #566080;
+            --blue: #4d7cff;
+            --cyan: #38e1ff;
+            --violet: #8b5cf6;
+            --magenta: #d946ef;
+            --accent: #38e1ff;
+            --accent-text: #86ecff;
+            --accent-soft: rgba(56, 225, 255, 0.08);
+            --accent-line: rgba(56, 225, 255, 0.3);
+            --gold: #e3b778;
+            --gold-line: rgba(227, 183, 120, 0.36);
+            --gold-soft: rgba(227, 183, 120, 0.09);
+            --nav-bg: rgba(7, 10, 20, 0.62);
+            --overlay: rgba(3, 5, 10, 0.92);
+            --sh-2: 0 14px 40px -16px rgba(0, 0, 0, 0.75);
+            --sh-glow: 0 0 0 1px rgba(56, 225, 255, 0.18), 0 18px 60px -18px rgba(77, 124, 255, 0.45);
+            --btn-fg: #05070d;
+            --grid-line: rgba(120, 160, 255, 0.045);
+            color-scheme: dark;
+        }
+        [data-theme="light"] {
+            --bg: #f3f5fb;
+            --bg-2: #eaeef8;
+            --glass: rgba(255, 255, 255, 0.82);
+            --glass-2: rgba(255, 255, 255, 0.85);
+            --line: rgba(30, 50, 110, 0.13);
+            --line-soft: rgba(30, 50, 110, 0.07);
+            --line-strong: rgba(37, 99, 235, 0.4);
+            --fill-1: rgba(30, 50, 110, 0.04);
+            --fill-2: rgba(30, 50, 110, 0.075);
+            --text: #0b1020;
+            --text-2: #38415a;
+            --muted: #5f6a86;
+            --dim: #8792ae;
+            --blue: #2563eb;
+            --cyan: #0891b2;
+            --violet: #6d3fe0;
+            --magenta: #b92fc4;
+            --accent: #2563eb;
+            --accent-text: #1d4ed8;
+            --accent-soft: rgba(37, 99, 235, 0.08);
+            --accent-line: rgba(37, 99, 235, 0.3);
+            --gold: #94661a;
+            --gold-line: rgba(148, 102, 26, 0.34);
+            --gold-soft: rgba(148, 102, 26, 0.09);
+            --nav-bg: rgba(255, 255, 255, 0.72);
+            --overlay: rgba(235, 239, 250, 0.94);
+            --sh-2: 0 14px 40px -18px rgba(30, 50, 110, 0.3);
+            --sh-glow: 0 0 0 1px rgba(37, 99, 235, 0.22), 0 18px 50px -20px rgba(37, 99, 235, 0.4);
+            --btn-fg: #ffffff;
+            --grid-line: rgba(30, 50, 110, 0.05);
+            color-scheme: light;
+        }
+
+        /* ==========================================================
+           2. BASE
+           ========================================================== */
+        *, *::before, *::after { box-sizing: border-box; }
+        html { -webkit-text-size-adjust: 100%; scroll-padding-top: 88px; }
+        html.lenis, html.lenis body { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto !important; }
+        .lenis.lenis-stopped { overflow: hidden; }
+        html.is-loading, html.is-loading body { overflow: hidden; }
+        body {
+            margin: 0; background: var(--bg); color: var(--text);
+            font-family: var(--sans); font-size: 16px; line-height: 1.65;
+            -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+            overflow-x: clip; min-height: 100vh;
+        }
+        main { overflow-x: clip; }
+        img, svg { display: block; max-width: 100%; }
+        a { color: inherit; text-decoration: none; }
+        button { font: inherit; color: inherit; cursor: pointer; background: none; border: 0; padding: 0; }
+        h1, h2, h3, h4, p, ul, dl, dd { margin: 0; }
+        ul { padding: 0; list-style: none; }
+        ::selection { background: rgba(56, 225, 255, 0.28); color: #fff; }
+        :focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; border-radius: 6px; }
+        .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+        .skip-link { position: fixed; left: 12px; top: -60px; z-index: 300; background: var(--cyan); color: #05070d; padding: 10px 16px; border-radius: 10px; font-weight: 600; transition: top .2s; }
+        .skip-link:focus { top: 12px; }
+        .wrap { width: 100%; max-width: calc(var(--container) + var(--gutter) * 2); margin-inline: auto; padding-inline: var(--gutter); }
+        #progress { position: fixed; top: 0; left: 0; height: 2px; width: 0; z-index: 130; background: linear-gradient(90deg, var(--blue), var(--cyan), var(--violet)); box-shadow: 0 0 12px rgba(56, 225, 255, .6); }
+
+        /* ==========================================================
+           3. ENVIRONMENT — grid, haze, orbs, noise, particles
+           ========================================================== */
+        .env { position: fixed; inset: 0; z-index: -3; pointer-events: none; overflow: hidden;
+            background:
+                radial-gradient(1100px 700px at 82% -8%, rgba(77, 124, 255, .16), transparent 62%),
+                radial-gradient(900px 640px at 6% 38%, rgba(139, 92, 246, .11), transparent 60%),
+                radial-gradient(800px 560px at 70% 108%, rgba(56, 225, 255, .08), transparent 60%),
+                var(--bg); }
+        [data-theme="light"] .env { background:
+                radial-gradient(1000px 640px at 82% -8%, rgba(37, 99, 235, .12), transparent 62%),
+                radial-gradient(800px 600px at 6% 40%, rgba(109, 63, 224, .09), transparent 60%),
+                var(--bg); }
+        .env::before { content: ""; position: absolute; inset: 0;
+            background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 64px 64px;
+            -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 20%, transparent 78%);
+                    mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 20%, transparent 78%); }
+        .env::after { content: ""; position: absolute; inset: 0; opacity: .5;
+            /* very faint circuit traces */
+            background:
+                linear-gradient(90deg, transparent 0 12%, rgba(56,225,255,.05) 12% calc(12% + 1px), transparent calc(12% + 1px) 100%) 0 0 / 100% 240px,
+                linear-gradient(0deg, transparent 0 60%, rgba(139,92,246,.05) 60% calc(60% + 1px), transparent calc(60% + 1px) 100%) 0 0 / 320px 100%; }
+        .bg-orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: .5; will-change: transform; }
+        .bg-orb--1 { width: 420px; height: 420px; left: -120px; top: 30%; background: rgba(139, 92, 246, .28); }
+        .bg-orb--2 { width: 480px; height: 480px; right: -160px; top: 8%; background: rgba(77, 124, 255, .3); }
+        .bg-orb--3 { width: 360px; height: 360px; left: 40%; bottom: -160px; background: rgba(56, 225, 255, .18); }
+        [data-theme="light"] .bg-orb { opacity: .22; }
+        #fx { position: fixed; inset: 0; z-index: -2; pointer-events: none; width: 100%; height: 100%; }
+        .noise { position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .045; mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+        .cursor-glow { position: fixed; left: 0; top: 0; width: 520px; height: 520px; margin: -260px 0 0 -260px; z-index: -1; pointer-events: none; border-radius: 50%;
+            background: radial-gradient(circle, rgba(77, 124, 255, .14), rgba(139, 92, 246, .06) 45%, transparent 70%); opacity: 0; transition: opacity .6s; }
+        .cursor-glow.is-on { opacity: 1; }
+
+        /* ==========================================================
+           4. PRELOADER
+           ========================================================== */
+        .preloader { position: fixed; inset: 0; z-index: 500; background: #05070d; display: grid; place-items: center; overflow: hidden; color: #f4f6fb; }
+        .pl-orb { position: absolute; border-radius: 50%; filter: blur(46px); opacity: .55; }
+        .pl-orb:nth-child(1) { width: 260px; height: 260px; left: 12%; top: 18%; background: rgba(77, 124, 255, .35); }
+        .pl-orb:nth-child(2) { width: 220px; height: 220px; right: 14%; bottom: 20%; background: rgba(139, 92, 246, .32); }
+        .pl-orb:nth-child(3) { width: 160px; height: 160px; right: 30%; top: 14%; background: rgba(56, 225, 255, .22); }
+        .pl-dot { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: #86ecff; box-shadow: 0 0 10px #38e1ff; opacity: .7; }
+        .loader-content { position: relative; text-align: center; width: min(420px, 82vw); }
+        .pl-name { font-weight: 300; font-size: clamp(26px, 6vw, 44px); letter-spacing: .34em; padding-left: .34em; }
+        .pl-role { margin-top: 14px; font-family: var(--mono); font-size: 11px; letter-spacing: .32em; padding-left: .32em; color: #86ecff; }
+        .pl-bar { position: relative; margin: 38px auto 0; height: 2px; width: 100%; background: rgba(140, 170, 255, .14); overflow: hidden; border-radius: 2px; }
+        .progress-bar { position: absolute; inset: 0; transform-origin: left; transform: scaleX(0); background: linear-gradient(90deg, #4d7cff, #38e1ff, #8b5cf6); box-shadow: 0 0 14px rgba(56, 225, 255, .8); }
+        .pl-count { margin-top: 16px; font-family: var(--mono); font-size: 13px; letter-spacing: .2em; color: #8390ad; font-variant-numeric: tabular-nums; }
+
+        /* ==========================================================
+           5. NAVIGATION — floating glass pill
+           ========================================================== */
+        header { position: fixed; top: 0; left: 0; right: 0; z-index: 120; pointer-events: none; }
+        #nav { position: relative; z-index: 2; }
+        #nav { display: flex; justify-content: center; padding: 16px var(--gutter) 0; transition: padding .4s var(--ease); }
+        .nav__inner { pointer-events: auto; display: flex; align-items: center; gap: 22px; width: 100%; max-width: var(--container); height: 56px; padding: 0 12px 0 22px;
+            border: 1px solid transparent; border-radius: 999px; background: transparent;
+            transition: max-width .5s var(--ease), height .4s var(--ease), background .4s, border-color .4s, box-shadow .4s, backdrop-filter .4s; }
+        #nav.is-scrolled { padding-top: 10px; }
+        #nav.is-scrolled .nav__inner { max-width: 980px; height: 50px; background: var(--nav-bg); border-color: var(--line); box-shadow: 0 0 0 1px rgba(56, 225, 255, .05), 0 10px 40px -12px rgba(0, 0, 0, .6), 0 0 28px -8px rgba(56, 225, 255, .18);
+            -webkit-backdrop-filter: blur(18px) saturate(150%); backdrop-filter: blur(18px) saturate(150%); }
+        .nav__brand { font-family: var(--mono); font-size: 12.5px; font-weight: 500; letter-spacing: .2em; white-space: nowrap; color: var(--text); }
+        .nav__brand b { color: var(--cyan); font-weight: 500; }
+        .nav__links { display: flex; gap: 2px; margin-left: auto; }
+        .nav__links a { position: relative; padding: 8px 13px; font-size: 11.5px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); border-radius: 999px; transition: color .25s; }
+        .nav__links a:hover, .nav__links a.is-active { color: var(--text); }
+        .nav__links a.is-active::after { content: ""; position: absolute; left: 50%; bottom: 2px; width: 14px; height: 2px; margin-left: -7px; border-radius: 2px; background: var(--cyan); box-shadow: 0 0 10px var(--cyan); }
+        .nav__side { display: flex; align-items: center; gap: 10px; }
+        .status { display: inline-flex; align-items: center; gap: 9px; padding: 7px 13px; border: 1px solid var(--accent-line); border-radius: 999px; background: var(--accent-soft); font-family: var(--mono); font-size: 10px; letter-spacing: .14em; color: var(--accent-text); white-space: nowrap; }
+        .dot { position: relative; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 10px var(--cyan); flex: none; }
+        .dot::after { content: ""; position: absolute; inset: -5px; border-radius: 50%; border: 1px solid var(--cyan); animation: ping 2.2s var(--ease) infinite; }
+        @keyframes ping { 0% { transform: scale(.4); opacity: .9; } 100% { transform: scale(1.5); opacity: 0; } }
+        .icon-btn { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); color: var(--text-2); transition: border-color .25s, color .25s, background .25s; }
+        .icon-btn:hover { color: var(--text); border-color: var(--accent-line); background: var(--accent-soft); }
+        .icon-btn svg { width: 17px; height: 17px; stroke-width: 1.7; }
+        [data-theme="dark"] .i-sun, [data-theme="light"] .i-moon { display: none; }
+        .nav__toggle { display: none; position: relative; z-index: 2; }
+        .nav__toggle span { position: absolute; left: 11px; right: 11px; height: 1.5px; background: currentColor; border-radius: 2px; transition: transform .35s var(--ease), opacity .2s; }
+        .nav__toggle span:nth-child(1) { top: 13px; } .nav__toggle span:nth-child(2) { top: 18px; } .nav__toggle span:nth-child(3) { top: 23px; }
+        .nav__toggle.is-open span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+        .nav__toggle.is-open span:nth-child(2) { opacity: 0; }
+        .nav__toggle.is-open span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+        .nav__drawer { pointer-events: none; position: fixed; inset: 0; z-index: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 0; padding: 92px var(--gutter) 40px; overflow-y: auto;
+            background: radial-gradient(600px 400px at 80% 10%, rgba(77, 124, 255, .18), transparent 70%), radial-gradient(500px 400px at 10% 90%, rgba(139, 92, 246, .16), transparent 70%), var(--overlay);
+            -webkit-backdrop-filter: blur(22px); backdrop-filter: blur(22px); visibility: hidden; opacity: 0; }
+        .nav__drawer.is-open { pointer-events: auto; visibility: visible; opacity: 1; }
+        .nav__drawer a { display: block; padding: 6px 0; font-size: clamp(22px, 6.4vw, 32px); font-weight: 300; letter-spacing: -.01em; color: var(--text-2); border-bottom: 1px solid var(--line-soft); }
+        .nav__drawer a:hover { color: var(--cyan); }
+        .nav__drawer .status { align-self: flex-start; margin-top: 26px; font-size: 10px; border-bottom: 1px solid var(--accent-line); padding: 8px 14px; color: var(--accent-text); }
+
+        /* ==========================================================
+           6. BUTTONS
+           ========================================================== */
+        .btn { position: relative; display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 24px; border-radius: 999px; font-size: 14.5px; font-weight: 500; letter-spacing: .01em; white-space: nowrap; border: 1px solid var(--line-strong); color: var(--text);
+            background: var(--fill-1); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); transition: box-shadow .35s var(--ease), border-color .3s, background .3s, color .3s; will-change: transform; }
+        .btn:hover { box-shadow: 0 0 0 1px rgba(56, 225, 255, .25), 0 0 30px -4px rgba(56, 225, 255, .4); border-color: var(--cyan); }
+        .btn svg, .btn i { width: 17px; height: 17px; flex: none; }
+        .btn .arr { display: inline-block; transition: transform .35s var(--ease); }
+        .btn:hover .arr { transform: translateX(5px); }
+        .btn--primary { background: linear-gradient(135deg, var(--cyan), var(--blue) 55%, var(--violet)); color: var(--btn-fg); border-color: transparent; font-weight: 600; box-shadow: 0 10px 34px -10px rgba(77, 124, 255, .7); }
+        .btn--primary:hover { border-color: transparent; box-shadow: 0 14px 44px -8px rgba(56, 225, 255, .65); }
+        .btn--sm { min-height: 42px; padding: 0 18px; font-size: 13.5px; }
+
+        /* ==========================================================
+           7. HERO + SPLINE ORB
+           ========================================================== */
+        .hero { position: relative; min-height: 100svh; display: flex; align-items: center; padding: calc(var(--nav-h) + 24px) 0 72px; overflow: clip; isolation: isolate; }
+        .hero__orb { position: absolute; z-index: -1; right: -3vw; top: 0; bottom: 0; margin: auto 0; width: 56vw; max-width: 980px; height: min(94vh, 900px); will-change: transform; }
+        .orb-glow { position: absolute; inset: 6%; border-radius: 50%; background: radial-gradient(circle, rgba(77, 124, 255, .3), rgba(139, 92, 246, .16) 45%, transparent 68%); filter: blur(30px); }
+        /* Lightweight CSS "security core" — transforms/opacity only, no iframe, no WebGL */
+        .core { position: absolute; left: 50%; top: 50%; width: min(64%, 520px); aspect-ratio: 1; transform: translate(-50%, -50%); perspective: 1100px; transform-style: preserve-3d; }
+        .core__sphere { position: absolute; inset: 18%; border-radius: 50%; overflow: hidden; animation: float 7s ease-in-out infinite;
+            background: radial-gradient(circle at 32% 28%, rgba(200, 245, 255, .95) 0, rgba(56, 225, 255, .55) 16%, rgba(77, 124, 255, .55) 42%, rgba(139, 92, 246, .5) 68%, rgba(20, 16, 60, .9) 100%);
+            box-shadow: 0 0 90px 10px rgba(77, 124, 255, .45), 0 0 200px 30px rgba(139, 92, 246, .22), inset -30px -40px 80px rgba(5, 7, 30, .7), inset 14px 14px 50px rgba(160, 230, 255, .25); }
+        .core__shine { position: absolute; left: 14%; top: 8%; width: 44%; height: 30%; border-radius: 50%; background: radial-gradient(ellipse, rgba(255, 255, 255, .55), transparent 70%); transform: rotate(-24deg); filter: blur(4px); }
+        .core__grid { position: absolute; inset: -50%; opacity: .32; animation: drift 14s linear infinite;
+            background-image: linear-gradient(rgba(180, 235, 255, .6) 1px, transparent 1px), linear-gradient(90deg, rgba(180, 235, 255, .6) 1px, transparent 1px); background-size: 26px 26px;
+            -webkit-mask-image: radial-gradient(circle, #000 20%, transparent 62%); mask-image: radial-gradient(circle, #000 20%, transparent 62%); }
+        @keyframes drift { to { transform: translate(26px, 26px); } }
+        @keyframes float { 50% { transform: translateY(-14px) scale(1.02); } }
+        .core__ring { position: absolute; inset: 0; border-radius: 50%; border: 1px solid rgba(120, 200, 255, .38); transform-style: preserve-3d; }
+        .core__ring i { position: absolute; left: 50%; top: -4px; width: 8px; height: 8px; margin-left: -4px; border-radius: 50%; background: #fff; box-shadow: 0 0 14px 3px var(--cyan); }
+        .core__ring--1 { transform: rotateX(72deg) rotateZ(0deg); animation: ring1 16s linear infinite; }
+        .core__ring--2 { inset: 6%; border-color: rgba(160, 130, 255, .36); transform: rotateX(72deg) rotateY(34deg); animation: ring2 22s linear infinite reverse; }
+        .core__ring--3 { inset: -8%; border-style: dashed; border-color: rgba(56, 225, 255, .22); transform: rotateX(72deg) rotateY(-30deg); animation: ring3 30s linear infinite; }
+        @keyframes ring1 { to { transform: rotateX(72deg) rotateZ(360deg); } }
+        @keyframes ring2 { to { transform: rotateX(72deg) rotateY(34deg) rotateZ(360deg); } }
+        @keyframes ring3 { to { transform: rotateX(72deg) rotateY(-30deg) rotateZ(360deg); } }
+        .core__pulse { position: absolute; inset: 18%; border-radius: 50%; border: 1px solid rgba(56, 225, 255, .5); animation: pulse 4.5s ease-out infinite; }
+        .core__pulse--2 { animation-delay: 2.2s; }
+        @keyframes pulse { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(1.9); opacity: 0; } }
+        [data-theme="light"] .core__sphere { box-shadow: 0 0 70px 6px rgba(37, 99, 235, .3), inset -30px -40px 80px rgba(20, 30, 90, .5), inset 14px 14px 50px rgba(255, 255, 255, .4); }
+        .hero::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+            background: linear-gradient(90deg, var(--bg) 8%, transparent 58%), radial-gradient(ellipse at 50% 120%, var(--bg), transparent 55%); opacity: .82; }
+        .hero__copy { max-width: 740px; }
+        .eyebrow { display: inline-flex; flex-wrap: wrap; gap: 6px 14px; font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent-text); }
+        .eyebrow i { color: var(--dim); font-style: normal; }
+        .hero__name { margin-top: 22px; font-size: clamp(34px, 5.2vw, 64px); font-weight: 600; line-height: 1.06; letter-spacing: -.035em; }
+        .hero__name span { display: block; }
+        .hero__name .grad, .grad { background: linear-gradient(100deg, #f4f6fb 0%, #86ecff 38%, #8ea6ff 68%, #b892ff 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        [data-theme="light"] .hero__name .grad, [data-theme="light"] .grad { background-image: linear-gradient(100deg, #0b1020 0%, #1d4ed8 55%, #6d3fe0 100%); }
+        .hero__title { margin-top: 22px; font-size: clamp(16px, 2vw, 20px); color: var(--text); font-weight: 500; }
+        .hero__title span { color: var(--cyan); margin: 0 6px; }
+        .hero__disciplines { margin-top: 8px; font-family: var(--mono); font-size: 12px; letter-spacing: .04em; color: var(--muted); }
+        .hero__bio { margin-top: 22px; max-width: 58ch; color: var(--text-2); font-size: clamp(15px, 1.5vw, 17px); }
+        .hero__bio strong { color: var(--text); font-weight: 500; }
+        .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+        .hero__metrics { display: flex; flex-wrap: wrap; gap: 14px 36px; margin-top: 44px; padding-top: 26px; border-top: 1px solid var(--line); }
+        .hero__metric b { display: block; font-size: clamp(24px, 3vw, 32px); font-weight: 600; letter-spacing: -.02em; line-height: 1.1; background: linear-gradient(120deg, var(--text), var(--accent-text)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .hero__metric small { display: block; margin-top: 4px; max-width: 16ch; font-size: 11.5px; line-height: 1.4; color: var(--muted); }
+        .scroll-cue { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; font-family: var(--mono); font-size: 9.5px; letter-spacing: .3em; color: var(--dim); }
+        .scroll-cue i { width: 1px; height: 34px; background: linear-gradient(var(--cyan), transparent); animation: cue 2.4s ease-in-out infinite; transform-origin: top; }
+        @keyframes cue { 0%, 100% { transform: scaleY(.3); opacity: .4; } 50% { transform: scaleY(1); opacity: 1; } }
+
+        /* ==========================================================
+           8. SECTION SCAFFOLD + GLASS PANEL
+           ========================================================== */
+        .section { position: relative; padding: var(--sec) 0; }
+        .head { max-width: 720px; margin-bottom: clamp(36px, 5vw, 60px); }
+        .head--center { margin-inline: auto; text-align: center; }
+        .head--wide { max-width: 800px; }
+        .head__label { display: inline-flex; align-items: center; gap: 12px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .22em; text-transform: uppercase; color: var(--accent-text); }
+        .head__label::before { content: ""; width: 28px; height: 1px; background: linear-gradient(90deg, transparent, var(--cyan)); }
+        .head__title { margin-top: 16px; font-size: clamp(28px, 4.4vw, 50px); font-weight: 600; line-height: 1.08; letter-spacing: -.03em; }
+        .head__desc { margin-top: 16px; color: var(--text-2); font-size: clamp(15px, 1.5vw, 17px); max-width: 60ch; }
+        .head--center .head__desc { margin-inline: auto; }
+
+        .panel { position: relative; background: var(--glass); border: 1px solid var(--line); border-radius: var(--r-l); box-shadow: var(--sh-2), inset 0 1px 0 rgba(255, 255, 255, .05);
+            transform-style: preserve-3d; }
+        .panel::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none; opacity: .55; transition: opacity .4s;
+            background: linear-gradient(135deg, rgba(56, 225, 255, .55), transparent 38%, transparent 62%, rgba(139, 92, 246, .5));
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); }
+        .panel::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity .4s;
+            background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(120, 190, 255, .13), transparent 62%); }
+        .panel--i:hover { box-shadow: var(--sh-glow), inset 0 1px 0 rgba(255, 255, 255, .07); }
+        .panel--i:hover::before { opacity: 1; }
+        .panel--i:hover::after { opacity: 1; }
+        .panel > * { position: relative; z-index: 1; }
+
+        .chip { display: inline-flex; align-items: center; padding: 4px 11px; font-size: 12px; line-height: 1.5; color: var(--text-2); background: var(--fill-1); border: 1px solid var(--line); border-radius: 999px; }
+        .tag { display: inline-flex; align-items: center; padding: 4px 12px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; }
+        .tag--accent { color: var(--accent-text); border-color: var(--accent-line); background: var(--accent-soft); }
+        .icon-tile { display: inline-grid; place-items: center; width: 38px; height: 38px; flex: none; border-radius: 11px; color: var(--accent-text); background: var(--accent-soft); border: 1px solid var(--accent-line); }
+        .icon-tile svg { width: 18px; height: 18px; stroke-width: 1.7; }
+        .icon-tile--lg { width: 52px; height: 52px; border-radius: 15px; }
+        .icon-tile--lg svg { width: 24px; height: 24px; }
+        .inline-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 500; color: var(--accent-text); }
+        .inline-link svg { width: 14px; height: 14px; stroke-width: 2; transition: transform .35s var(--ease); }
+        .inline-link:hover svg, .card:hover .inline-link svg { transform: translate(3px, -3px); }
+
+        /* ==========================================================
+           9. ABOUT
+           ========================================================== */
+        .about { display: grid; grid-template-columns: minmax(260px, 380px) 1fr; gap: clamp(32px, 6vw, 84px); align-items: start; }
+        .id-card { perspective: 1000px; }
+        .id-card__inner { position: relative; padding: 34px 26px 28px; text-align: center; transform-style: preserve-3d; transition: transform .6s var(--ease), box-shadow .5s; }
+        .id-card:hover .id-card__inner { transform: translateY(-8px) rotateX(3deg) rotateY(-4deg); box-shadow: var(--sh-glow); }
+        .avatar { position: relative; width: min(220px, 60vw); aspect-ratio: 1; margin: 0 auto; }
+        .avatar__ring { position: absolute; inset: -10px; border-radius: 50%; padding: 2px; animation: spin 14s linear infinite; transition: filter .5s;
+            background: conic-gradient(from 0deg, var(--cyan), transparent 25%, var(--violet) 50%, transparent 75%, var(--cyan));
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); }
+        .avatar__ring--2 { inset: -22px; opacity: .45; animation-duration: 22s; animation-direction: reverse; }
+        .id-card:hover .avatar__ring { animation-duration: 5s; filter: drop-shadow(0 0 8px var(--cyan)); }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .avatar__img { position: relative; width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: var(--glass-2); border: 1px solid var(--line-strong); box-shadow: 0 0 40px -6px rgba(77, 124, 255, .55); }
+        .avatar__img img { width: 100%; height: 100%; object-fit: cover; }
+        .avatar__img::before { content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(115deg, rgba(255, 255, 255, .16), transparent 34%); }
+        .avatar__img::after { content: ""; position: absolute; left: 0; right: 0; height: 36%; z-index: 2; pointer-events: none; background: linear-gradient(transparent, rgba(56, 225, 255, .28), transparent); animation: scan 4.2s ease-in-out infinite; }
+        @keyframes scan { 0% { top: -40%; } 100% { top: 110%; } }
+        .avatar__fb { display: grid; place-items: center; width: 100%; height: 100%; font-size: 54px; font-weight: 600; color: var(--accent-text); }
+        .id-card__name { margin-top: 30px; font-size: 21px; font-weight: 600; letter-spacing: -.01em; }
+        .id-card__role { margin-top: 4px; font-size: 13.5px; color: var(--muted); }
+        .id-card__rows { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line); text-align: left; display: grid; gap: 4px; }
+        .row { display: flex; align-items: flex-start; gap: 12px; padding: 7px 4px; font-size: 13.5px; color: var(--text-2); border-radius: 8px; transition: color .2s; }
+        a.row:hover { color: var(--cyan); }
+        .row svg { width: 16px; height: 16px; margin-top: 3px; flex: none; color: var(--muted); stroke-width: 1.7; }
+        .about__body p { color: var(--text-2); font-size: clamp(15px, 1.4vw, 17px); }
+        .about__body p + p { margin-top: 18px; }
+        .about__body strong { color: var(--text); font-weight: 500; }
+        .focuslist { margin-top: 26px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 20px; }
+        .focuslist li { position: relative; padding-left: 20px; font-size: 14px; color: var(--text-2); }
+        .focuslist li::before { content: ""; position: absolute; left: 0; top: .7em; width: 8px; height: 1px; background: var(--cyan); box-shadow: 0 0 6px var(--cyan); }
+        .tech { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-top: 34px; }
+        .tech__item { display: flex; align-items: center; gap: 11px; padding: 11px 14px; font-size: 13.5px; font-weight: 500; color: var(--text-2); background: var(--glass); border: 1px solid var(--line); border-radius: 14px; transition: border-color .3s, color .3s, transform .4s var(--ease), box-shadow .3s; }
+        .tech__item i { font-size: 20px; color: var(--cyan); flex: none; width: 20px; }
+        .tech__item:hover { color: var(--text); border-color: var(--accent-line); transform: translateY(-3px); box-shadow: 0 10px 30px -14px rgba(56, 225, 255, .5); }
+
+        /* ==========================================================
+           10. METRICS
+           ========================================================== */
+        .metrics { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+        .metric { padding: 28px 22px; text-align: left; overflow: hidden; }
+        .metric::before { opacity: .4; }
+        .metric__num { display: block; font-size: clamp(34px, 4.4vw, 54px); font-weight: 600; letter-spacing: -.035em; line-height: 1; background: linear-gradient(120deg, var(--text) 20%, var(--cyan)); -webkit-background-clip: text; background-clip: text; color: transparent; font-variant-numeric: tabular-nums; }
+        .metric__label { display: block; margin-top: 12px; font-size: 13px; line-height: 1.45; color: var(--muted); }
+        .metric__bar { display: block; margin-top: 18px; height: 2px; border-radius: 2px; background: var(--line); overflow: hidden; }
+        .metric__bar i { display: block; height: 100%; width: 100%; transform-origin: left; background: linear-gradient(90deg, var(--cyan), var(--violet)); }
+
+        /* ==========================================================
+           11. EXPERIENCE — SOC activity timeline
+           ========================================================== */
+        .tl { position: relative; display: grid; gap: 28px; padding-left: 44px; }
+        .tl__line, .tl__fill { position: absolute; left: 13px; top: 8px; bottom: 8px; width: 2px; border-radius: 2px; }
+        .tl__line { background: var(--line); }
+        .tl__fill { transform-origin: top; background: linear-gradient(var(--cyan), var(--blue) 60%, var(--violet)); box-shadow: 0 0 14px rgba(56, 225, 255, .7); }
+        .exp { position: relative; padding: clamp(22px, 3vw, 34px); }
+        .exp__node { position: absolute; left: -41px; top: 34px; width: 16px; height: 16px; border-radius: 50%; background: var(--bg); border: 2px solid var(--line-strong); transition: border-color .4s, background .4s, box-shadow .4s; z-index: 2; }
+        .exp__node.is-lit { border-color: var(--cyan); background: var(--cyan); box-shadow: 0 0 0 5px rgba(56, 225, 255, .14), 0 0 18px var(--cyan); }
+        .exp__head { display: flex; align-items: flex-start; gap: 16px; }
+        .exp__logo { width: 52px; height: 52px; flex: none; display: grid; place-items: center; border-radius: 14px; overflow: hidden; background: var(--fill-2); border: 1px solid var(--line); font-weight: 600; font-size: 14px; color: var(--accent-text); }
+        .exp__logo img { width: 100%; height: 100%; object-fit: contain; padding: 6px; }
+        .exp__meta { flex: 1; min-width: 0; }
+        .exp__role { font-size: clamp(18px, 2vw, 22px); font-weight: 600; letter-spacing: -.015em; line-height: 1.25; }
+        .exp__company { margin-top: 2px; color: var(--accent-text); font-weight: 500; font-size: 15px; }
+        .exp__sub { margin-top: 2px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+        .exp__points { margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--line); display: grid; gap: 11px; }
+        .exp__points li { position: relative; padding-left: 20px; font-size: 14.5px; color: var(--text-2); }
+        .exp__points li::before { content: "›"; position: absolute; left: 3px; top: 0; color: var(--cyan); font-weight: 600; }
+        .exp__stack { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+
+        /* ==========================================================
+           12. PROJECTS — cinematic horizontal track
+           ========================================================== */
+        .hproj { position: relative; padding: var(--sec) 0 calc(var(--sec) * .7); }
+        .hproj__view { position: relative; }
+        .hproj__track { display: flex; gap: 22px; padding: 6px max(var(--gutter), calc((100vw - var(--container)) / 2)) 24px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
+        .hproj__track::-webkit-scrollbar { display: none; }
+        .hproj__progress { display: none; margin: 22px auto 0; width: min(360px, 60vw); height: 2px; background: var(--line); border-radius: 2px; overflow: hidden; }
+        .hproj__progress i { display: block; height: 100%; width: 100%; transform-origin: left; transform: scaleX(0); background: linear-gradient(90deg, var(--cyan), var(--violet)); box-shadow: 0 0 10px var(--cyan); }
+        .hproj__hint { margin-top: 14px; text-align: center; font-family: var(--mono); font-size: 10.5px; letter-spacing: .2em; color: var(--dim); }
+        .hproj.is-pinned { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 84px 0 28px; overflow: hidden; }
+        .hproj.is-pinned .head { margin-bottom: 22px; }
+        .hproj.is-pinned .head__desc { display: none; }
+        html.menu-open { overflow: hidden; }
+        .hproj.is-pinned .hproj__track { overflow: visible; scroll-snap-type: none; width: max-content; padding-bottom: 6px; will-change: transform; }
+        .hproj.is-pinned .hproj__view { overflow: hidden; }
+        .hproj.is-pinned .hproj__progress { display: block; }
+        .hproj.is-pinned .hproj__hint { display: none; }
+
+        .card { display: flex; flex-direction: column; overflow: hidden; transform-style: preserve-3d; will-change: transform; }
+        .card__media { position: relative; display: block; aspect-ratio: 16 / 10; overflow: hidden; cursor: zoom-in; background: var(--fill-2); border-bottom: 1px solid var(--line); }
+        .card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s var(--ease); }
+        .card:hover .card__media img { transform: scale(1.07); }
+        .card__media::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, transparent 55%, rgba(5, 7, 13, .55)); }
+        .card__zoom { position: absolute; right: 12px; bottom: 12px; z-index: 2; opacity: 0; transform: translateY(6px); transition: opacity .3s, transform .35s var(--ease); }
+        .card__zoom span { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: rgba(5, 7, 13, .72); border: 1px solid var(--line-strong); color: #fff; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+        .card__zoom svg { width: 15px; height: 15px; stroke-width: 2; }
+        .card__media:hover .card__zoom, .card__media:focus-visible .card__zoom { opacity: 1; transform: none; }
+        .card__flag { position: absolute; left: 12px; top: 12px; z-index: 2; padding: 4px 11px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; border-radius: 999px; color: var(--accent-text); background: rgba(5, 7, 13, .78); border: 1px solid var(--accent-line); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+        .card__flag--gold { color: var(--gold); border-color: var(--gold-line); }
+        .card__ph { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 10px; }
+        .card__ph em { font-style: normal; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+        .card__body { display: flex; flex-direction: column; flex: 1; padding: 22px 24px 24px; }
+        .card__kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-text); }
+        .card__title { margin-top: 8px; font-size: 19px; font-weight: 600; letter-spacing: -.015em; line-height: 1.3; }
+        .card__desc { margin-top: 10px; font-size: 14px; color: var(--text-2); }
+        .card__more { margin-top: 8px; font-size: 13px; color: var(--muted); }
+        .card__tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+        .card__foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 18px; }
+        .card__role { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--dim); }
+        .hcard { flex: none; width: clamp(300px, 26vw, 390px); scroll-snap-align: center; }
+        .hcard .card__title { font-size: 18px; }
+        .hcard .card__more { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .hcard .card__media { aspect-ratio: 16 / 9.4; }
+
+        .grid { display: grid; gap: 18px; grid-template-columns: repeat(3, 1fr); }
+        .bento { grid-template-columns: repeat(12, 1fr); }
+        .bento-p { grid-template-columns: repeat(12, 1fr); }
+        .bento-p > :nth-child(1) { grid-column: span 7; } .bento-p > :nth-child(2) { grid-column: span 5; }
+        .bento-p > :nth-child(3) { grid-column: span 5; } .bento-p > :nth-child(4) { grid-column: span 7; }
+        .bento-p > :nth-child(5) { grid-column: span 12; flex-direction: row; }
+        .bento-p > :nth-child(5) .card__media { width: 46%; aspect-ratio: auto; min-height: 260px; border-bottom: 0; border-right: 1px solid var(--line); }
+        .bento-p .card__media { aspect-ratio: 16 / 8.6; }
+        .bento > :nth-child(4n+1) { grid-column: span 7; } .bento > :nth-child(4n+2) { grid-column: span 5; }
+        .bento > :nth-child(4n+3) { grid-column: span 5; } .bento > :nth-child(4n+4) { grid-column: span 7; }
+        .bento .card__media { aspect-ratio: 16 / 8.4; }
+
+        /* ==========================================================
+           13. RESEARCH / FYP
+           ========================================================== */
+        .fyp { position: relative; overflow: hidden; padding: clamp(24px, 4vw, 52px); border-radius: 28px; }
+        .fyp__graph { position: absolute; inset: 0; z-index: 0 !important; width: 100%; height: 100%; opacity: .26; pointer-events: none; }
+        .fyp__graph .n { fill: var(--cyan); }
+        .fyp__graph .l { stroke: var(--accent-line); stroke-width: 1; fill: none; }
+        .fyp__top { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(24px, 4vw, 56px); align-items: center; }
+        .fyp__flags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+        .fyp__title { font-size: clamp(22px, 3vw, 34px); font-weight: 600; letter-spacing: -.025em; line-height: 1.2; }
+        .fyp__lede { margin-top: 16px; color: var(--text-2); font-size: 15.5px; }
+        .console { position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--line-strong); background: #060912; box-shadow: 0 30px 70px -30px rgba(77, 124, 255, .6); }
+        .console__bar { display: flex; align-items: center; gap: 7px; padding: 10px 14px; background: rgba(140, 170, 255, .06); border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; color: var(--muted); }
+        .console__bar i { width: 8px; height: 8px; border-radius: 50%; background: var(--line-strong); }
+        .console__bar span { margin-left: auto; color: var(--accent-text); display: inline-flex; align-items: center; gap: 7px; }
+        .console__view { position: relative; display: block; aspect-ratio: 16 / 10; cursor: zoom-in; overflow: hidden; }
+        .console__view img { width: 100%; height: 100%; object-fit: cover; }
+        .console__view::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 22%; pointer-events: none; background: linear-gradient(transparent, rgba(56, 225, 255, .22), transparent); border-bottom: 1px solid rgba(56, 225, 255, .5); animation: sweep 3.6s ease-in-out infinite; }
+        @keyframes sweep { 0% { transform: translateY(-100%); } 100% { transform: translateY(460%); } }
+        .console__view .corner { position: absolute; width: 16px; height: 16px; border: 2px solid var(--cyan); opacity: .8; z-index: 2; }
+        .corner.tl_ { left: 10px; top: 10px; border-right: 0; border-bottom: 0; } .corner.tr_ { right: 10px; top: 10px; border-left: 0; border-bottom: 0; }
+        .corner.bl_ { left: 10px; bottom: 10px; border-right: 0; border-top: 0; } .corner.br_ { right: 10px; bottom: 10px; border-left: 0; border-top: 0; }
+        .pipe { position: relative; display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; margin-top: clamp(30px, 4vw, 48px); }
+        .pipe__step { position: relative; padding: 0 8px; text-align: center; }
+        .pipe__node { position: relative; z-index: 1; display: grid; place-items: center; width: 56px; height: 56px; margin: 0 auto; border-radius: 16px; color: var(--accent-text); background: var(--glass-2); border: 1px solid var(--accent-line); box-shadow: 0 0 26px -6px rgba(56, 225, 255, .5); }
+        .pipe__node svg { width: 24px; height: 24px; stroke-width: 1.6; }
+        .pipe__step:not(:last-child)::after { content: ""; position: absolute; top: 28px; left: calc(50% + 34px); right: calc(-50% + 34px); height: 1px; background: linear-gradient(90deg, var(--cyan), var(--violet)); transform-origin: left; transform: scaleX(var(--p, 1)); opacity: .7; }
+        .pipe__step h4 { margin-top: 14px; font-size: 13.5px; font-weight: 600; }
+        .pipe__step p { margin-top: 4px; font-size: 11.5px; line-height: 1.45; color: var(--muted); }
+        .pipe__packet { position: absolute; top: 25px; left: 0; width: 6px; height: 6px; margin-left: -3px; border-radius: 50%; background: #fff; box-shadow: 0 0 14px 3px var(--cyan); opacity: 0; z-index: 2; }
+        .fyp__pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: clamp(30px, 4vw, 48px); }
+        .fyp__pillar { padding: 22px; border-radius: var(--r-m); background: var(--fill-1); border: 1px solid var(--line); }
+        .fyp__pillar h4 { display: flex; align-items: center; gap: 12px; font-size: 16px; font-weight: 600; }
+        .fyp__pillar p { margin-top: 12px; font-size: 13.5px; color: var(--text-2); }
+        .fyp__stack { margin-top: 30px; padding-top: 24px; border-top: 1px solid var(--line); }
+        .fyp__stack h4 { font-family: var(--mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; font-weight: 500; }
+        .fyp__stack-list { display: flex; flex-wrap: wrap; gap: 8px; }
+
+        /* ==========================================================
+           14. SKILLS MATRIX
+           ========================================================== */
+        .skills { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; perspective: 1400px; }
+        .skill { padding: 24px 22px; will-change: transform; }
+        .skill__head { display: flex; align-items: center; gap: 12px; }
+        .skill__title { font-size: 16px; font-weight: 600; letter-spacing: -.01em; }
+        .skill__note { margin-top: 14px; font-size: 13px; line-height: 1.55; color: var(--muted); }
+        .skill__items { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+        .skill .chip { font-size: 11.5px; padding: 3px 9px; }
+
+        /* ==========================================================
+           15. CERTIFICATIONS — credential rail
+           ========================================================== */
+        .rail-wrap { position: relative; }
+        .certs { display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x proximity; padding: 8px max(var(--gutter), calc((100vw - var(--container)) / 2)) 26px; scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent; overscroll-behavior-x: contain; }
+        .cert { position: relative; flex: none; width: clamp(250px, 24vw, 290px); scroll-snap-align: start; overflow: hidden; display: flex; flex-direction: column; }
+        .cert__thumb { position: relative; display: grid; place-items: center; aspect-ratio: 4 / 3; overflow: hidden; cursor: zoom-in; background: var(--fill-2); border-bottom: 1px solid var(--line); color: var(--accent-text); }
+        .cert__thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
+        .cert:hover .cert__thumb img { transform: scale(1.06); }
+        .cert__thumb > svg { width: 34px; height: 34px; stroke-width: 1.5; }
+        .cert__thumb::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 30%; pointer-events: none; background: linear-gradient(transparent, rgba(56, 225, 255, .2), transparent); border-bottom: 1px solid rgba(56, 225, 255, .35); animation: sweep 5s ease-in-out infinite; animation-delay: var(--d, 0s); }
+        .cert__medal { position: absolute; right: 10px; top: 10px; z-index: 2; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; color: var(--gold); background: rgba(5, 7, 13, .8); border: 1px solid var(--gold-line); }
+        .cert__medal svg { width: 13px; height: 13px; stroke-width: 2.4; }
+        .cert__body { padding: 18px 20px 20px; flex: 1; display: flex; flex-direction: column; }
+        .cert__id { font-family: var(--mono); font-size: 10px; letter-spacing: .18em; color: var(--dim); text-transform: uppercase; }
+        .cert__name { margin-top: 8px; font-size: 15px; font-weight: 600; line-height: 1.35; letter-spacing: -.01em; }
+        .cert__issuer { margin-top: 6px; font-size: 12.5px; color: var(--muted); }
+        .cert__verify { margin-top: 14px; }
+        .rail-ctl { display: flex; justify-content: flex-end; gap: 8px; margin-bottom: 14px; }
+        .rail-ctl .icon-btn svg { width: 16px; height: 16px; }
+
+        /* ==========================================================
+           16. EDUCATION — circuit card
+           ========================================================== */
+        .edu { position: relative; display: grid; grid-template-columns: minmax(200px, 300px) 1fr; gap: clamp(24px, 4vw, 52px); align-items: center; padding: clamp(24px, 4vw, 48px); overflow: hidden; border-radius: 28px; }
+        .circuit { position: absolute; inset: 0; z-index: 0 !important; width: 100%; height: 100%; pointer-events: none; opacity: .55; }
+        .circuit path { fill: none; stroke: var(--accent-line); stroke-width: 1.2; stroke-dasharray: 6 14; animation: flow 5s linear infinite; }
+        .circuit path:nth-child(even) { stroke: rgba(139, 92, 246, .35); animation-duration: 7s; animation-direction: reverse; }
+        .circuit circle { fill: var(--cyan); opacity: .7; }
+        @keyframes flow { to { stroke-dashoffset: -80; } }
+        .edu__crest { display: grid; place-items: center; min-height: 190px; padding: 26px; border-radius: var(--r-m); background: var(--fill-1); border: 1px solid var(--line); }
+        .edu__crest img { max-height: 170px; width: auto; object-fit: contain; }
+        .edu__crest span { text-align: center; font-weight: 600; color: var(--muted); }
+        .edu__degree { font-size: clamp(24px, 3.4vw, 38px); font-weight: 600; letter-spacing: -.03em; line-height: 1.1; }
+        .edu__uni { margin-top: 8px; font-size: 17px; color: var(--accent-text); font-weight: 500; }
+        .edu__tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+        .edu__desc { margin-top: 20px; max-width: 62ch; color: var(--text-2); font-size: 15px; }
+
+        /* ==========================================================
+           17. FOCUS + COMMUNITY
+           ========================================================== */
+        .focus { display: flex; flex-wrap: wrap; gap: 12px; }
+        .focus__item { padding: 12px 22px; font-size: 14.5px; color: var(--text-2); background: var(--glass); border: 1px solid var(--line); border-radius: 999px; transition: border-color .3s, color .3s, transform .4s var(--ease); }
+        .focus__item:hover { color: var(--text); border-color: var(--accent-line); transform: translateY(-3px); }
+        .cm-grid { display: grid; gap: 18px; grid-template-columns: repeat(2, 1fr); }
+        .cm { display: grid; grid-template-columns: 200px 1fr; overflow: hidden; }
+        .cm__media { position: relative; display: block; min-height: 190px; overflow: hidden; cursor: zoom-in; background: var(--fill-2); }
+        .cm__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
+        .cm:hover .cm__media img { transform: scale(1.06); }
+        .cm__ph { position: absolute; inset: 0; display: grid; place-items: center; }
+        .cm__body { padding: 22px 24px; }
+        .cm__title { font-size: 16.5px; font-weight: 600; letter-spacing: -.01em; line-height: 1.3; }
+        .cm__org { margin-top: 4px; font-size: 12.5px; color: var(--accent-text); }
+        .cm__desc { margin-top: 10px; font-size: 13.5px; color: var(--text-2); }
+        .cm .card__zoom { right: 10px; bottom: 10px; }
+        .cm__media:hover .card__zoom { opacity: 1; transform: none; }
+
+        /* ==========================================================
+           18. CONTACT
+           ========================================================== */
+        .contact { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(20px, 3vw, 36px); align-items: start; }
+        .contact-big { font-size: clamp(34px, 6.4vw, 78px); font-weight: 600; letter-spacing: -.04em; line-height: 1.02; }
+        .form { padding: clamp(22px, 3vw, 36px); display: grid; gap: 18px; }
+        .field { display: grid; gap: 8px; }
+        .field label { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+        .field input, .field textarea { width: 100%; padding: 14px 16px; font: inherit; font-size: 15px; color: var(--text); background: var(--fill-1); border: 1px solid var(--line); border-radius: 14px; outline: none; transition: border-color .3s, box-shadow .3s, background .3s; }
+        .field textarea { min-height: 150px; resize: vertical; }
+        .field input::placeholder, .field textarea::placeholder { color: var(--dim); }
+        .field input:focus, .field textarea:focus { border-color: var(--cyan); background: var(--accent-soft); box-shadow: 0 0 0 4px rgba(56, 225, 255, .12), 0 0 26px -6px rgba(56, 225, 255, .45); }
+        .form__note { font-size: 12.5px; color: var(--dim); }
+        .form__foot { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; }
+        .form .btn--primary:hover { transform: none; }
+        .contact__side { display: grid; gap: 14px; }
+        .c-item { display: flex; align-items: center; gap: 16px; padding: 16px 20px; border-radius: var(--r-m); }
+        .c-item .icon-tile { width: 44px; height: 44px; }
+        .c-item small { display: block; font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--dim); }
+        .c-item span.v { display: block; font-size: 14.5px; color: var(--text); word-break: break-word; }
+        .c-item .go { margin-left: auto; color: var(--muted); transition: transform .35s var(--ease), color .3s; }
+        .c-item:hover .go { transform: translateX(4px); color: var(--cyan); }
+        .socials { display: flex; gap: 10px; margin-top: 4px; }
+        .socials a { display: grid; place-items: center; width: 50px; height: 50px; border-radius: 50%; font-size: 22px; color: var(--text-2); background: var(--glass); border: 1px solid var(--line); transition: transform .35s var(--ease), border-color .3s, color .3s, box-shadow .3s; }
+        .socials a:hover { color: var(--cyan); border-color: var(--cyan); transform: translateY(-4px); box-shadow: 0 10px 30px -10px rgba(56, 225, 255, .6); }
+
+        /* ==========================================================
+           19. FOOTER
+           ========================================================== */
+        footer { position: relative; margin-top: 30px; padding: 64px 0 34px; border-top: 1px solid var(--line); overflow: hidden; }
+        footer::before { content: ""; position: absolute; left: 50%; top: 0; width: 60%; height: 1px; transform: translateX(-50%); background: linear-gradient(90deg, transparent, var(--cyan), transparent); opacity: .6; }
+        .fdot { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 10px var(--cyan); opacity: .4; animation: twinkle 4s ease-in-out infinite; }
+        @keyframes twinkle { 50% { opacity: .05; transform: translateY(-8px); } }
+        .footer__top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px; }
+        .footer__brand strong { font-family: var(--mono); font-size: 14px; letter-spacing: .22em; font-weight: 500; }
+        .footer__brand p { margin-top: 8px; color: var(--muted); font-size: 14px; }
+        .footer__nav { display: flex; flex-wrap: wrap; gap: 8px 22px; max-width: 460px; }
+        .footer__nav a { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); transition: color .25s; }
+        .footer__nav a:hover { color: var(--cyan); }
+        .footer__bot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-top: 42px; padding-top: 22px; border-top: 1px solid var(--line-soft); }
+        .footer__meta { font-size: 12.5px; color: var(--dim); }
+        .footer__links { display: flex; align-items: center; gap: 18px; }
+        .footer__links a { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; color: var(--muted); transition: color .25s; }
+        .footer__links a:hover { color: var(--cyan); }
+        .footer__links svg { width: 16px; height: 16px; stroke-width: 1.8; }
+
+        /* ==========================================================
+           20. LIGHTBOX
+           ========================================================== */
+        #lightbox { position: fixed; inset: 0; z-index: 400; display: none; align-items: center; justify-content: center; padding: 24px; background: var(--overlay); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+        #lightbox.is-open { display: flex; animation: fadeIn .3s ease; }
+        @keyframes fadeIn { from { opacity: 0; } }
+        .lb { position: relative; display: grid; justify-items: center; gap: 12px; max-width: 100%; }
+        .lb__img { max-width: min(1100px, 92vw); max-height: 78vh; border-radius: 14px; border: 1px solid var(--line-strong); box-shadow: 0 30px 80px rgba(0, 0, 0, .6), 0 0 60px -20px rgba(77, 124, 255, .5); background: var(--bg-2); }
+        .lb__cap { font-size: 14px; color: var(--text-2); text-align: center; }
+        .lb__count { font-family: var(--mono); font-size: 11.5px; color: var(--muted); letter-spacing: .12em; }
+        .lb__btn { position: fixed; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; color: var(--text); background: var(--glass-2); border: 1px solid var(--line-strong); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); transition: border-color .25s, box-shadow .25s; }
+        .lb__btn:hover { border-color: var(--cyan); box-shadow: 0 0 20px -4px var(--cyan); }
+        .lb__btn svg { width: 20px; height: 20px; stroke-width: 2; }
+        .lb__close { top: 18px; right: 18px; } .lb__prev { left: 18px; top: 50%; margin-top: -23px; } .lb__next { right: 18px; top: 50%; margin-top: -23px; }
+
+        /* ==========================================================
+           21. RESPONSIVE
+           ========================================================== */
+        @media (max-width: 1180px) { .status .st-text { display: none; } .status { padding: 8px 10px; } .nav__links a { padding: 8px 10px; } }
+        @media (max-width: 1060px) {
+            .nav__links, .nav__side .status { display: none; }
+            .nav__toggle { display: block; }
+            .nav__inner { padding-left: 20px; justify-content: space-between; }
+            .nav__side { margin-left: auto; }
+            .skills { grid-template-columns: repeat(2, 1fr); }
+            .metrics { grid-template-columns: repeat(3, 1fr); }
+            .fyp__top { grid-template-columns: 1fr; }
+            .fyp__pillars { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 900px) {
+            .hero { align-items: flex-start; padding-top: calc(var(--nav-h) + 38svh); }
+            .hero__orb { right: 0; left: 0; top: calc(var(--nav-h) - 8px); bottom: auto; margin: 0; width: 100%; height: 44svh; max-width: none; }
+            .hero::before { background: linear-gradient(180deg, transparent 20%, var(--bg) 62%); opacity: .9; }
+            .scroll-cue { display: none; }
+            .about, .edu, .contact { grid-template-columns: 1fr; }
+            .id-card { max-width: 420px; }
+            .grid { grid-template-columns: repeat(2, 1fr); }
+            .bento { grid-template-columns: repeat(2, 1fr); }
+            .bento > *, .bento-p > * { grid-column: auto !important; }
+            .bento-p { grid-template-columns: repeat(2, 1fr); }
+            .bento-p > :nth-child(5) { grid-column: 1 / -1 !important; }
+            .cm-grid { grid-template-columns: 1fr; }
+            .pipe { grid-template-columns: 1fr; gap: 6px; }
+            .pipe__step { display: grid; grid-template-columns: 56px 1fr; column-gap: 16px; align-items: center; text-align: left; padding: 8px 0; }
+            .pipe__step h4 { margin-top: 0; } .pipe__step .pipe__node { margin: 0; grid-row: span 2; }
+            .pipe__step:not(:last-child)::after, .pipe__packet { display: none; }
+        }
+        @media (max-width: 640px) {
+            :root { --nav-h: 64px; }
+            .metrics { grid-template-columns: repeat(2, 1fr); }
+            .metric { padding: 22px 18px; }
+            .skills, .grid, .bento-p { grid-template-columns: 1fr; }
+            .bento-p > :nth-child(5) { flex-direction: column; } .bento-p > :nth-child(5) .card__media { width: 100%; aspect-ratio: 16 / 9; min-height: 0; border-right: 0; border-bottom: 1px solid var(--line); }
+            .focuslist { grid-template-columns: 1fr; }
+            .hcard { width: 82vw; }
+            .cm { grid-template-columns: 1fr; } .cm__media { min-height: 0; aspect-ratio: 16 / 9; }
+            .exp__head { flex-wrap: wrap; } .exp__head .tag { order: -1; }
+            .tl { padding-left: 34px; } .tl__line, .tl__fill { left: 8px; } .exp__node { left: -34px; top: 30px; width: 14px; height: 14px; }
+            .hero__actions .btn { flex: 1 1 100%; justify-content: center; min-height: 52px; }
+            .hero__actions .btn:nth-child(n+2) { flex: 1 1 calc(50% - 6px); }
+            .btn { min-height: 50px; }
+            .tech { grid-template-columns: repeat(2, 1fr); }
+            .lb__prev { left: 8px; } .lb__next { right: 8px; }
+            .footer__top, .footer__bot { flex-direction: column; align-items: flex-start; }
+        }
+        @media (max-width: 360px) {
+            .hero__actions .btn:nth-child(n+2) { flex-basis: 100%; }
+            .tech { grid-template-columns: 1fr; }
+            .nav__brand { letter-spacing: .12em; font-size: 11.5px; }
+        }
+
+        /* ==========================================================
+           22. REDUCED MOTION — content stays fully accessible
+           ========================================================== */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+            .cursor-glow { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div id="progress" aria-hidden="true"></div>
+
+    <!-- Persistent environment -->
+    <div class="env" aria-hidden="true"><span class="bg-orb bg-orb--1"></span><span class="bg-orb bg-orb--2"></span><span class="bg-orb bg-orb--3"></span></div>
+    <canvas id="fx" aria-hidden="true"></canvas>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+    <!-- Cinematic preloader -->
+    <div class="preloader" id="preloader" role="status" aria-live="polite" aria-label="Loading portfolio">
+        <span class="pl-orb"></span><span class="pl-orb"></span><span class="pl-orb"></span>
+        <div class="loader-content">
+            <div class="pl-name" id="plName">BILAWAL ALI</div>
+            <div class="pl-role">CYBERSECURITY ANALYST</div>
+            <div class="pl-bar"><div class="progress-bar" id="plBar"></div></div>
+            <div class="pl-count" id="plCount">00%</div>
+        </div>
+    </div>
+
+    <header>
+        <nav id="nav" aria-label="Primary">
+            <div class="nav__inner">
+                <a href="#home" class="nav__brand" aria-label="Bilawal Ali — back to top">[ BILAWAL<b> ALI</b> ]</a>
+                <div class="nav__links" id="navLinks"></div>
+                <div class="nav__side">
+                    <p class="status" aria-label="Available for opportunities"><span class="dot" aria-hidden="true"></span><span class="st-text">AVAILABLE FOR OPPORTUNITIES</span></p>
+                    <button class="icon-btn" id="themeToggle" type="button" aria-label="Switch to light theme">
+                        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+                        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+                    </button>
+                    <button class="icon-btn nav__toggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navDrawer"><span></span><span></span><span></span></button>
+                </div>
+            </div>
+        </nav>
+        <div class="nav__drawer" id="navDrawer" aria-label="Mobile menu"></div>
+    </header>
+
+    <main id="main">
+
+        <!-- ================= HERO ================= -->
+        <section id="home" class="hero" aria-labelledby="heroName">
+            <div class="hero__orb" id="heroOrb" aria-hidden="true">
+                <div class="orb-glow"></div>
+                <div class="core">
+                    <span class="core__pulse"></span><span class="core__pulse core__pulse--2"></span>
+                    <span class="core__ring core__ring--1"><i></i></span>
+                    <span class="core__ring core__ring--2"><i></i></span>
+                    <span class="core__ring core__ring--3"><i></i></span>
+                    <span class="core__sphere"><span class="core__shine"></span><span class="core__grid"></span></span>
+                </div>
+            </div>
+            <div class="wrap">
+                <div class="hero__copy" id="heroCopy">
+                    <p class="eyebrow hero-item"><span>Cybersecurity</span><i>•</i><span>SOC</span><i>•</i><span>Threat Detection</span><i>•</i><span>Security Research</span></p>
+                    <h1 class="hero__name hero-item" id="heroName"><span>Hi, I'm Bilawal</span><span class="grad">Cybersecurity Analyst</span></h1>
+                    <p class="hero__title hero-item">SOC Analyst <span>/</span> Cybersecurity Researcher</p>
+                    <p class="hero__disciplines hero-item">SIEM · Incident Response · Threat Hunting · DFIR · Offensive Security · ML for Security</p>
+                    <p class="hero__bio hero-item">
+                        I monitor, triage and investigate security events — and build the detections that catch them.
+                        My work spans <strong>Wazuh</strong>, <strong>Splunk</strong> and the <strong>ELK Stack</strong>,
+                        web application testing, digital forensics, and machine learning applied to PDF malware detection
+                        for my final-year research at <strong>MUET</strong>.
+                    </p>
+                    <div class="hero__actions hero-item">
+                        <a href="#contact" class="btn btn--primary magnetic">Hire Me <span class="arr" aria-hidden="true">→</span></a>
+                        <a href="#projects" class="btn magnetic">View Projects <span class="arr" aria-hidden="true">→</span></a>
+                        <a href="#" class="btn magnetic" id="heroResume" download>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 20h16"/></svg>
+                            Download CV
+                        </a>
+                    </div>
+                    <dl class="hero__metrics hero-item" id="heroMetrics"></dl>
+                </div>
+            </div>
+            <div class="scroll-cue" aria-hidden="true"><span>SCROLL</span><i></i></div>
+        </section>
+
+        <!-- ================= ABOUT ================= -->
+        <section id="about" class="section" aria-labelledby="aboutTitle">
+            <div class="wrap">
+                <div class="head" data-anim="fade">
+                    <span class="head__label">About</span>
+                    <h2 class="head__title" id="aboutTitle">Defensive security, practised hands-on</h2>
+                </div>
+                <div class="about">
+                    <aside class="id-card" data-anim="fade" aria-label="Profile card">
+                        <div class="panel id-card__inner">
+                            <div class="avatar">
+                                <span class="avatar__ring avatar__ring--2" aria-hidden="true"></span>
+                                <span class="avatar__ring" aria-hidden="true"></span>
+                                <div class="avatar__img" id="profileAvatar"></div>
+                            </div>
+                            <p class="id-card__name" id="profileName">Bilawal Ali</p>
+                            <p class="id-card__role">SOC Analyst (L1) · BS Cyber Security, final year</p>
+                            <div class="id-card__rows" id="profileRows"></div>
+                        </div>
+                    </aside>
+                    <div>
+                        <div class="about__body" data-anim="fade">
+                            <p>
+                                I'm a final-year <strong>BS Cyber Security</strong> student at <strong>Mehran University of Engineering &amp; Technology</strong>,
+                                Jamshoro, with hands-on experience in <strong>Security Operations, Threat Detection, and Incident Analysis</strong>. I have worked with
+                                <strong>Wazuh</strong> to monitor security events, investigate authentication anomalies, develop detection rules, and map findings to
+                                <strong>MITRE ATT&amp;CK</strong>.
+                            </p>
+                            <p>
+                                My defensive experience is strengthened by <strong>Offensive Security</strong> experience through web application VAPT, responsible
+                                bug hunting, and <strong>150+ PortSwigger labs</strong>. I also maintain a hands-on lab with Wazuh, Splunk, ELK, pfSense, and Suricata
+                                to test and validate security detections.
+                            </p>
+                            <p>
+                                My research focuses on <strong>Machine Learning for Cybersecurity</strong>. My final-year project develops an AI-based system for
+                                <strong>PDF malware detection, remediation, and forensic analysis</strong>, using Explainable AI to help analysts understand detection decisions.
+                            </p>
+                            <p>
+                                Outside technical work, I lead <strong>Access~Denied</strong> at MUET, organizing cybersecurity competitions and activities while
+                                participating in national CTFs and the <strong>NADRA Bug Bounty Challenge</strong>.
+                            </p>
+                            <ul class="focuslist">
+                                <li>SIEM monitoring and alert triage</li>
+                                <li>Detection rule development</li>
+                                <li>Incident response and reporting</li>
+                                <li>Threat hunting and IOC analysis</li>
+                                <li>Digital forensics and malware analysis</li>
+                                <li>Web application security testing</li>
+                                <li>Machine learning for malware detection</li>
+                            </ul>
+                        </div>
+                        <ul class="tech" id="techGrid" aria-label="Technologies"></ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= METRICS ================= -->
+        <section id="metrics" class="section" style="padding-top:0" aria-labelledby="metricsTitle">
+            <div class="wrap">
+                <div class="head" data-anim="fade">
+                    <span class="head__label">By the numbers</span>
+                    <h2 class="head__title" id="metricsTitle">Security operations, measured</h2>
+                    <p class="head__desc">Figures taken directly from the roles and labs described below.</p>
+                </div>
+                <dl class="metrics" id="proofGrid"></dl>
+            </div>
+        </section>
+
+        <!-- ================= EXPERIENCE ================= -->
+        <section id="experience" class="section" aria-labelledby="expTitle">
+            <div class="wrap">
+                <div class="head" data-anim="fade">
+                    <span class="head__label">Experience</span>
+                    <h2 class="head__title" id="expTitle">Where I've worked</h2>
+                    <p class="head__desc">SOC monitoring, threat analysis, vulnerability assessment and incident reporting — with the figures each role produced.</p>
+                </div>
+                <div class="tl" id="timeline">
+                    <span class="tl__line" aria-hidden="true"></span><span class="tl__fill" id="tlFill" aria-hidden="true"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PROJECTS (vertical bento) ================= -->
+        <section id="projects" class="section" aria-labelledby="projTitle">
+            <div class="wrap">
+                <div class="head" data-anim="fade">
+                    <span class="head__label">Selected work</span>
+                    <h2 class="head__title" id="projTitle">Projects</h2>
+                    <p class="head__desc">Security tooling, detection labs and forensics work. Each one starts from a problem I hit in practice.</p>
+                </div>
+                <div class="grid bento-p" id="projectsTrack"></div>
+            </div>
+        </section>
+
+        <!-- ================= RESEARCH / FYP ================= -->
+        <section id="research" class="section" aria-labelledby="fypTitle">
+            <div class="wrap">
+                <div class="head head--wide" data-anim="fade">
+                    <span class="head__label">Research</span>
+                    <h2 class="head__title" id="fypTitle">Machine learning for malware detection</h2>
+                    <p class="head__desc">My final-year project, and the direction I want to keep working in: detection that an analyst can interrogate, not just trust.</p>
+                </div>
+                <div class="panel fyp" id="fypSlot" data-anim="fade"></div>
+            </div>
+        </section>
+
+        <!-- ================= SECURITY FINDINGS ================= -->
+        <section id="findings" class="section" aria-labelledby="findTitle">
+            <div class="wrap">
+                <div class="head" data-anim="fade">
+                    <span class="head__label">Vulnerability research</span>
+                    <h2 class="head__title" id="findTitle">Security findings</h2>
+                    <p class="head__desc">Vulnerabilities identified during web application testing, bug bounty work and independent research — all responsibly disclosed.</p>
+                </div>
+                <div class="grid bento" id="findingsGrid"></div>
+            </div>
+        </section>
+
+        <!-- ================= SKILLS ================= -->
+        <section id="skills" class="section" aria-labelledby="skillsTitle">
+            <div class="wrap">
+                <div class="head" data-anim="fade">
+                    <span class="head__label">Capabilities</span>
+                    <h2 class="head__title" id="skillsTitle">Skills matrix</h2>
+                    <p class="head__desc">Grouped by how the work is actually done, rather than as one long list.</p>
+                </div>
+                <div class="skills" id="skillsGrid"></div>
+            </div>
+        </section>
+
+        <!-- ================= ACHIEVEMENTS ================= -->
+        <section id="achievements" class="section" aria-labelledby="achTitle">
+            <div class="wrap">
+                <div class="head" data-anim="fade">
+                    <span class="head__label">Recognition</span>
+                    <h2 class="head__title" id="achTitle">Competitions and awards</h2>
+                    <p class="head__desc">CTF results, bug bounty recognition, structured lab work and speaking engagements.</p>
+                </div>
+                <div class="grid" id="achievementsGrid"></div>
+            </div>
+        </section>
+
+        <!-- ================= CERTIFICATIONS ================= -->
+        <section id="certifications" class="section" aria-labelledby="certTitle">
+            <div class="wrap">
+                <div class="head" data-anim="fade">
+                    <span class="head__label">Credentials</span>
+                    <h2 class="head__title" id="certTitle">Certifications and training</h2>
+                    <p class="head__desc">Certifications, structured training and hands-on lab programmes completed to date.</p>
+                </div>
+                <div class="rail-ctl">
+                    <button class="icon-btn" type="button" id="certPrev" aria-label="Scroll certifications left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+                    <button class="icon-btn" type="button" id="certNext" aria-label="Scroll certifications right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+                </div>
+            </div>
+            <div class="rail-wrap"><div class="certs" id="certGrid" tabindex="0" role="region" aria-label="Certifications — scroll horizontally"></div></div>
+        </section>
+
+        <!-- ================= EDUCATION ================= -->
+        <section id="education" class="section" aria-labelledby="eduTitle">
+            <div class="wrap">
+                <div class="head" data-anim="fade">
+                    <span class="head__label">Education</span>
+                    <h2 class="head__title" id="eduTitle">Academic background</h2>
+                </div>
+                <div id="educationSlot"></div>
+            </div>
+        </section>
+
+        <!-- ================= FOCUS ================= -->
+        <section id="focus" class="section" style="padding-top:0" aria-labelledby="focusTitle">
+            <div class="wrap">
+                <div class="head" data-anim="fade">
+                    <span class="head__label">Currently learning</span>
+                    <h2 class="head__title" id="focusTitle">What I'm building next</h2>
+                    <p class="head__desc">Areas I'm actively studying to deepen detection and response capability.</p>
+                </div>
+                <div class="focus" id="focusGrid"></div>
+            </div>
+        </section>
+
+        <!-- ================= LEADERSHIP & COMMUNITY ================= -->
+        <section id="community" class="section" aria-labelledby="commTitle">
+            <div class="wrap">
+                <div class="head" data-anim="fade">
+                    <span class="head__label">Leadership &amp; community</span>
+                    <h2 class="head__title" id="commTitle">Running events, not just attending them</h2>
+                    <p class="head__desc">Student-led security competitions, university events and volunteer work.</p>
+                </div>
+                <div class="cm-grid" id="communityGrid"></div>
+            </div>
+        </section>
+
+        <!-- ================= CONTACT ================= -->
+        <section id="contact" class="section" aria-labelledby="contactTitle">
+            <div class="wrap">
+                <div class="head head--wide" data-anim="fade">
+                    <span class="head__label">Contact</span>
+                    <h2 class="contact-big" id="contactTitle">Let's build something <span class="grad">secure.</span></h2>
+                    <p class="head__desc">Open to SOC analyst, blue team, threat hunting and cybersecurity internship roles, and to research collaboration on ML for malware detection. Email is the quickest way to reach me.</p>
+                </div>
+                <div class="contact">
+                    <form class="panel form" id="contactForm" novalidate aria-label="Contact form">
+                        <div class="field"><label for="cfName">Name</label><input id="cfName" name="name" type="text" autocomplete="name" placeholder="Your name" required /></div>
+                        <div class="field"><label for="cfEmail">Email</label><input id="cfEmail" name="email" type="email" autocomplete="email" placeholder="you@company.com" required /></div>
+                        <div class="field"><label for="cfMsg">Message</label><textarea id="cfMsg" name="message" placeholder="Tell me about the role or project…" required></textarea></div>
+                        <div class="form__foot">
+                            <button class="btn btn--primary magnetic" type="submit">Send Message <span class="arr" aria-hidden="true">→</span></button>
+                            <p class="form__note" id="formNote" role="status" aria-live="polite">Opens your email app with the message pre-filled.</p>
+                        </div>
+                    </form>
+                    <div class="contact__side" id="contactSide"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="footer">
+        <div class="wrap" id="footerInner">
+            <div class="footer__top">
+                <div class="footer__brand"><strong>BILAWAL ALI</strong><p>Cybersecurity Analyst / Security Researcher</p></div>
+                <nav class="footer__nav" id="footerNav" aria-label="Footer"></nav>
+            </div>
+            <div class="footer__bot">
+                <span class="footer__meta">© <span id="year">2026</span> Bilawal Ali · SOC Analyst · Hyderabad, Pakistan</span>
+                <div class="footer__links" id="footerLinks"></div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image preview">
+        <div class="lb">
+            <button class="lb__btn lb__close" id="lbClose" type="button" aria-label="Close preview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+            <button class="lb__btn lb__prev" id="lbPrev" type="button" aria-label="Previous image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+            <button class="lb__btn lb__next" id="lbNext" type="button" aria-label="Next image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+            <img class="lb__img" id="lbImg" src="" alt="" />
+            <p class="lb__cap" id="lbCap"></p>
+            <p class="lb__count" id="lbCount"></p>
+        </div>
+    </div>
+
+    <!-- Libraries (CDN) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+
+    <!-- DATA — single source of truth for the page -->
+    <script>
+        const DATA = {
+            profile: {
+                name: "Bilawal Ali",
+                photo: "assets/profile/profile-image.webp",
+                email: "khooharobilawalali@gmail.com",
+                phone: "+92 344 3559788",
+                linkedin: "https://linkedin.com/in/bilawal-ali-0b0211245",
+                github: "https://github.com/Bila-Ali",
+                location: "Hyderabad, Sindh, Pakistan",
+                resume: "resume/Bilawal_Ali_Resume.pdf",
+                metrics: [
+                    { value: "1K+",  label: "Daily security events monitored" },
+                    { value: "150+", label: "PortSwigger labs completed" },
+                    { value: "10+",  label: "Vulnerabilities identified" }
+                ]
+            },
+
+            /* Every figure below already appears in the experience bullets. */
+            proof: [
+                { value: "1K+",  label: "Daily security events triaged in Wazuh" },
+                { value: "5+",   label: "Custom detection rules authored" },
+                { value: "20+",  label: "VAPT assessments delivered" },
+                { value: "150+", label: "PortSwigger Web Security labs" },
+                { value: "10+",  label: "Vulnerabilities found and disclosed" }
+            ],
+
+            /* Skills regrouped into eight categories — every item below already appears in the original portfolio. */
+            skills: [{
+                icon: "shield", title: "SOC / SIEM",
+                note: "Monitoring, correlation and alert triage across endpoint and network telemetry.",
+                items: ["Wazuh", "Splunk", "ELK Stack", "Kibana", "Logstash", "File Integrity Monitoring", "Alert Triage", "Log Correlation"]
+            }, {
+                icon: "radar", title: "Threat detection",
+                note: "Detection rules, network visibility and automated response, validated in my lab.",
+                items: ["Suricata IDS", "pfSense", "Squid Proxy", "Wireshark", "Active Response", "IOC Analysis", "YARA", "Custom Wazuh Rules"]
+            }, {
+                icon: "target", title: "Offensive security",
+                note: "Web application testing and VAPT, used to validate what detection actually catches.",
+                items: ["Burp Suite", "Metasploit", "Nmap", "SQLmap", "Hydra", "Ncrack", "PortSwigger Labs", "Web App Security", "VAPT"]
+            }, {
+                icon: "search", title: "Digital forensics",
+                note: "Memory and disk analysis, isolated detonation, and signature writing.",
+                items: ["Volatility", "Autopsy", "REMnux", "FLARE-VM", "Static Analysis", "DFIR"]
+            }, {
+                icon: "code", title: "Programming",
+                note: "Tooling and automation for detection, forensics and analysis.",
+                items: ["Python", "Bash", "Pandas", "Scapy", "Flask", "Streamlit"]
+            }, {
+                icon: "network", title: "Security frameworks",
+                note: "The models I map findings and response procedures against.",
+                items: ["MITRE ATT&amp;CK", "NIST SP 800-61", "OWASP Top 10", "Cyber Kill Chain", "TCP/IP"]
+            }, {
+                icon: "server", title: "Operating systems",
+                note: "Endpoints I monitor and the analysis environments I build.",
+                items: ["Linux", "Windows", "REMnux", "FLARE-VM", "VirtualBox"]
+            }, {
+                icon: "cpu", title: "AI / ML",
+                note: "The machine-learning side of my final-year research.",
+                items: ["Machine Learning", "Explainable AI (SHAP)", "Random Forest", "SVM", "Isolation Forest", "PyMuPDF"]
+            }],
+
+            /* Technology grid in About — each name already appears in the original skills, stack or bio. */
+            tech: [
+                { n: "Wazuh", i: "shield-check" }, { n: "Splunk", i: "chart-line-up" }, { n: "ELK Stack", i: "stack" },
+                { n: "Suricata", i: "radar" }, { n: "Burp Suite", i: "bug" }, { n: "Nmap", i: "crosshair" },
+                { n: "Wireshark", i: "share-network" }, { n: "Python", i: "file-py" }, { n: "Linux", i: "terminal-window" },
+                { n: "Windows", i: "windows-logo" }, { n: "MITRE ATT&amp;CK", i: "target" }, { n: "OWASP", i: "lock-key" },
+                { n: "Digital Forensics", i: "magnifying-glass" }, { n: "Machine Learning", i: "brain" }
+            ],
+
+            experience: [{
+                role: "SOC Analyst Intern — L1",
+                company: "Cyberster",
+                location: "Remote",
+                date: "Feb 2026 – Apr 2026",
+                badge: "Blue Team",
+                current: false,
+                logo: "assets/companies-logs/cyberster-log.webp",
+                stack: ["Wazuh", "MITRE ATT&amp;CK", "FIM", "Active Response", "Linux", "Windows"],
+                points: [
+                    "Monitored and triaged 1,000+ daily security events using Wazuh SIEM, reducing mean time to detect through systematic alert prioritization.",
+                    "Investigated brute-force attacks, authentication anomalies, and lateral movement across Linux and Windows endpoints.",
+                    "Developed 5+ custom Wazuh detection rules, improving coverage for previously unmonitored attack vectors.",
+                    "Configured File Integrity Monitoring (FIM) to detect unauthorized system changes and privilege escalation activity.",
+                    "Implemented Active Response policies to auto-block malicious IPs, reducing manual remediation workload.",
+                    "Mapped alerts to MITRE ATT&amp;CK tactics and authored structured incident reports per SOC escalation procedures."
+                ]
+            }, {
+                role: "Red Team Intern",
+                company: "ITSOLERA Pvt Ltd",
+                location: "Remote",
+                date: "Jun 2024 – Aug 2024",
+                badge: "Red Team",
+                logo: "assets/companies-logs/ITSOLERA-log.webp",
+                stack: ["Burp Suite", "Metasploit", "OWASP Top 10", "VAPT"],
+                points: [
+                    "Executed 20+ VAPT assessments against web applications using industry-standard methodologies.",
+                    "Identified SQL Injection, XSS, CSRF, and broken authentication vulnerabilities; delivered formal client reports.",
+                    "Leveraged Burp Suite for HTTP interception and Metasploit for post-exploitation and privilege escalation testing."
+                ]
+            }, {
+                role: "Independent Bug Hunter",
+                company: "Security Researcher",
+                location: "Self-employed",
+                date: "Jan 2024 – Present",
+                badge: "Bug Bounty",
+                logo: "",
+                stack: ["Burp Suite", "SQLmap", "Responsible Disclosure"],
+                points: [
+                    "Conducted 10+ independent assessments across public web applications and APIs with responsible disclosure.",
+                    "Discovered SQL Injection, XSS, and access-control flaws — including sensitive data exposure (names, emails, CNICs).",
+                    "Awarded Consolation Prize at NADRA Bug Bounty Challenge 2026 as Team Lead at national level."
+                ]
+            }],
+
+            /* Final-year research project. No performance figures — the work is in progress. */
+            fyp: {
+                status: "Final-year project · in progress",
+                domain: "Malware detection",
+                title: "An Integrated AI System for Detection, Remediation, and Forensic Analysis of PDF-Based Malware",
+                lede: "PDFs are a routine delivery vehicle for malware and a routine blind spot in triage: a file either looks clean to a signature engine or gets flagged with no explanation an analyst can act on. This project treats detection, remediation and forensic explanation as one pipeline rather than three disconnected tools.",
+                pillars: [
+                    { icon: "radar", title: "Detection", text: "Structural features extracted from PDF samples with PyMuPDF, classified using supervised models — Random Forest, Decision Tree and SVM — with Isolation Forest and clustering for samples that don't match known families." },
+                    { icon: "shield", title: "Remediation", text: "Files identified as malicious are handled rather than only labelled, so the system produces an action for the analyst instead of a verdict alone." },
+                    { icon: "search", title: "Forensic analysis", text: "SHAP surfaces which structural features drove each verdict, so an analyst can review the reasoning behind a classification instead of trusting an opaque score." }
+                ],
+                dataset: "Trained on 10,000+ PDF samples, with malicious samples sourced from MalwareBazaar.",
+                stack: ["Python", "PyMuPDF", "Random Forest", "Decision Tree", "SVM", "Isolation Forest", "Clustering", "SHAP", "Explainable AI", "MalwareBazaar", "Streamlit", "Pandas"],
+                image: "assets/project/FYP.webp"
+            },
+
+            projects: [{
+                icon: "mail",
+                kicker: "DFIR tooling",
+                title: "MailForensics — email analysis platform",
+                image: "assets/project/mail-project.webp",
+                problem: "Phishing triage is manual: an analyst opens each .eml by hand to pull headers, links and attachments.",
+                approach: "Python and Streamlit tool that parses .eml files, extracts IOCs, runs SPF/DKIM/DMARC checks, detects phishing indicators and generates a risk score.",
+                role: "Design and implementation · open source",
+                tags: ["Python", "Streamlit", "DFIR", "IOC Extraction", "SPF/DKIM/DMARC"],
+                link: "https://github.com/Bila-Ali"
+            }, {
+                icon: "server",
+                kicker: "Detection lab",
+                title: "SOC &amp; threat simulation lab",
+                image: "assets/project/siem-tools.webp",
+                problem: "A detection rule is only trustworthy once you've watched it fire against a real attack.",
+                approach: "Home lab running Splunk, Wazuh, ELK, pfSense and Suricata IDS, with simulated attacks used to validate detection rules and NIST SP 800-61 incident response playbooks.",
+                role: "Built and maintained solo",
+                tags: ["Splunk", "Wazuh", "ELK Stack", "Suricata", "pfSense", "NIST SP 800-61"],
+                link: ""
+            }, {
+                icon: "search",
+                kicker: "Malware analysis",
+                title: "FLARE-VM &amp; REMnux analysis lab",
+                image: "assets/project/flare-vm.webp",
+                problem: "Malware has to be detonated somewhere isolated, with tooling ready before the sample arrives.",
+                approach: "VirtualBox build of FLARE-VM and REMnux for analysis and reverse engineering, with static and dynamic analysis workflows documented step by step.",
+                role: "Built and documented",
+                tags: ["FLARE-VM", "REMnux", "VirtualBox", "Reverse Engineering"],
+                link: ""
+            }, {
+                icon: "network",
+                kicker: "Network &amp; OSINT",
+                title: "Packet sniffer &amp; OSINT tooling",
+                image: "assets/project/network-sniffer.webp",
+                problem: "Reading traffic at packet level, and collecting reconnaissance data, are both slow by hand.",
+                approach: "Python sniffer built on Scapy for live packet capture and protocol analysis, alongside scripts that automate OSINT information gathering.",
+                role: "Written from scratch",
+                tags: ["Python", "Scapy", "OSINT", "Protocol Analysis"],
+                link: "https://github.com/Bila-Ali"
+            }, {
+                icon: "target",
+                kicker: "Red team lab",
+                title: "HTB Professional Offensive Operations",
+                image: "assets/project/P.O.O-Hack-the-box.webp",
+                problem: "Understanding lateral movement in Active Directory means working through a full attack chain, not isolated exercises.",
+                approach: "Completed the P.O.O. Pro Lab on Hack The Box, covering initial access, lateral movement and Active Directory exploitation across a simulated enterprise environment.",
+                role: "Completed · Hack The Box Pro Lab",
+                tags: ["Active Directory", "Lateral Movement", "Red Team", "Hack The Box"],
+                link: ""
+            }],
+
+            findings: [{
+                icon: "bug", kicker: "SQL injection", title: "Union-based SQL injection",
+                image: "assets/Vulnerabilities/union-sql-injection.webp",
+                desc: "Identified a SQL injection vulnerability capable of exposing database version and sensitive data through UNION query manipulation.",
+                tags: ["SQL Injection", "MySQL", "Burp Suite", "OWASP"]
+            }, {
+                icon: "bug", kicker: "Blind SQLi", title: "Time-based blind SQL injection",
+                image: "assets/Vulnerabilities/time-base-sqli.webp",
+                desc: "Detected blind SQL injection using SLEEP-based time-delay techniques, confirming backend database interaction and data exfiltration risk.",
+                tags: ["Blind SQLi", "SQLmap", "VAPT", "OWASP"]
+            }, {
+                icon: "bug", kicker: "Access control", title: "Sensitive data exposure (IDOR)",
+                image: "assets/Vulnerabilities/idor-vuln.webp",
+                desc: "Discovered an access-control flaw where modifying request parameters exposed large sets of user records including names, emails, CNICs and financial data.",
+                tags: ["IDOR", "Access Control", "AppSec", "Responsible Disclosure"]
+            }, {
+                icon: "bug", kicker: "Web security", title: "Cross-site scripting (XSS)",
+                image: "assets/Vulnerabilities/XSS-injection.webp",
+                desc: "Tested and validated reflected XSS behaviour in web application input fields during security assessments.",
+                tags: ["XSS", "Web Security", "Burp Suite", "AppSec"]
+            }],
+
+            certifications: [
+                { icon: "award",   name: "Certified Ethical Hacker (CEH)",                issuer: "PFTP · medal &amp; certificate", medal: true,  image: "assets/certifications/CEH-PFTP-madel.webp", verify: "" },
+                { icon: "target",  name: "Professional Offensive Operations Pro Lab",     issuer: "Hack The Box",                   medal: false, image: "assets/certifications/P.O.O-Hack-the-box.webp", verify: "" },
+                { icon: "award",   name: "Google Cybersecurity Professional Certificate", issuer: "Google · v2",                    medal: false, image: "assets/certifications/Google-v2.webp", verify: "" },
+                { icon: "shield",  name: "Intro to Splunk (eLearning)",                   issuer: "Splunk · 2026",                  medal: false, image: "assets/certifications/splunk-cert.webp", verify: "" },
+                { icon: "network", name: "Junior Cybersecurity Analyst Career Path",      issuer: "Cisco Networking Academy",       medal: false, image: "assets/certifications/junior-cybersecurity-analyst-path.webp", verify: "" },
+                { icon: "shield",  name: "Endpoint Security",                             issuer: "Cisco Networking Academy",       medal: false, image: "assets/certifications/End-point-cisco.webp", verify: "" },
+                { icon: "award",   name: "Ethical Hacking Essentials",                    issuer: "EC-Council",                     medal: false, image: "assets/certifications/Ethical-Hacking-Essentials.webp", verify: "" },
+                { icon: "code",    name: "Python Certification",                          issuer: "PFTP",                           medal: false, image: "assets/certifications/python.webp", verify: "" }
+            ],
+
+            achievements: [{
+                icon: "trophy", title: "QUEST CTF 2026", ribbon: "1st place", gold: true,
+                image: "assets/achievements/quest-award.webp",
+                desc: "Secured 1st place in a university-level Capture The Flag cybersecurity competition."
+            }, {
+                icon: "trophy", title: "NADRA Bug Bounty Challenge 2026", ribbon: "Consolation prize", gold: false,
+                image: "assets/achievements/nadar-check-photo.webp",
+                desc: "Led a team as Team Lead in Pakistan's national NADRA bug bounty. Identified and responsibly reported live vulnerabilities."
+            }, {
+                icon: "trophy", title: "Ignite CTF Hackathon", ribbon: "Rank 29", gold: false,
+                image: "assets/achievements/ignite.webp",
+                desc: "Competed nationally with MUET Cyber Squad, ranking 29th in a real-world cybersecurity challenge."
+            }, {
+                icon: "mic", title: "Guest speaker — MUET", ribbon: "Invited speaker", gold: false,
+                image: "assets/achievements/muet-guest-speaker.webp",
+                desc: "Delivered a cybersecurity session for the BSc Cyber Security 25th Batch at MUET Jamshoro."
+            }, {
+                icon: "search", title: "PortSwigger Web Security Academy", ribbon: "150+ labs", gold: false,
+                image: "assets/achievements/portswigger.webp",
+                desc: "Completed 150+ hands-on labs covering SQLi, XSS, CSRF, SSRF and advanced web security topics."
+            }, {
+                icon: "award", title: "CEH medal award", ribbon: "Medal awarded", gold: true,
+                image: "assets/achievements/CEH-PFTP-madel.webp",
+                desc: "Awarded a medal alongside the CEH certificate by PFTP for outstanding performance."
+            }],
+
+            education: {
+                degree: "BS Cyber Security",
+                university: "Mehran University of Engineering &amp; Technology",
+                cgpa: "3.31 / 4.0",
+                year: "Final year · 7th semester",
+                location: "Jamshoro, Pakistan",
+                banner: "assets/muet-log/muet-logo.webp",
+                desc: "Coursework across network security, digital forensics, ethical hacking and security operations. Led the university team at NADRA's national bug bounty and took 1st place at QUEST CTF 2026. Active in the MUET Cyber Security Society and leading Access~Denied. Final-year project: an integrated AI system for detecting, remediating and forensically analysing PDF-based malware."
+            },
+
+            focus: ["Advanced threat hunting", "Detection engineering", "Sigma rules", "SIEM tuning", "Malware reverse engineering", "Splunk SPL &amp; dashboards", "Elastic SIEM", "Cloud security (AWS)"],
+
+            community: [{
+                icon: "flag", title: "Access~Denied — CTF &amp; quiz lead", org: "MUET Cyber Security Department",
+                image: "assets/Volunteer/muet-ctf-hackthone.webp",
+                desc: "Lead Access~Denied, designing and delivering the BSCYS CTF Hackathon 2026 and BSCYS Quiz Competition 2026 — hands-on challenges across OSINT, forensics, reverse engineering, cryptography, networking and steganography."
+            }, {
+                icon: "shield", title: "Digital Pakistan Cybersecurity Hackathon", org: "Ignite National Technology Fund × Trillium Information Security Systems",
+                image: "assets/Volunteer/digital-pakistan-cybersecurity-hackathon.webp",
+                desc: "Volunteered at the 5th Digital Pakistan Cybersecurity Hackathon — a three-day hands-on workshop at MUET, supporting participants throughout the sessions."
+            }, {
+                icon: "users", title: "MUET Job Fair 2025", org: "MUET · ORIC team",
+                image: "assets/Volunteer/Muet-job-fair.webp",
+                desc: "Facilitated placements and internship opportunities, coordinating with 20+ participating companies."
+            }, {
+                icon: "users", title: "MUET Tech Show", org: "Mehran University",
+                image: "assets/Volunteer/tech-show.webp",
+                desc: "Volunteered at the annual showcase where final-year students present projects to industry."
+            }, {
+                icon: "users", title: "MUET Alumni Convention 2025", org: "Mehran University",
+                image: "assets/Volunteer/muet-alumni.webp",
+                desc: "Volunteer supporting networking and reconnection among university graduates."
+            }]
+        };
+    </script>
+    <script>
+        const SVG = {
+            shield:  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6z"/></svg>`,
+            radar:   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><path d="M12 3v3M21 12h-3"/></svg>`,
+            target:  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="0.9" fill="currentColor"/></svg>`,
+            search:  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>`,
+            code:    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="8,6 3,12 8,18"/><polyline points="16,6 21,12 16,18"/></svg>`,
+            network: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="6" r="2.2"/><circle cx="19" cy="6" r="2.2"/><circle cx="12" cy="18" r="2.2"/><path d="M6.8 7.3L11 16.5M17.2 7.3L13 16.5"/></svg>`,
+            bug:     `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="8" height="10" rx="4"/><path d="M12 8V5M9 5l1.5 1.5M15 5l-1.5 1.5M4 12h4M16 12h4M5.5 17.5l3-2M18.5 17.5l-3-2"/></svg>`,
+            cpu:     `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M7 3v2M17 3v2M7 19v2M17 19v2"/></svg>`,
+            mail:    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>`,
+            server:  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/><path d="M7 7h.01M7 17h.01"/></svg>`,
+            award:   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M8.5 12.5L7 21l5-2.5 5 2.5-1.5-8.5"/></svg>`,
+            trophy:  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4h8v4a4 4 0 0 1-8 0V4z"/><path d="M8 5H5a2 2 0 0 0 2 4M16 5h3a2 2 0 0 1-2 4"/><path d="M12 12v3M9 19h6M9 19c0-2 1-3 1-3M15 19c0-2-1-3-1-3"/></svg>`,
+            mic:     `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>`,
+            users:   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5"/><circle cx="17.5" cy="8.5" r="2.3"/><path d="M15.5 14c2.3.3 4 2 4 4.5"/></svg>`,
+            flag:    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V4M4 5h11l-1.5 3.5L15 12H4"/></svg>`,
+            email:   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><polyline points="3,7 12,13.5 21,7"/></svg>`,
+            phone:   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`,
+            location:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="2.8"/></svg>`,
+            resume:  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`,
+            check:   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>`,
+            external:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><polyline points="8 7 17 7 17 16"/></svg>`,
+            zoom:    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg>`,
+            linkedin:`<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>`,
+            github:  `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>`
+        };
+
+        /* ========================================================== RENDER ========================================================== */
+        const $ = id => document.getElementById(id);
+        const attr = s => String(s == null ? "" : s).replace(/"/g, "&quot;");
+        const txt = s => String(s == null ? "" : s).replace(/<[^>]*>/g, "").replace(/&amp;/g, "&");
+        const icon = k => SVG[k] || SVG.shield;
+        const initialsOf = n => n.split(/\s+/).map(w => w[0]).join("").slice(0, 2).toUpperCase();
+        const P = DATA.profile;
+        const INITIALS = initialsOf(P.name);
+        Object.assign(SVG, {
+            arrow: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`
+        });
+
+        /* Image with a graceful fallback if the asset is missing. */
+        function imageOr(src, alt, fallbackHTML, extra) {
+            if (!src) return fallbackHTML;
+            return `<img src="${attr(src)}" alt="${attr(alt)}" loading="lazy" decoding="async" ${extra || ""}
+                     onerror="this.outerHTML=this.dataset.fb" data-fb="${attr(fallbackHTML)}">`;
+        }
+
+        /* ---------- navigation ---------- */
+        const NAV = [["about", "About"], ["experience", "Experience"], ["projects", "Projects"], ["skills", "Skills"], ["contact", "Contact"]];
+        $("navLinks").innerHTML = [["home", "Home"]].concat(NAV).map(([id, l]) => `<a href="#${id}">${l}</a>`).join("");
+        const DRAWER = [["home", "Home"], ["about", "About"], ["experience", "Experience"], ["projects", "Projects"], ["research", "Research"], ["skills", "Skills"],
+            ["achievements", "Achievements"], ["certifications", "Certifications"], ["education", "Education"], ["community", "Community"], ["contact", "Contact"]];
+        $("navDrawer").innerHTML = DRAWER.map(([id, l]) => `<a href="#${id}">${l}</a>`).join("") +
+            `<p class="status"><span class="dot" aria-hidden="true"></span><span>AVAILABLE FOR OPPORTUNITIES</span></p>`;
+        $("footerNav").innerHTML = DRAWER.map(([id, l]) => `<a href="#${id}">${l}</a>`).join("");
+
+        /* ---------- hero ---------- */
+        $("heroResume").href = P.resume;
+        $("heroMetrics").innerHTML = P.metrics.map(m =>
+            `<div class="hero__metric"><dt class="sr-only">${txt(m.label)}</dt><dd><b data-count>${m.value}</b><small>${m.label}</small></dd></div>`).join("");
+
+        /* ---------- about: id card + tech grid ---------- */
+        $("profileAvatar").innerHTML = imageOr(P.photo, "Portrait of " + P.name, `<span class="avatar__fb">${INITIALS}</span>`);
+        $("profileName").textContent = P.name;
+        $("profileRows").innerHTML = [
+            { ic: "shield", val: "BS Cyber Security — MUET" },
+            { ic: "radar", val: "SOC Operations · Threat Detection · Digital Forensics · Malware Analysis" },
+            { ic: "location", val: P.location }
+        ].map(r => `<p class="row">${icon(r.ic)}<span>${r.val}</span></p>`).join("");
+        $("techGrid").innerHTML = DATA.tech.map(t => `<li class="tech__item"><i class="ph ph-${t.i}" aria-hidden="true"></i><span>${t.n}</span></li>`).join("");
+
+        /* ---------- metrics ---------- */
+        $("proofGrid").innerHTML = DATA.proof.map(p =>
+            `<div class="panel metric"><dt class="sr-only">${txt(p.label)}</dt><dd><span class="metric__num" data-count>${p.value}</span><span class="metric__label">${p.label}</span><span class="metric__bar"><i></i></span></dd></div>`).join("");
+
+        /* ---------- experience ---------- */
+        $("timeline").insertAdjacentHTML("beforeend", DATA.experience.map(e => `
+            <article class="panel panel--i exp">
+              <span class="exp__node" aria-hidden="true"></span>
+              <div class="exp__head">
+                <div class="exp__logo">${imageOr(e.logo, e.company + " logo", initialsOf(e.company))}</div>
+                <div class="exp__meta">
+                  <h3 class="exp__role">${e.role}</h3>
+                  <p class="exp__company">${e.company}</p>
+                  <p class="exp__sub">${e.date} &nbsp;·&nbsp; ${e.location}</p>
+                </div>
+                <span class="tag tag--accent">${e.badge}</span>
+              </div>
+              <ul class="exp__points">${e.points.map(p => `<li>${p}</li>`).join("")}</ul>
+              ${e.stack ? `<div class="exp__stack">${e.stack.map(s => `<span class="chip">${s}</span>`).join("")}</div>` : ""}
+            </article>`).join(""));
+
+        /* ---------- projects (horizontal track) ---------- */
+        $("projectsTrack").innerHTML = DATA.projects.map(p => {
+            const ph = `<div class="card__ph"><span class="icon-tile icon-tile--lg">${icon(p.icon)}</span><em>${attr(txt(p.kicker))}</em></div>`;
+            return `
+            <article class="panel panel--i card tilt">
+              <div class="card__media" role="button" tabindex="0" aria-label="Enlarge image: ${attr(txt(p.title))}"
+                   data-group="projects" data-src="${attr(p.image)}" data-cap="${attr(txt(p.title))}">
+                ${imageOr(p.image, txt(p.title) + " — project screenshot", ph)}
+                <span class="card__zoom"><span>${SVG.zoom}</span></span>
+              </div>
+              <div class="card__body">
+                <p class="card__kicker">${p.kicker}</p>
+                <h3 class="card__title">${p.title}</h3>
+                <p class="card__desc">${p.problem}</p>
+                <p class="card__more">${p.approach}</p>
+                <div class="card__tags">${p.tags.map(t => `<span class="chip">${t}</span>`).join("")}</div>
+                <div class="card__foot">
+                  <span class="card__role">${p.link ? "Source available" : "Lab / internal project"}</span>
+                  ${p.link ? `<a class="inline-link" href="${attr(p.link)}" target="_blank" rel="noopener">GitHub ${SVG.external}</a>` : ""}
+                </div>
+              </div>
+            </article>`;
+        }).join("");
+
+        /* ---------- research / FYP ---------- */
+        const F = DATA.fyp;
+        const PIPE = [
+            { ic: "resume", t: "PDF", d: "Sample submitted for analysis" },
+            { ic: "code", t: "Feature extraction", d: "Structural features via PyMuPDF" },
+            { ic: "cpu", t: "ML model", d: "Random Forest · Decision Tree · SVM" },
+            { ic: "radar", t: "Detection", d: "Malicious or benign verdict" },
+            { ic: "target", t: "Explainability", d: "SHAP feature attribution" },
+            { ic: "search", t: "Forensic analysis", d: "Analyst-reviewable findings" }
+        ];
+        $("fypSlot").innerHTML = `
+          <svg class="fyp__graph" id="fypGraph" viewBox="0 0 1000 640" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
+          <div class="fyp__top">
+            <div>
+              <div class="fyp__flags">
+                <span class="tag tag--accent">${F.status}</span>
+                <span class="tag">${F.domain}</span>
+                <span class="tag">Explainable AI</span>
+              </div>
+              <h3 class="fyp__title">${F.title}</h3>
+              <p class="fyp__lede">${F.lede}</p>
+            </div>
+            <div class="console">
+              <div class="console__bar"><i></i><i></i><i></i><span><span class="dot" aria-hidden="true"></span>PDF SCAN INTERFACE</span></div>
+              <div class="console__view" role="button" tabindex="0" aria-label="Enlarge image: final-year project"
+                   data-group="research" data-src="${attr(F.image)}" data-cap="${attr(txt(F.title))}">
+                ${imageOr(F.image, "Final-year project interface screenshot", `<div class="card__ph"><span class="icon-tile icon-tile--lg">${icon("cpu")}</span><em>PDF malware detection</em></div>`)}
+                <i class="corner tl_"></i><i class="corner tr_"></i><i class="corner bl_"></i><i class="corner br_"></i>
+              </div>
+            </div>
+          </div>
+          <div class="pipe" id="pipe" role="list" aria-label="Detection pipeline">
+            <span class="pipe__packet" id="pipePacket" aria-hidden="true"></span>
+            ${PIPE.map(s => `<div class="pipe__step" role="listitem"><span class="pipe__node">${icon(s.ic)}</span><h4>${s.t}</h4><p>${s.d}</p></div>`).join("")}
+          </div>
+          <div class="fyp__pillars">
+            ${F.pillars.map(pl => `
+              <div class="fyp__pillar">
+                <h4><span class="icon-tile">${icon(pl.icon)}</span>${pl.title}</h4>
+                <p>${pl.text}</p>
+              </div>`).join("")}
+          </div>
+          <div class="fyp__stack">
+            <h4>Dataset and stack</h4>
+            <p class="card__desc" style="margin:0 0 14px">${F.dataset}</p>
+            <div class="fyp__stack-list">${F.stack.map(s => `<span class="chip">${s}</span>`).join("")}</div>
+          </div>`;
+
+        /* ---------- generic media card (findings, achievements) ---------- */
+        function mediaCard(item, group, imgAltSuffix) {
+            const ph = `<div class="card__ph"><span class="icon-tile icon-tile--lg">${icon(item.icon)}</span><em>${attr(txt(item.kicker || item.ribbon || item.title))}</em></div>`;
+            const flag = item.ribbon ? `<span class="card__flag ${item.gold ? "card__flag--gold" : ""}">${item.ribbon}</span>` : "";
+            return `
+            <article class="panel panel--i card tilt">
+              <div class="card__media" role="button" tabindex="0" aria-label="Enlarge image: ${attr(txt(item.title))}"
+                   data-group="${group}" data-src="${attr(item.image)}" data-cap="${attr(txt(item.title))}">
+                ${imageOr(item.image, txt(item.title) + imgAltSuffix, ph)}
+                ${flag}
+                <span class="card__zoom"><span>${SVG.zoom}</span></span>
+              </div>
+              <div class="card__body">
+                ${item.kicker ? `<p class="card__kicker">${item.kicker}</p>` : ""}
+                <h3 class="card__title">${item.title}</h3>
+                <p class="card__desc">${item.desc}</p>
+                ${item.tags ? `<div class="card__tags">${item.tags.map(t => `<span class="chip">${t}</span>`).join("")}</div>` : ""}
+              </div>
+            </article>`;
+        }
+        $("findingsGrid").innerHTML = DATA.findings.map(f => mediaCard(f, "findings", " — vulnerability evidence")).join("");
+        $("achievementsGrid").innerHTML = DATA.achievements.map(a => mediaCard(a, "achievements", " — award photograph")).join("");
+
+        /* ---------- skills ---------- */
+        $("skillsGrid").innerHTML = DATA.skills.map(s => `
+            <article class="panel panel--i skill">
+              <div class="skill__head"><span class="icon-tile">${icon(s.icon)}</span><h3 class="skill__title">${s.title}</h3></div>
+              <p class="skill__note">${s.note}</p>
+              <div class="skill__items">${s.items.map(i => `<span class="chip">${i}</span>`).join("")}</div>
+            </article>`).join("");
+
+        /* ---------- certifications ---------- */
+        $("certGrid").innerHTML = DATA.certifications.map((c, i) => `
+            <article class="panel panel--i cert" style="--d:${(i * 0.6).toFixed(1)}s">
+              <div class="cert__thumb" role="button" tabindex="0" aria-label="Enlarge credential: ${attr(txt(c.name))}"
+                   data-group="certs" data-src="${attr(c.image)}" data-cap="${attr(txt(c.name))}">
+                ${imageOr(c.image, txt(c.name) + " certificate", icon(c.icon))}
+                ${c.medal ? `<span class="cert__medal" title="Medal awarded">${SVG.check}</span>` : ""}
+              </div>
+              <div class="cert__body">
+                <p class="cert__id">Credential · ${String(i + 1).padStart(2, "0")}</p>
+                <h3 class="cert__name">${c.name}</h3>
+                <p class="cert__issuer">${c.issuer}</p>
+                ${c.verify ? `<a class="inline-link cert__verify" href="${attr(c.verify)}" target="_blank" rel="noopener" aria-label="Verify ${attr(txt(c.name))}">Verify ${SVG.external}</a>` : ""}
+              </div>
+            </article>`).join("");
+
+        /* ---------- education ---------- */
+        const ED = DATA.education;
+        $("educationSlot").innerHTML = `
+            <div class="panel edu" data-anim="fade">
+              <svg class="circuit" viewBox="0 0 800 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <path d="M0 60 H140 L170 90 H360 L390 60 H560"/><path d="M800 90 H650 L620 120 H470 L440 150 H330"/>
+                <path d="M0 330 H180 L210 300 H420 L450 330 H700 L730 300 H800"/><path d="M120 420 V360 L150 330 V250"/>
+                <path d="M680 0 V70 L710 100 V190"/><path d="M300 0 V40 L330 70 H480"/>
+                <circle cx="560" cy="60" r="3.5"/><circle cx="330" cy="150" r="3.5"/><circle cx="150" cy="250" r="3.5"/><circle cx="710" cy="190" r="3.5"/><circle cx="480" cy="70" r="3.5"/><circle cx="800" cy="300" r="3.5"/>
+              </svg>
+              <div class="edu__crest">${imageOr(ED.banner, txt(ED.university) + " crest", `<span>${ED.university}</span>`)}</div>
+              <div class="edu__body">
+                <h3 class="edu__degree">${ED.degree}</h3>
+                <p class="edu__uni">${ED.university}</p>
+                <div class="edu__tags">
+                  <span class="tag tag--accent">CGPA ${ED.cgpa}</span>
+                  <span class="tag">${ED.year}</span>
+                  <span class="tag">${ED.location}</span>
+                </div>
+                <p class="edu__desc">${ED.desc}</p>
+              </div>
+            </div>`;
+
+        /* ---------- focus + community ---------- */
+        $("focusGrid").innerHTML = DATA.focus.map(f => `<p class="focus__item">${f}</p>`).join("");
+        $("communityGrid").innerHTML = DATA.community.map(c => `
+            <article class="panel panel--i cm">
+              <div class="cm__media" role="button" tabindex="0" aria-label="Enlarge image: ${attr(txt(c.title))}"
+                   data-group="community" data-src="${attr(c.image)}" data-cap="${attr(txt(c.title))}">
+                ${imageOr(c.image, txt(c.title) + " — event photograph", `<div class="cm__ph"><span class="icon-tile icon-tile--lg">${icon(c.icon)}</span></div>`)}
+                <span class="card__zoom"><span>${SVG.zoom}</span></span>
+              </div>
+              <div class="cm__body">
+                <h3 class="cm__title">${c.title}</h3>
+                <p class="cm__org">${c.org}</p>
+                <p class="cm__desc">${c.desc}</p>
+              </div>
+            </article>`).join("");
+
+        /* ---------- contact + footer ---------- */
+        const tel = "tel:" + P.phone.replace(/\s+/g, "");
+        $("contactSide").innerHTML = [
+            { ic: "email", k: "Email", v: P.email, href: "mailto:" + P.email },
+            { ic: "phone", k: "Phone", v: P.phone, href: tel },
+            { ic: "location", k: "Location", v: P.location },
+            { ic: "resume", k: "Resume", v: "Download CV", href: P.resume, dl: true }
+        ].map(c => {
+            const inner = `<span class="icon-tile">${icon(c.ic)}</span><span><small>${c.k}</small><span class="v">${c.v}</span></span>${c.href ? `<span class="go" aria-hidden="true">→</span>` : ""}`;
+            return c.href ? `<a class="panel panel--i c-item" href="${attr(c.href)}" ${c.dl ? "download" : ""}>${inner}</a>` : `<div class="panel c-item">${inner}</div>`;
+        }).join("") + `
+            <div class="socials" aria-label="Social links">
+              <a href="${attr(P.github)}" target="_blank" rel="noopener" aria-label="GitHub"><i class="ph ph-github-logo" aria-hidden="true"></i></a>
+              <a href="${attr(P.linkedin)}" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="ph ph-linkedin-logo" aria-hidden="true"></i></a>
+              <a href="mailto:${attr(P.email)}" aria-label="Email"><i class="ph ph-envelope-simple" aria-hidden="true"></i></a>
+            </div>`;
+        $("footerLinks").innerHTML =
+            `<a href="${attr(P.github)}" target="_blank" rel="noopener">${SVG.github}GitHub</a>` +
+            `<a href="${attr(P.linkedin)}" target="_blank" rel="noopener">${SVG.linkedin}LinkedIn</a>`;
+        $("year").textContent = new Date().getFullYear();
+        const footerInner = $("footerInner");
+        for (let i = 0; i < 14; i++) {
+            const d = document.createElement("span");
+            d.className = "fdot"; d.setAttribute("aria-hidden", "true");
+            d.style.left = (6 + Math.random() * 88) + "%"; d.style.top = (10 + Math.random() * 80) + "%";
+            d.style.animationDelay = (Math.random() * 4).toFixed(2) + "s";
+            $("footer").appendChild(d);
+        }
+
+        /* ========================================================== EXPERIENCE LAYER ========================================================== */
+        const root = document.documentElement;
+        const hasGSAP = typeof window.gsap !== "undefined";
+        const hasST = hasGSAP && typeof window.ScrollTrigger !== "undefined";
+        const reduceQ = window.matchMedia("(prefers-reduced-motion: reduce)");
+        const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+        const reduce = () => reduceQ.matches;
+        let lenis = null;
+        const q = (s, c) => Array.from((c || document).querySelectorAll(s));
+
+        /* ---------- theme ---------- */
+        const themeToggle = $("themeToggle");
+        const syncThemeLabel = () => themeToggle.setAttribute("aria-label",
+            root.getAttribute("data-theme") === "light" ? "Switch to dark theme" : "Switch to light theme");
+        themeToggle.addEventListener("click", () => {
+            const next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
+            root.setAttribute("data-theme", next);
+            try { localStorage.setItem("theme", next); } catch (e) {}
+            syncThemeLabel();
+        });
+        syncThemeLabel();
+
+        /* ---------- smooth scroll (Lenis <-> ScrollTrigger) ---------- */
+        function setupScroll() {
+            if (hasST) gsap.registerPlugin(ScrollTrigger);
+            if (typeof window.Lenis === "undefined" || reduce()) return;
+            try {
+                lenis = new Lenis({ duration: 1.1, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true, wheelMultiplier: 1 });
+                if (hasST) {
+                    lenis.on("scroll", ScrollTrigger.update);
+                    gsap.ticker.add(t => lenis.raf(t * 1000));
+                    gsap.ticker.lagSmoothing(0);
+                } else {
+                    const raf = t => { lenis.raf(t); requestAnimationFrame(raf); };
+                    requestAnimationFrame(raf);
+                }
+            } catch (e) { lenis = null; }
+        }
+        const stopScroll = () => { if (lenis) lenis.stop(); };
+        const startScroll = () => { if (lenis) lenis.start(); };
+
+        document.addEventListener("click", e => {
+            const a = e.target.closest && e.target.closest('a[href^="#"]');
+            if (!a) return;
+            const id = a.getAttribute("href");
+            if (id.length < 2) return;
+            const target = document.querySelector(id);
+            if (!target) return;
+            e.preventDefault();
+            if (lenis) lenis.scrollTo(target, { offset: id === "#home" ? 0 : -72, duration: 1.4 });
+            else target.scrollIntoView({ behavior: reduce() ? "auto" : "smooth", block: "start" });
+            history.replaceState(null, "", id);
+        });
+
+        /* ---------- mobile drawer ---------- */
+        const navToggle = $("navToggle"), navDrawer = $("navDrawer");
+        let drawerOpen = false;
+        function setDrawer(open) {
+            if (open === drawerOpen) return;
+            drawerOpen = open;
+            navToggle.classList.toggle("is-open", open);
+            navToggle.setAttribute("aria-expanded", String(open));
+            navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+            root.classList.toggle("menu-open", open);
+            const links = q("a, .status", navDrawer);
+            if (open) {
+                stopScroll();
+                navDrawer.classList.add("is-open");
+                if (hasGSAP && !reduce()) {
+                    gsap.killTweensOf([navDrawer, ...links]);
+                    gsap.fromTo(navDrawer, { opacity: 0 }, { opacity: 1, duration: .35, ease: "power2.out" });
+                    gsap.fromTo(links, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: .7, stagger: .055, ease: "power3.out", delay: .08 });
+                }
+            } else {
+                startScroll();
+                if (hasGSAP && !reduce()) {
+                    gsap.to(navDrawer, { opacity: 0, duration: .25, onComplete: () => { navDrawer.classList.remove("is-open"); gsap.set([navDrawer, ...links], { clearProps: "opacity,transform" }); } });
+                } else navDrawer.classList.remove("is-open");
+            }
+        }
+        navToggle.addEventListener("click", () => setDrawer(!drawerOpen));
+        navDrawer.addEventListener("click", e => { if (e.target.closest("a")) setDrawer(false); });
+        document.addEventListener("keydown", e => { if (e.key === "Escape" && drawerOpen) { setDrawer(false); navToggle.focus(); } });
+        window.addEventListener("resize", () => { if (window.innerWidth > 1060 && drawerOpen) setDrawer(false); }, { passive: true });
+
+        /* ---------- nav state, progress, active section ---------- */
+        const nav = $("nav"), progress = $("progress");
+        let ticking = false;
+        function onScroll() {
+            const y = window.scrollY;
+            nav.classList.toggle("is-scrolled", y > 24);
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            progress.style.width = (max > 0 ? Math.min(100, (y / max) * 100) : 0) + "%";
+            ticking = false;
+        }
+        window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+        window.addEventListener("resize", onScroll, { passive: true });
+        onScroll();
+        const navAnchors = q(".nav__links a");
+        const spy = new IntersectionObserver(entries => {
+            entries.forEach(en => {
+                if (!en.isIntersecting) return;
+                const id = en.target.id;
+                const map = { home: "home", about: "about", metrics: "about", experience: "experience", projects: "projects", research: "projects", findings: "projects", skills: "skills", contact: "contact" };
+                const active = map[id];
+                navAnchors.forEach(a => a.classList.toggle("is-active", a.getAttribute("href") === "#" + active));
+            });
+        }, { rootMargin: "-45% 0px -50% 0px" });
+        q("main section[id]").forEach(s => spy.observe(s));
+
+        /* ---------- lightbox ---------- */
+        const lb = $("lightbox");
+        let lbItems = [], lbIndex = 0, lastFocus = null;
+        function openLightbox(el) {
+            lbItems = q('[data-group="' + el.dataset.group + '"]').filter(n => n.dataset.src);
+            if (!lbItems.length) return;
+            lbIndex = Math.max(0, lbItems.indexOf(el));
+            lastFocus = el; renderLb();
+            lb.classList.add("is-open"); stopScroll(); root.classList.add("menu-open");
+            $("lbClose").focus();
+        }
+        function renderLb() {
+            const item = lbItems[lbIndex];
+            $("lbImg").src = item.dataset.src; $("lbImg").alt = item.dataset.cap || "";
+            $("lbCap").textContent = item.dataset.cap || "";
+            const many = lbItems.length > 1;
+            $("lbCount").textContent = many ? (lbIndex + 1) + " / " + lbItems.length : "";
+            $("lbPrev").style.display = $("lbNext").style.display = many ? "grid" : "none";
+        }
+        function closeLightbox() {
+            lb.classList.remove("is-open"); startScroll(); root.classList.remove("menu-open");
+            if (lastFocus) lastFocus.focus();
+        }
+        const stepLb = d => { lbIndex = (lbIndex + d + lbItems.length) % lbItems.length; renderLb(); };
+        document.addEventListener("click", e => { const m = e.target.closest("[data-group]"); if (m) openLightbox(m); });
+        document.addEventListener("keydown", e => {
+            if (!lb.classList.contains("is-open")) {
+                const m = e.target.closest && e.target.closest("[data-group]");
+                if (m && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); openLightbox(m); }
+                return;
+            }
+            if (e.key === "Escape") closeLightbox();
+            if (e.key === "ArrowLeft") stepLb(-1);
+            if (e.key === "ArrowRight") stepLb(1);
+        });
+        $("lbClose").addEventListener("click", closeLightbox);
+        $("lbPrev").addEventListener("click", () => stepLb(-1));
+        $("lbNext").addEventListener("click", () => stepLb(1));
+        lb.addEventListener("click", e => { if (e.target === lb) closeLightbox(); });
+
+        /* ---------- certificate rail buttons ---------- */
+        const rail = $("certGrid");
+        $("certPrev").addEventListener("click", () => rail.scrollBy({ left: -320, behavior: reduce() ? "auto" : "smooth" }));
+        $("certNext").addEventListener("click", () => rail.scrollBy({ left: 320, behavior: reduce() ? "auto" : "smooth" }));
+
+        /* ---------- contact form (no backend: composes an email) ---------- */
+        (function () {
+            const form = $("contactForm"), note = $("formNote");
+            form.addEventListener("submit", e => {
+                e.preventDefault();
+                const name = form.name.value.trim(), email = form.email.value.trim(), msg = form.message.value.trim();
+                let bad = null;
+                [["name", !name], ["email", !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)], ["message", !msg]].forEach(([k, isBad]) => {
+                    form[k].setAttribute("aria-invalid", String(isBad));
+                    if (isBad && !bad) bad = k;
+                });
+                if (bad) { note.textContent = "Please complete the highlighted fields with a valid email."; form[bad].focus(); return; }
+                const subject = "Portfolio enquiry from " + name;
+                const body = msg + "\n\n— " + name + " (" + email + ")";
+                window.location.href = "mailto:" + P.email + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+                note.textContent = "Opening your email app… if nothing happens, write to " + P.email + " directly.";
+            });
+        })();
+
+        /* ---------- background particles (canvas) ---------- */
+        const particles = (function () {
+            const c = $("fx"), ctx = c.getContext("2d");
+            let w = 0, h = 0, dpr = 1, pts = [], raf = 0, running = false;
+            const mouse = { x: -999, y: -999 };
+            function size() {
+                dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+                w = window.innerWidth; h = window.innerHeight;
+                c.width = w * dpr; c.height = h * dpr;
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                const n = w < 700 ? 22 : w < 1100 ? 46 : 70;
+                pts = Array.from({ length: n }, () => ({
+                    x: Math.random() * w, y: Math.random() * h,
+                    vx: (Math.random() - .5) * .22, vy: (Math.random() - .5) * .22,
+                    r: .6 + Math.random() * 1.5, p: Math.random() * 6.28
+                }));
+            }
+            function draw(t) {
+                ctx.clearRect(0, 0, w, h);
+                const light = root.getAttribute("data-theme") === "light";
+                const dot = light ? "37,99,235" : "134,236,255";
+                const link = light ? "37,99,235" : "120,170,255";
+                const D = w < 700 ? 90 : 130;
+                for (let i = 0; i < pts.length; i++) {
+                    const a = pts[i];
+                    if (!reduce()) {
+                        a.x += a.vx; a.y += a.vy;
+                        const dx = a.x - mouse.x, dy = a.y - mouse.y, d2 = dx * dx + dy * dy;
+                        if (d2 < 19600) { const f = (1 - Math.sqrt(d2) / 140) * .6; a.x += dx * .02 * f; a.y += dy * .02 * f; }
+                        if (a.x < -10) a.x = w + 10; else if (a.x > w + 10) a.x = -10;
+                        if (a.y < -10) a.y = h + 10; else if (a.y > h + 10) a.y = -10;
+                    }
+                    for (let j = i + 1; j < pts.length; j++) {
+                        const b = pts[j], dx = a.x - b.x, dy = a.y - b.y, d2 = dx * dx + dy * dy;
+                        if (d2 < D * D) {
+                            ctx.strokeStyle = "rgba(" + link + "," + ((1 - Math.sqrt(d2) / D) * (light ? .14 : .15)).toFixed(3) + ")";
+                            ctx.lineWidth = .7; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+                        }
+                    }
+                    const tw = .5 + .5 * Math.sin((t || 0) * .0012 + a.p);
+                    ctx.fillStyle = "rgba(" + dot + "," + (.25 + tw * .5).toFixed(2) + ")";
+                    ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, 6.283); ctx.fill();
+                }
+            }
+            function loop(t) { if (!running) return; draw(t); raf = requestAnimationFrame(loop); }
+            function start() { if (running || reduce()) { draw(0); return; } running = true; raf = requestAnimationFrame(loop); }
+            function stop() { running = false; cancelAnimationFrame(raf); }
+            size(); draw(0); start();
+            let rt; window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { size(); draw(0); }, 200); }, { passive: true });
+            document.addEventListener("visibilitychange", () => document.hidden ? stop() : start());
+            reduceQ.addEventListener && reduceQ.addEventListener("change", () => { stop(); start(); });
+            return { mouse };
+        })();
+
+        /* ---------- glow / tilt helpers ---------- */
+        document.addEventListener("pointermove", e => {
+            const p = e.target.closest && e.target.closest(".panel--i");
+            if (p) { const r = p.getBoundingClientRect(); p.style.setProperty("--mx", (e.clientX - r.left) + "px"); p.style.setProperty("--my", (e.clientY - r.top) + "px"); }
+        }, { passive: true });
+
+        function countUp(el, delay) {
+            if (!hasGSAP || reduce()) return;
+            const src = el.dataset.final || el.textContent.trim();
+            el.dataset.final = src;
+            const m = /^(\d+)(.*)$/.exec(src); if (!m) return;
+            const k = /^K/i.test(m[2]);
+            const end = k ? +m[1] * 1000 : +m[1], o = { v: 0 };
+            el.textContent = "0";
+            gsap.to(o, { v: end, duration: 1.8, delay: delay || 0, ease: "power2.out",
+                onUpdate: () => { el.textContent = (k && o.v >= end) ? src : String(Math.round(o.v)); },
+                onComplete: () => { el.textContent = src; } });
+        }
+
+        function buildFypGraph() {
+            const svg = $("fypGraph"); if (!svg) return;
+            let s = 7; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+            const N = Array.from({ length: 22 }, () => ({ x: 40 + rnd() * 920, y: 30 + rnd() * 580 }));
+            let html = "";
+            N.forEach((a, i) => N.slice(i + 1).forEach(b => { const d = Math.hypot(a.x - b.x, a.y - b.y); if (d < 190) html += `<line class="l" x1="${a.x.toFixed(0)}" y1="${a.y.toFixed(0)}" x2="${b.x.toFixed(0)}" y2="${b.y.toFixed(0)}"/>`; }));
+            N.forEach(n => { html += `<circle class="n" cx="${n.x.toFixed(0)}" cy="${n.y.toFixed(0)}" r="2"/>`; });
+            svg.innerHTML = html;
+            if (hasGSAP && !reduce()) gsap.to(svg.querySelectorAll(".n"), { opacity: .15, duration: 1.8, stagger: { each: .12, repeat: -1, yoyo: true }, ease: "sine.inOut" });
+        }
+        buildFypGraph();
+
+        /* ---------- GSAP: interactions (pointer devices only) ---------- */
+        function setupInteractions() {
+            if (!hasGSAP || reduce() || !finePointer) return;
+            /* magnetic buttons */
+            q(".magnetic").forEach(b => {
+                const xt = gsap.quickTo(b, "x", { duration: .5, ease: "power3" }), yt = gsap.quickTo(b, "y", { duration: .5, ease: "power3" });
+                b.addEventListener("pointermove", e => { const r = b.getBoundingClientRect(); xt((e.clientX - r.left - r.width / 2) * .28); yt((e.clientY - r.top - r.height / 2) * .35); });
+                b.addEventListener("pointerleave", () => { xt(0); yt(0); });
+            });
+            /* card tilt — deliberately small */
+            q(".tilt").forEach(card => {
+                card.addEventListener("pointermove", e => {
+                    const r = card.getBoundingClientRect(), px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5;
+                    gsap.to(card, { rotateX: -py * 6, rotateY: px * 6, y: -10, transformPerspective: 1100, duration: .45, ease: "power2.out", overwrite: "auto" });
+                });
+                card.addEventListener("pointerleave", () => gsap.to(card, { rotateX: 0, rotateY: 0, y: 0, duration: .6, ease: "power3.out", overwrite: "auto" }));
+            });
+            /* skills — glass cards drift toward the cursor */
+            q(".skill").forEach(card => {
+                card.addEventListener("pointermove", e => {
+                    const r = card.getBoundingClientRect(), px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5;
+                    gsap.to(card, { x: px * 10, y: py * 8 - 4, rotateY: px * 7, rotateX: -py * 7, transformPerspective: 900, duration: .5, ease: "power2.out", overwrite: "auto" });
+                });
+                card.addEventListener("pointerleave", () => gsap.to(card, { x: 0, y: 0, rotateX: 0, rotateY: 0, duration: .7, ease: "power3.out", overwrite: "auto" }));
+            });
+            /* hero: cursor glow, orb + copy parallax, particle push */
+            const glow = $("cursorGlow");
+            const gx = gsap.quickTo(glow, "x", { duration: .9, ease: "power3" }), gy = gsap.quickTo(glow, "y", { duration: .9, ease: "power3" });
+            const ox = gsap.quickTo("#heroOrb", "x", { duration: .8, ease: "power3" }), oy = gsap.quickTo("#heroOrb", "y", { duration: .8, ease: "power3" });
+            const cx = gsap.quickTo("#heroCopy", "x", { duration: 1, ease: "power3" }), cy = gsap.quickTo("#heroCopy", "y", { duration: 1, ease: "power3" });
+            window.addEventListener("pointermove", e => {
+                glow.classList.add("is-on"); gx(e.clientX); gy(e.clientY);
+                particles.mouse.x = e.clientX; particles.mouse.y = e.clientY;
+                if (window.scrollY < window.innerHeight * 1.1) {
+                    const nx = e.clientX / window.innerWidth - .5, ny = e.clientY / window.innerHeight - .5;
+                    ox(-nx * 34); oy(-ny * 24); cx(nx * 9); cy(ny * 6);
+                }
+            }, { passive: true });
+            document.addEventListener("pointerleave", () => { particles.mouse.x = particles.mouse.y = -999; });
+        }
+
+        /* ---------- GSAP: scroll choreography ---------- */
+        function setupScrollAnimations() {
+            if (!hasST || reduce()) return;
+            const isSmall = window.innerWidth < 700;
+
+            /* section headings + panels */
+            q(".head").forEach(el => gsap.from(el, { opacity: 0, y: 46, filter: "blur(10px)", duration: 1, ease: "power3.out", clearProps: "filter,transform,opacity",
+                scrollTrigger: { trigger: el, start: "top 88%", once: true } }));
+            q('[data-anim="fade"]:not(.head)').forEach(el => gsap.from(el, { opacity: 0, y: 56, duration: 1, ease: "power3.out", clearProps: "transform,opacity",
+                scrollTrigger: { trigger: el, start: "top 90%", once: true } }));
+
+            /* staggered batches */
+            [[".tech__item", .04], [".metric", .09], [".card", .1], [".cm", .1], [".skill", .07], [".cert", .08], [".focus__item", .05], [".c-item", .08]].forEach(([sel, st]) => {
+                const items = q(sel); if (!items.length) return;
+                gsap.set(items, { opacity: 0, y: 44, scale: .97 });
+                ScrollTrigger.batch(items, { start: "top 92%", once: true,
+                    onEnter: b => gsap.to(b, { opacity: 1, y: 0, scale: 1, duration: .9, stagger: st, ease: "power3.out", overwrite: "auto", clearProps: "opacity,scale" }) });
+            });
+
+            /* counters + metric bars */
+            q(".metric").forEach(m => ScrollTrigger.create({ trigger: m, start: "top 90%", once: true, onEnter: () => {
+                countUp(m.querySelector("[data-count]"));
+                gsap.fromTo(m.querySelector(".metric__bar i"), { scaleX: 0 }, { scaleX: 1, duration: 1.6, ease: "power3.out" });
+            } }));
+
+            /* SOC activity timeline */
+            const tl = $("timeline"), fill = $("tlFill");
+            gsap.fromTo(fill, { scaleY: 0 }, { scaleY: 1, ease: "none", scrollTrigger: { trigger: tl, start: "top 65%", end: "bottom 70%", scrub: .6 } });
+            q(".exp", tl).forEach((card, i) => {
+                const node = card.querySelector(".exp__node");
+                gsap.from(card, { opacity: 0, x: isSmall ? 30 : 70, scale: .97, duration: 1, ease: "power3.out", clearProps: "transform,opacity",
+                    scrollTrigger: { trigger: card, start: "top 86%", once: true } });
+                ScrollTrigger.create({ trigger: card, start: "top 62%", onEnter: () => node.classList.add("is-lit"), onLeaveBack: () => node.classList.remove("is-lit") });
+            });
+
+            /* FYP pipeline */
+            const pipe = $("pipe");
+            if (pipe) {
+                const steps = q(".pipe__step", pipe), nodes = q(".pipe__node", pipe), packet = $("pipePacket");
+                gsap.set(nodes, { opacity: 0, scale: .6 }); gsap.set(steps, { "--p": 0 });
+                const pt = gsap.timeline({ scrollTrigger: { trigger: pipe, start: "top 82%", once: true } });
+                steps.forEach((s, i) => {
+                    pt.to(nodes[i], { opacity: 1, scale: 1, duration: .55, ease: "back.out(1.6)" }, i * .38)
+                      .to(s, { "--p": 1, duration: .45, ease: "power2.out" }, i * .38 + .25)
+                      .from(s.querySelectorAll("h4, p"), { opacity: 0, y: 12, duration: .5, stagger: .06 }, i * .38 + .1);
+                });
+                if (window.innerWidth > 900) {
+                    pt.add(() => {
+                        gsap.set(packet, { left: "8.333%", x: 0 });
+                        gsap.timeline({ repeat: -1, repeatDelay: .7 })
+                            .to(packet, { opacity: 1, duration: .3 })
+                            .to(packet, { x: () => pipe.offsetWidth * (10 / 12), duration: 3.4, ease: "none" }, "<")
+                            .to(packet, { opacity: 0, duration: .3 }, "-=.3");
+                    });
+                }
+            }
+
+            /* contact form fields from the left */
+            const fields = q("#contactForm .field, #contactForm .form__foot");
+            gsap.set(fields, { opacity: 0, x: -50 });
+            ScrollTrigger.create({ trigger: "#contactForm", start: "top 85%", once: true,
+                onEnter: () => gsap.to(fields, { opacity: 1, x: 0, duration: .8, stagger: .12, ease: "power3.out", clearProps: "opacity,transform" }) });
+
+            /* footer */
+            gsap.fromTo(footerInner, { opacity: 0, y: 60, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.1, ease: "power3.out", clearProps: "filter,transform",
+                scrollTrigger: { trigger: "#footer", start: "top 98%", once: true } });
+
+            /* parallax: hero copy fades as you scroll away */
+            gsap.to(".hero__copy", { opacity: 0, ease: "none", scrollTrigger: { trigger: "#home", start: "55% top", end: "bottom top", scrub: true } });
+        }
+
+        /* ---------- preloader → intro ---------- */
+        const preloader = $("preloader");
+        let booted = false;
+        function revealSite() {
+            if (booted) return; booted = true;
+            preloader.style.display = "none";
+            root.classList.remove("is-loading");
+            startScroll();
+            if (hasST) { ScrollTrigger.refresh(); }
+            onScroll();
+        }
+        function heroIntro() {
+            const items = q(".hero-item");
+            if (!hasGSAP || reduce()) { items.forEach(i => { i.style.opacity = ""; }); return; }
+            const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+            tl.fromTo("#heroOrb", { opacity: 0, scale: .9 }, { opacity: 1, scale: 1, duration: 1.8, ease: "power3.out", clearProps: "scale" }, 0)
+              .fromTo("#nav", { opacity: 0, y: -24 }, { opacity: 1, y: 0, duration: 1, clearProps: "opacity,transform" }, .1)
+              .to(items, { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.1, stagger: .12, clearProps: "filter,transform,opacity" }, .2);
+            q("[data-count]", $("heroMetrics")).forEach(el => countUp(el, 1.0));
+        }
+        function runPreloader() {
+            const name = $("plName"), bar = $("plBar"), count = $("plCount");
+            if (!hasGSAP || reduce()) {
+                setTimeout(() => { revealSite(); heroIntro(); }, reduce() ? 250 : 900);
+                return;
+            }
+            gsap.set(q(".hero-item"), { opacity: 0, y: 50, filter: "blur(10px)" });
+            gsap.set("#heroOrb", { opacity: 0 });
+            gsap.set("#nav", { opacity: 0 });
+            const host = preloader;
+            for (let i = 0; i < 16; i++) {
+                const d = document.createElement("span"); d.className = "pl-dot";
+                d.style.left = Math.random() * 100 + "%"; d.style.top = Math.random() * 100 + "%"; host.appendChild(d);
+                gsap.to(d, { x: (Math.random() - .5) * 70, y: (Math.random() - .5) * 70, opacity: .15 + Math.random() * .6, duration: 2 + Math.random() * 2, repeat: -1, yoyo: true, ease: "sine.inOut" });
+            }
+            gsap.to(q(".pl-orb", host), { x: "random(-40,40)", y: "random(-30,30)", duration: 3, repeat: -1, yoyo: true, ease: "sine.inOut", stagger: .3 });
+            gsap.fromTo(name, { opacity: 0, filter: "blur(12px)", letterSpacing: ".5em" }, { opacity: 1, filter: "blur(0px)", letterSpacing: ".34em", duration: 1.2, ease: "power3.out" });
+            const o = { v: 0 };
+            gsap.to(o, { v: 100, duration: 2.4, ease: "power2.out", delay: .15,
+                onUpdate: () => { bar.style.transform = "scaleX(" + (o.v / 100) + ")"; count.textContent = String(Math.round(o.v)).padStart(2, "0") + "%"; },
+                onComplete: () => {
+                    count.textContent = "100%";
+                    gsap.timeline()
+                        .to({}, { duration: .3 })
+                        .to(".pl-bar, .pl-count", { opacity: 0, duration: .3 })
+                        .to(".loader-content", { y: -30, opacity: 0, duration: .6, ease: "power3.inOut" }, "<.1")
+                        .to(preloader, { scale: .96, opacity: 0, duration: .8, ease: "power3.inOut", onComplete: () => { revealSite(); } })
+                        .add(heroIntro, "-=.45");
+                } });
+        }
+
+        /* ---------- boot ---------- */
+        setupScroll();
+        stopScroll();
+        try { setupInteractions(); } catch (e) { console.warn("interactions", e); }
+        try { setupScrollAnimations(); } catch (e) { console.warn("scroll animations", e); }
+        runPreloader();
+        /* Safety net: never leave the visitor stuck behind the preloader. */
+        setTimeout(() => { if (!booted) { revealSite(); q(".hero-item").forEach(i => { i.style.opacity = 1; i.style.transform = "none"; i.style.filter = "none"; }); if (hasGSAP) gsap.set(["#heroOrb", "#nav"], { opacity: 1 }); } }, 7000);
+
+        window.addEventListener("load", () => { if (hasST) ScrollTrigger.refresh(); });
+        if (document.fonts && document.fonts.ready && hasST) document.fonts.ready.then(() => ScrollTrigger.refresh());
+        reduceQ.addEventListener && reduceQ.addEventListener("change", () => location.reload());
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Bilawal Ali",
+      "jobTitle": "SOC Analyst",
+      "email": "mailto:khooharobilawalali@gmail.com",
+      "telephone": "+92-344-3559788",
+      "address": { "@type": "PostalAddress", "addressLocality": "Hyderabad", "addressRegion": "Sindh", "addressCountry": "PK" },
+      "alumniOf": { "@type": "CollegeOrUniversity", "name": "Mehran University of Engineering & Technology" },
+      "knowsAbout": ["Security Operations", "Threat Detection", "SIEM", "Wazuh", "Splunk", "ELK Stack", "Incident Response", "Digital Forensics", "Malware Analysis", "Penetration Testing", "MITRE ATT&CK", "Machine Learning for Security"],
+      "sameAs": ["https://github.com/Bila-Ali", "https://linkedin.com/in/bilawal-ali-0b0211245"]
+    }
+    </script>
+</body>
+</html>
