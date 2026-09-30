@@ -447,13 +447,13 @@
         /* ==========================================================
            13. RESEARCH / FYP
            ========================================================== */
-        .fyp { position: relative; overflow: hidden; padding: clamp(24px, 4vw, 52px); border-radius: 28px; }
+        .fyp { position: relative; overflow: hidden; padding: clamp(22px, 3vw, 34px); border-radius: var(--r-l); }
         .fyp__graph { position: absolute; inset: 0; z-index: 0 !important; width: 100%; height: 100%; opacity: .26; pointer-events: none; }
         .fyp__graph .n { fill: var(--cyan); }
         .fyp__graph .l { stroke: var(--accent-line); stroke-width: 1; fill: none; }
         .fyp__top { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(24px, 4vw, 56px); align-items: center; }
         .fyp__flags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
-        .fyp__title { font-size: clamp(22px, 3vw, 34px); font-weight: 600; letter-spacing: -.025em; line-height: 1.2; }
+        .fyp__title { font-size: clamp(20px, 2.4vw, 26px); font-weight: 600; letter-spacing: -.02em; line-height: 1.25; }
         .fyp__lede { margin-top: 16px; color: var(--text-2); font-size: 15.5px; }
         .console { position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--line-strong); background: #060912; box-shadow: 0 30px 70px -30px rgba(77, 124, 255, .6); }
         .console__bar { display: flex; align-items: center; gap: 7px; padding: 10px 14px; background: rgba(140, 170, 255, .06); border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; color: var(--muted); }
@@ -501,6 +501,7 @@
         .rail:focus-visible { outline: 2px solid var(--cyan); outline-offset: -2px; border-radius: 12px; }
         .rail > .card { flex: none; width: clamp(300px, 30vw, 400px); scroll-snap-align: start; }
         .rail > .card .card__media { aspect-ratio: 16 / 9.4; }
+        .rail > .skill { flex: none; width: clamp(280px, 26vw, 340px); scroll-snap-align: start; }
         .icon-btn:disabled { opacity: .35; pointer-events: none; }
         .cert { position: relative; flex: none; width: clamp(250px, 24vw, 290px); scroll-snap-align: start; overflow: hidden; display: flex; flex-direction: column; }
         .cert__thumb { position: relative; display: grid; place-items: center; aspect-ratio: 4 / 3; overflow: hidden; cursor: zoom-in; background: var(--fill-2); border-bottom: 1px solid var(--line); color: var(--accent-text); }
@@ -521,17 +522,17 @@
         /* ==========================================================
            16. EDUCATION — circuit card
            ========================================================== */
-        .edu { position: relative; display: grid; grid-template-columns: minmax(200px, 300px) 1fr; gap: clamp(24px, 4vw, 52px); align-items: center; padding: clamp(24px, 4vw, 48px); overflow: hidden; border-radius: 28px; }
+        .edu { position: relative; display: grid; grid-template-columns: minmax(180px, 240px) 1fr; gap: clamp(22px, 3.5vw, 40px); align-items: start; padding: clamp(22px, 3vw, 34px); overflow: hidden; border-radius: var(--r-l); }
         .circuit { position: absolute; inset: 0; z-index: 0 !important; width: 100%; height: 100%; pointer-events: none; opacity: .55; }
         .circuit path { fill: none; stroke: var(--accent-line); stroke-width: 1.2; stroke-dasharray: 6 14; animation: flow 5s linear infinite; }
         .circuit path:nth-child(even) { stroke: rgba(139, 92, 246, .35); animation-duration: 7s; animation-direction: reverse; }
         .circuit circle { fill: var(--cyan); opacity: .7; }
         @keyframes flow { to { stroke-dashoffset: -80; } }
-        .edu__crest { display: grid; place-items: center; min-height: 190px; padding: 26px; border-radius: var(--r-m); background: var(--fill-1); border: 1px solid var(--line); }
+        .edu__crest { display: grid; place-items: center; min-height: 160px; padding: 20px; border-radius: var(--r-m); background: var(--fill-1); border: 1px solid var(--line); }
         .edu__crest img { max-height: 170px; width: auto; object-fit: contain; }
         .edu__crest span { text-align: center; font-weight: 600; color: var(--muted); }
-        .edu__degree { font-size: clamp(24px, 3.4vw, 38px); font-weight: 600; letter-spacing: -.03em; line-height: 1.1; }
-        .edu__uni { margin-top: 8px; font-size: 17px; color: var(--accent-text); font-weight: 500; }
+        .edu__degree { font-size: clamp(20px, 2.4vw, 26px); font-weight: 600; letter-spacing: -.02em; line-height: 1.2; }
+        .edu__uni { margin-top: 8px; font-size: 15px; color: var(--accent-text); font-weight: 500; }
         .edu__tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
         .edu__desc { margin-top: 20px; max-width: 62ch; color: var(--text-2); font-size: 15px; }
 
@@ -648,6 +649,7 @@
             .rail { gap: 14px; }
             .rail > .card, .rail > .cm { width: min(84vw, 340px); }
             .rail > .cert { width: min(74vw, 280px); }
+            .rail > .skill { width: min(84vw, 320px); }
             .focuslist { grid-template-columns: 1fr; }
             .exp__head { flex-wrap: wrap; } .exp__head .tag { order: -1; }
             .tl { padding-left: 34px; } .tl__line, .tl__fill { left: 8px; } .exp__node { left: -34px; top: 30px; width: 14px; height: 14px; }
@@ -879,12 +881,12 @@
         <!-- ================= RESEARCH / FYP ================= -->
         <section id="research" class="section" aria-labelledby="fypTitle">
             <div class="wrap">
-                <div class="head head--wide" data-anim="fade">
+                <div class="head" data-anim="fade">
                     <span class="head__label">Research</span>
                     <h2 class="head__title" id="fypTitle">Machine learning for malware detection</h2>
                     <p class="head__desc">My final-year project, and the direction I want to keep working in: detection that an analyst can interrogate, not just trust.</p>
                 </div>
-                <div class="panel fyp" id="fypSlot" data-anim="fade"></div>
+                <div class="panel panel--i fyp" id="fypSlot" data-anim="fade"></div>
             </div>
         </section>
 
@@ -912,8 +914,12 @@
                     <h2 class="head__title" id="skillsTitle">Skills matrix</h2>
                     <p class="head__desc">Grouped by how the work is actually done, rather than as one long list.</p>
                 </div>
-                <div class="skills" id="skillsGrid"></div>
+                <div class="rail-ctl">
+                    <button class="icon-btn" type="button" id="skillPrev" aria-label="Scroll skills left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+                    <button class="icon-btn" type="button" id="skillNext" aria-label="Scroll skills right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+                </div>
             </div>
+            <div class="rail-wrap"><div class="rail" id="skillsGrid" tabindex="0" role="region" aria-label="Skills matrix — scroll horizontally"></div></div>
         </section>
 
         <!-- ================= ACHIEVEMENTS ================= -->
@@ -1447,7 +1453,6 @@
             { ic: "search", t: "Forensic analysis", d: "Analyst-reviewable findings" }
         ];
         $("fypSlot").innerHTML = `
-          <svg class="fyp__graph" id="fypGraph" viewBox="0 0 1000 640" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
           <div class="fyp__top">
             <div>
               <div class="fyp__flags">
@@ -1534,13 +1539,7 @@
         /* ---------- education ---------- */
         const ED = DATA.education;
         $("educationSlot").innerHTML = `
-            <div class="panel edu" data-anim="fade">
-              <svg class="circuit" viewBox="0 0 800 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                <path d="M0 60 H140 L170 90 H360 L390 60 H560"/><path d="M800 90 H650 L620 120 H470 L440 150 H330"/>
-                <path d="M0 330 H180 L210 300 H420 L450 330 H700 L730 300 H800"/><path d="M120 420 V360 L150 330 V250"/>
-                <path d="M680 0 V70 L710 100 V190"/><path d="M300 0 V40 L330 70 H480"/>
-                <circle cx="560" cy="60" r="3.5"/><circle cx="330" cy="150" r="3.5"/><circle cx="150" cy="250" r="3.5"/><circle cx="710" cy="190" r="3.5"/><circle cx="480" cy="70" r="3.5"/><circle cx="800" cy="300" r="3.5"/>
-              </svg>
+            <div class="panel panel--i edu" data-anim="fade">
               <div class="edu__crest">${imageOr(ED.banner, txt(ED.university) + " crest", `<span>${ED.university}</span>`)}</div>
               <div class="edu__body">
                 <h3 class="edu__degree">${ED.degree}</h3>
@@ -1776,6 +1775,7 @@
         initRail("findingsGrid", "findPrev", "findNext");
         initRail("achievementsGrid", "achPrev", "achNext");
         initRail("communityGrid", "commPrev", "commNext");
+        initRail("skillsGrid", "skillPrev", "skillNext");
 
         /* ---------- contact form (no backend: composes an email) ---------- */
         (function () {
