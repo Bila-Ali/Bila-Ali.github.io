@@ -521,6 +521,13 @@
         .rail-ctl { display: flex; justify-content: flex-end; gap: 8px; margin-bottom: 14px; }
         .rail-ctl .icon-btn svg { width: 16px; height: 16px; }
 
+        /* for certificate verify link*/
+        .cert__verify-btn { position: relative; z-index: 3; align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; margin-top: auto; padding: 8px 14px; font-size: 12.5px; font-weight: 500; color: var(--accent-text); background: var(--accent-soft); border: 1px solid var(--accent-line); border-radius: 999px; transition: border-color .3s, box-shadow .3s, color .3s; }
+        .cert__verify-btn:hover { color: var(--text); border-color: var(--cyan); box-shadow: 0 0 22px -6px rgba(56, 225, 255, .55); }
+        .cert__verify-btn svg { width: 13px; height: 13px; stroke-width: 2; transition: transform .35s var(--ease); }
+        .cert__verify-btn:hover svg { transform: translate(2px, -2px); }
+        .cert__issuer { margin-bottom: 14px; }
+
         /* ==========================================================
            16. EDUCATION — circuit card
            ========================================================== */
@@ -1262,14 +1269,14 @@
                 tags: ["XSS", "Web Security", "Burp Suite", "AppSec"]
             }],
 
-            certifications: [
+                       certifications: [
                 { icon: "award",   name: "Certified Ethical Hacker (CEH)",                issuer: "PFTP · medal &amp; certificate", medal: true,  image: "assets/certifications/CEH-PFTP-madel.webp", verify: "" },
-                { icon: "target",  name: "Professional Offensive Operations Pro Lab",     issuer: "Hack The Box",                   medal: false, image: "assets/certifications/P.O.O-Hack-the-box.webp", verify: "" },
-                { icon: "award",   name: "Google Cybersecurity Professional Certificate", issuer: "Google · v2",                    medal: false, image: "assets/certifications/Google-v2.webp", verify: "" },
-                { icon: "shield",  name: "Intro to Splunk (eLearning)",                   issuer: "Splunk · 2026",                  medal: false, image: "assets/certifications/splunk-cert.webp", verify: "" },
-                { icon: "network", name: "Junior Cybersecurity Analyst Career Path",      issuer: "Cisco Networking Academy",       medal: false, image: "assets/certifications/junior-cybersecurity-analyst-path.webp", verify: "" },
-                { icon: "shield",  name: "Endpoint Security",                             issuer: "Cisco Networking Academy",       medal: false, image: "assets/certifications/End-point-cisco.webp", verify: "" },
-                { icon: "award",   name: "Ethical Hacking Essentials",                    issuer: "EC-Council",                     medal: false, image: "assets/certifications/Ethical-Hacking-Essentials.webp", verify: "" },
+                { icon: "target",  name: "Professional Offensive Operations Pro Lab",     issuer: "Hack The Box",                   medal: false, image: "assets/certifications/P.O.O-Hack-the-box.webp", verify: "PASTE-LINK-HERE", verifyLabel: "Verify on Hack The Box" },
+                { icon: "award",   name: "Google Cybersecurity Professional Certificate", issuer: "Google · v2",                    medal: false, image: "assets/certifications/Google-v2.webp", verify: "PASTE-LINK-HERE", verifyLabel: "Verify on Coursera" },
+                { icon: "shield",  name: "Intro to Splunk (eLearning)",                   issuer: "Splunk · 2026",                  medal: false, image: "assets/certifications/splunk-cert.webp", verify: "PASTE-LINK-HERE", verifyLabel: "Verify on Splunk" },
+                { icon: "network", name: "Junior Cybersecurity Analyst Career Path",      issuer: "Cisco Networking Academy",       medal: false, image: "assets/certifications/junior-cybersecurity-analyst-path.webp", verify: "PASTE-LINK-HERE", verifyLabel: "Verify on Credly" },
+                { icon: "shield",  name: "Endpoint Security",                             issuer: "Cisco Networking Academy",       medal: false, image: "assets/certifications/End-point-cisco.webp", verify: "PASTE-LINK-HERE", verifyLabel: "Verify on Credly" },
+                { icon: "award",   name: "Ethical Hacking Essentials",                    issuer: "EC-Council",                     medal: false, image: "assets/certifications/Ethical-Hacking-Essentials.webp", verify: "PASTE-LINK-HERE", verifyLabel: "Verify on EC-Council" },
                 { icon: "code",    name: "Python Certification",                          issuer: "PFTP",                           medal: false, image: "assets/certifications/python.webp", verify: "" }
             ],
 
@@ -1529,7 +1536,9 @@
             </article>`).join("");
 
         /* ---------- certifications ---------- */
-        $("certGrid").innerHTML = DATA.certifications.map((c, i) => `
+               $("certGrid").innerHTML = DATA.certifications.map((c, i) => {
+            const hasLink = /^https?:\/\//i.test(c.verify || "");
+            return `
             <article class="panel panel--i cert" style="--d:${(i * 0.6).toFixed(1)}s">
               <div class="cert__thumb" role="button" tabindex="0" aria-label="Enlarge credential: ${attr(txt(c.name))}"
                    data-group="certs" data-src="${attr(c.image)}" data-cap="${attr(txt(c.name))}">
@@ -1540,9 +1549,11 @@
                 <p class="cert__id">Credential · ${String(i + 1).padStart(2, "0")}</p>
                 <h3 class="cert__name">${c.name}</h3>
                 <p class="cert__issuer">${c.issuer}</p>
-                ${c.verify ? `<a class="inline-link cert__verify" href="${attr(c.verify)}" target="_blank" rel="noopener" aria-label="Verify ${attr(txt(c.name))}">Verify ${SVG.external}</a>` : ""}
+                ${hasLink ? `<a class="cert__verify-btn" href="${attr(c.verify)}" target="_blank" rel="noopener noreferrer"
+                     aria-label="${attr(c.verifyLabel || "Verify")}: ${attr(txt(c.name))} (opens in a new tab)">${c.verifyLabel || "Verify credential"} ${SVG.external}</a>` : ""}
               </div>
-            </article>`).join("");
+            </article>`;
+        }).join("");
 
         /* ---------- education ---------- */
         const ED = DATA.education;
