@@ -1269,16 +1269,20 @@
                 tags: ["XSS", "Web Security", "Burp Suite", "AppSec"]
             }],
 
-                       certifications: [
-                { icon: "award",   name: "Certified Ethical Hacker (CEH)",                issuer: "PFTP · medal &amp; certificate", medal: true,  image: "assets/certifications/CEH-PFTP-madel.webp", verify: "" },
-                { icon: "target",  name: "Professional Offensive Operations Pro Lab",     issuer: "Hack The Box",                   medal: false, image: "assets/certifications/P.O.O-Hack-the-box.webp", verify: "PASTE-LINK-HERE", verifyLabel: "Verify on Hack The Box" },
-                { icon: "award",   name: "Google Cybersecurity Professional Certificate", issuer: "Google · v2",                    medal: false, image: "assets/certifications/Google-v2.webp", verify: "PASTE-LINK-HERE", verifyLabel: "Verify on Coursera" },
-                { icon: "shield",  name: "Intro to Splunk (eLearning)",                   issuer: "Splunk · 2026",                  medal: false, image: "assets/certifications/splunk-cert.webp", verify: "PASTE-LINK-HERE", verifyLabel: "Verify on Splunk" },
-                { icon: "network", name: "Junior Cybersecurity Analyst Career Path",      issuer: "Cisco Networking Academy",       medal: false, image: "assets/certifications/junior-cybersecurity-analyst-path.webp", verify: "PASTE-LINK-HERE", verifyLabel: "Verify on Credly" },
-                { icon: "shield",  name: "Endpoint Security",                             issuer: "Cisco Networking Academy",       medal: false, image: "assets/certifications/End-point-cisco.webp", verify: "PASTE-LINK-HERE", verifyLabel: "Verify on Credly" },
-                { icon: "award",   name: "Ethical Hacking Essentials",                    issuer: "EC-Council",                     medal: false, image: "assets/certifications/Ethical-Hacking-Essentials.webp", verify: "PASTE-LINK-HERE", verifyLabel: "Verify on EC-Council" },
-                { icon: "code",    name: "Python Certification",                          issuer: "PFTP",                           medal: false, image: "assets/certifications/python.webp", verify: "" }
-            ],
+            certifications: [
+                        { icon: "award",   name: "Google Cybersecurity Professional Certificate",  issuer: "Google · Coursera · Jul 2025",        medal: false, image: "assets/certifications/Google-v2.webp", verify: "https://www.credly.com/go/g03MABvp", verifyLabel: "Verify on Credly" },
+                        { icon: "shield",  name: "Practical SOC Analyst T1/T2 Preparation Course", issuer: "Udemy · Sep 2026",                    medal: false, image: "assets/certifications/Practical-SOC-Analyst.webp", verify: "https://ude.my/UC-525ee8ae-8d69-4f15-ba67-54fce611c14f", verifyLabel: "Verify on Udemy" },
+                        { icon: "network", name: "Junior Cybersecurity Analyst Career Path",       issuer: "Cisco Networking Academy · Apr 2026", medal: false, image: "assets/certifications/junior-cybersecurity-analyst-path.webp", verify: "https://www.credly.com/earner/earned/badge/08b12b1e-abbd-41e8-a004-7ad3b1a91e2e", verifyLabel: "Verify on Cisco" },
+                        { icon: "target",  name: "Professional Offensive Operations Pro Lab",      issuer: "Hack The Box",                        medal: false, image: "assets/certifications/P.O.O-Hack-the-box.webp", verify: "", verifyLabel: "Verify on Hack The Box" },
+                        { icon: "shield",  name: "Intro to Splunk (eLearning)",                    issuer: "Splunk · Apr 2026",                   medal: false, image: "assets/certifications/splunk-cert.webp", verify: "", verifyLabel: "Verify on Splunk" },
+                        { icon: "shield",  name: "Endpoint Security",                              issuer: "Cisco Networking Academy · Apr 2026", medal: false, image: "assets/certifications/End-point-cisco.webp", verify: "https://www.credly.com/earner/earned/badge/1f0a400f-5570-4fde-929d-bdc50bc02be2", verifyLabel: "Verify on Cisco" },
+                        { icon: "radar",   name: "Foundations of Threat Hunting",                  issuer: "Picus Purple Academy · May 2025",     medal: false, image: "assets/certifications/Foundations-of-Threat-Hunting.webp", verify: "", verifyLabel: "Verify on Picus" },
+                        { icon: "search",  name: "Foundations of Log Analysis for Cyber Defense",  issuer: "Red Team Leaders · Mar 2026",         medal: false, image: "assets/certifications/Log-Analysis-Cyber-Defense.webp", verify: "https://courses.redteamleaders.com/completion/ab7c24246ef97761", verifyLabel: "Verify on Red Team Leaders" },
+                        { icon: "shield",  name: "Defensive Security Operations",                  issuer: "Cybrary · Mar 2026",                  medal: false, image: "assets/certifications/Defensive-Security-Operations.webp", verify: "", verifyLabel: "Verify on Cybrary" },
+                        { icon: "award",   name: "Ethical Hacking Essentials",                     issuer: "EC-Council · Jan 2024",               medal: false, image: "assets/certifications/Ethical-Hacking-Essentials.webp", verify: "", verifyLabel: "Verify on EC-Council" },
+                        { icon: "code",    name: "Google IT Automation with Python",               issuer: "Google · Coursera · Oct 2026",        medal: false, image: "assets/certifications/Google-IT-Automation-Python.webp", verify: "https://coursera.org/verify/professional-cert/SP9N0Y93DZOA", verifyLabel: "Verify on Coursera" },
+                        { icon: "award",   name: "Certified Ethical Hacker (CEH)",                 issuer: "PFTP · medal &amp; certificate",      medal: true,  image: "assets/certifications/CEH-PFTP-madel.webp", verify: "", verifyLabel: "Verify credential" }
+                    ],
 
             achievements: [{
                 icon: "trophy", title: "QUEST CTF 2026", ribbon: "1st place", gold: true,
@@ -1536,7 +1540,8 @@
             </article>`).join("");
 
         /* ---------- certifications ---------- */
-               $("certGrid").innerHTML = DATA.certifications.map((c, i) => {
+        /* ---------- certifications ---------- */
+        $("certGrid").innerHTML = DATA.certifications.map((c, i) => {
             const hasLink = /^https?:\/\//i.test(c.verify || "");
             return `
             <article class="panel panel--i cert" style="--d:${(i * 0.6).toFixed(1)}s">
