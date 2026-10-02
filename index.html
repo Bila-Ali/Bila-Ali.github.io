@@ -756,11 +756,11 @@
                     </p> -->
                     <div class="hero__actions hero-item">
                         <a href="#contact" class="btn btn--primary magnetic">Hire Me <span class="arr" aria-hidden="true">→</span></a>
-                        <a href="#projects" class="btn magnetic">View Projects <span class="arr" aria-hidden="true">→</span></a>
+                        <!-- <a href="#projects" class="btn magnetic">View Projects <span class="arr" aria-hidden="true">→</span></a>
                         <a href="#" class="btn magnetic" id="heroResume" download>
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 20h16"/></svg>
                             Download CV
-                        </a>
+                        </a> -->
                     </div>
                     <dl class="hero__metrics hero-item" id="heroMetrics"></dl>
                 </div>
@@ -1402,7 +1402,7 @@
         $("footerNav").innerHTML = DRAWER.map(([id, l]) => `<a href="#${id}">${l}</a>`).join("");
 
         /* ---------- hero ---------- */
-        $("heroResume").href = P.resume;
+        if ($("heroResume")) $("heroResume").href = P.resume;
         $("heroMetrics").innerHTML = P.metrics.map(m =>
             `<div class="hero__metric"><dt class="sr-only">${txt(m.label)}</dt><dd><b data-count>${m.value}</b><small>${m.label}</small></dd></div>`).join("");
 
