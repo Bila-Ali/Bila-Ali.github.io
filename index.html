@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta property="og:image" content="https://bila-ali.github.io/assets/logo/logo-icon.png" />
 
     <title>Bilawal Ali — SOC Analyst &amp; Security Researcher</title>
     <meta name="description" content="Bilawal Ali — SOC analyst and final-year BS Cyber Security student at MUET. Threat detection with Wazuh, Splunk and ELK, offensive security and VAPT, digital forensics, and machine learning for PDF malware detection." />
     <meta name="author" content="Bilawal Ali" />
-    <link rel="canonical" href="https://github.com/Bila-Ali" />
+    <link rel="canonical" href="https://bila-ali.github.io/" />
+    <meta property="og:url" content="https://bila-ali.github.io/" />    
+    <link rel="icon" type="image/png" href="assets/logo/favicon.png" />
+    <link rel="apple-touch-icon" href="assets/logo/logo-icon.png" />
 
     <meta property="og:type" content="profile" />
     <meta property="og:title" content="Bilawal Ali — SOC Analyst &amp; Security Researcher" />
@@ -15,7 +19,8 @@
     <meta property="og:locale" content="en_US" />
     <meta property="profile:first_name" content="Bilawal" />
     <meta property="profile:last_name" content="Ali" />
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:image" content="https://bila-ali.github.io/assets/logo/logo-icon.png" />
     <meta name="twitter:title" content="Bilawal Ali — SOC Analyst &amp; Security Researcher" />
     <meta name="twitter:description" content="Threat detection and security operations with Wazuh, Splunk and ELK. Offensive security, digital forensics, and ML for malware detection." />
 
@@ -212,6 +217,9 @@
             -webkit-backdrop-filter: blur(18px) saturate(150%); backdrop-filter: blur(18px) saturate(150%); }
         .nav__brand { font-family: var(--mono); font-size: 12.5px; font-weight: 500; letter-spacing: .2em; white-space: nowrap; color: var(--text); }
         .nav__brand b { color: var(--cyan); font-weight: 500; }
+        .nav__brand { display: inline-flex; align-items: center; gap: 12px; }
+        .brand-logo { width: 34px; height: 34px; border-radius: 9px; }
+        @media (max-width: 360px) { .brand-logo { width: 28px; height: 28px; } }
         .nav__links { display: flex; gap: 2px; margin-left: auto; }
         .nav__links a { position: relative; white-space: nowrap; padding: 8px 8px; font-size: 11px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); border-radius: 999px; transition: color .25s; }
         .nav__links a:hover, .nav__links a.is-active { color: var(--text); }
@@ -706,6 +714,7 @@
     <div class="preloader" id="preloader" role="status" aria-live="polite" aria-label="Loading portfolio">
         <span class="pl-orb"></span><span class="pl-orb"></span><span class="pl-orb"></span>
         <div class="loader-content">
+            <img src="assets/logo/logo-icon.png" alt="" width="84" height="84" style="margin:0 auto 22px;border-radius:20px;box-shadow:0 0 40px -8px rgba(77,124,255,.6)" />
             <div class="pl-name" id="plName">BILAWAL ALI</div>
             <div class="pl-role">CYBERSECURITY ANALYST</div>
             <div class="pl-bar"><div class="progress-bar" id="plBar"></div></div>
@@ -716,7 +725,10 @@
     <header>
         <nav id="nav" aria-label="Primary">
             <div class="nav__inner">
-                <a href="#home" class="nav__brand" aria-label="Bilawal Ali — back to top">[ <b>BILAWAL</b><span> ALI</span> ]</a>
+                <a href="#home" class="nav__brand" aria-label="Bilawal Ali — back to top">
+                    <img class="brand-logo" src="assets/logo/logo-icon.png" alt="" width="34" height="34" />
+                    <span>[ <b>BILAWAL</b> ALI ]</span>
+                </a>
                 <div class="nav__links" id="navLinks"></div>
                 <div class="nav__side">
                     <p class="status" aria-label="Available for opportunities"><span class="dot" aria-hidden="true"></span><span class="st-text">OPEN TO WORK</span></p>
@@ -1035,7 +1047,8 @@
     <footer id="footer">
         <div class="wrap" id="footerInner">
             <div class="footer__top">
-                <div class="footer__brand"><strong>BILAWAL ALI</strong><p>Cybersecurity Analyst / Security Researcher</p></div>
+                <div class="footer__brand"><img src="assets/logo/logo-icon.png" alt="" width="40" height="40" style="border-radius:10px;margin-bottom:10px" /><strong>BILAWAL ALI</strong>
+                <p>Cybersecurity Analyst / Security Researcher</p></div>
                 <nav class="footer__nav" id="footerNav" aria-label="Footer"></nav>
             </div>
             <div class="footer__bot">
@@ -1313,8 +1326,8 @@
             education: {
                 degree: "BS Cyber Security",
                 university: "Mehran University of Engineering &amp; Technology",
-                cgpa: "3.31 / 4.0",
-                year: "Final year · 7th semester",
+                cgpa: "3.39 / 4.0",
+                year: "Final year · 8th semester",
                 location: "Jamshoro, Pakistan",
                 banner: "assets/muet-log/muet-logo.webp",
                 desc: "Coursework across network security, digital forensics, ethical hacking and security operations. Led the university team at NADRA's national bug bounty and took 1st place at QUEST CTF 2026. Active in the MUET Cyber Security Society and leading Access~Denied. Final-year project: an integrated AI system for detecting, remediating and forensically analysing PDF-based malware."
