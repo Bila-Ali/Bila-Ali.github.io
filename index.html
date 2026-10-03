@@ -698,6 +698,16 @@
             *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
             .cursor-glow { display: none; }
         }
+
+    /* cut-out portrait (replaces the circular avatar) */
+        .avatar { width: min(300px, 80vw); aspect-ratio: 820 / 948; }
+        .avatar::before { content: ""; position: absolute; inset: 8% -6% 0; border-radius: 50%; background: radial-gradient(closest-side, rgba(77,124,255,.35), rgba(139,92,246,.12) 60%, transparent 100%); filter: blur(24px); }
+        .avatar__ring { display: none; }
+        .avatar__img { overflow: visible; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+        .avatar__img::before, .avatar__img::after { display: none; }
+        .avatar__img img { object-fit: contain; }
+
+        
     </style>
 </head>
 <body>
@@ -1080,7 +1090,7 @@
         const DATA = {
             profile: {
                 name: "Bilawal Ali",
-                photo: "assets/profile/profile-image.webp",
+                photo: "assets/profile/profile-cutout.webp",
                 email: "khooharobilawalali@gmail.com",
                 phone: "+92 344 3559788",
                 linkedin: "https://linkedin.com/in/bilawal-ali-0b0211245",
