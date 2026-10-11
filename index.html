@@ -203,6 +203,19 @@
         [data-theme="dark"] .panel::after { background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(255, 255, 255, .055), transparent 62%); }
         [data-theme="dark"] .env::before, [data-theme="dark"] .env::after, [data-theme="dark"] .bg-orb, [data-theme="dark"] .cursor-glow { display: none; }
         .preloader { background: #020203; }
+        /* classic black loading screen: no blobs, dots or glows */
+        .pl-orb, .pl-dot { display: none !important; }
+        .preloader .loader-content img { box-shadow: none !important; border: 1px solid rgba(255, 255, 255, .22); }
+        .pl-role { color: #b8b8bf; }
+        .pl-bar { background: rgba(255, 255, 255, .1); }
+        .progress-bar { background: #f4f4f6; box-shadow: none; }
+        .pl-count { color: #7c7c85; }
+        /* neutral nav pill + buttons in dark theme */
+        [data-theme="dark"] #nav.is-scrolled .nav__inner { box-shadow: 0 10px 30px -14px rgba(0, 0, 0, .8); }
+        [data-theme="dark"] .nav__ind { box-shadow: none; }
+        [data-theme="dark"] .btn:hover { box-shadow: none; border-color: rgba(255, 255, 255, .5); }
+        [data-theme="dark"] .btn--primary { box-shadow: none; }
+        [data-theme="dark"] .btn--primary:hover { box-shadow: none; filter: brightness(1.08); }
         /* hero planet: kept, but flat and clean (no glow, halo or shadow) */
         [data-theme="dark"] .orb-glow, [data-theme="dark"] .core__shine { display: none; }
         [data-theme="dark"] .core__sphere { background: radial-gradient(circle at 50% 18%, #111114 0, #09090b 52%, #030304 100%) !important;
