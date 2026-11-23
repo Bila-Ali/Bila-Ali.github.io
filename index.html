@@ -1074,6 +1074,16 @@
         .rbt__switch input:checked + i { background: var(--fill-2); border-color: var(--line-strong); }
         .rbt__switch input:checked + i::after { background: var(--text); }
         .rbt__dot { box-shadow: none; }
+
+        /* ---- Final pass: one typeface family, sentence-case navigation, no fluid backdrop ---- */
+        :root { --mono: var(--sans); }
+        #fluid, #fx { display: none !important; }
+        .nav__links a, .footer__nav a { text-transform: none; letter-spacing: 0; font-size: 13px; font-weight: 400; }
+        .nav__brand { letter-spacing: 0; font-size: 14px; font-weight: 600; }
+        .footer__brand strong, .pl-name { letter-spacing: .02em; font-weight: 500; }
+        .pl-role, .pl-count, .field label, .console__bar, .cert__id { letter-spacing: 0; text-transform: none; }
+        .card:hover .card__media img, .cert:hover .cert__thumb img, .cm:hover .cm__media img { transform: scale(1.03); }
+        .hero__bio { color: var(--muted); font-size: 16px; max-width: 46ch; }
     </style>
 </head>
 <body>
@@ -1202,6 +1212,7 @@
                     <!-- <p class="eyebrow hero-item"><span>Cybersecurity</span><i>•</i><span>SOC</span><i>•</i><span>Threat Detection</span><i>•</i><span>Security Research</span></p> -->
                     <h1 class="hero__name hero-item" id="heroName"><span>Bilawal Ali</span><span><span class="grad">Cybersecurity Analyst</span></span></h1>
                     <p class="hero__title hero-item">SOC Analyst and Security Researcher</p>
+                    <p class="hero__bio hero-item">Detection, triage and incident response across Wazuh, Splunk and the ELK Stack.</p>
                     <!-- <p class="hero__disciplines hero-item">SIEM, Incident Response, Threat Hunting, DFIR, Offensive Security, ML for Security</p> -->
                     <!-- <p class="hero__bio hero-item">
                         I monitor, triage and investigate security events and build the detections that catch them.
@@ -1211,6 +1222,7 @@
                     </p> -->
                     <div class="hero__actions hero-item">
                         <a href="#contact" class="btn btn--primary magnetic">Hire me</a>
+                        <a href="#projects" class="btn magnetic">View projects</a>
                         <!-- <a href="#projects" class="btn magnetic">View Projects <span class="arr" aria-hidden="true">→</span></a>
                         <a href="#" class="btn magnetic" id="heroResume" download>
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 20h16"/></svg>
@@ -1482,7 +1494,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
-    <script src="fluid-bg.js" defer></script>
+    
 
     <!-- DATA — single source of truth for the page -->
     <script>
@@ -2296,7 +2308,7 @@
 
         /* ---------- GSAP: interactions (pointer devices only) ---------- */
         function setupInteractions() {
-            if (!hasGSAP || reduce() || !finePointer) return;
+            return;
             /* magnetic buttons */
             q(".magnetic").forEach(b => {
                 const xt = gsap.quickTo(b, "x", { duration: .5, ease: "power3" }), yt = gsap.quickTo(b, "y", { duration: .5, ease: "power3" });
@@ -2341,7 +2353,7 @@
             const isSmall = window.innerWidth < 700;
 
             /* section headings + panels */
-            q(".head").forEach(el => gsap.from(el, { opacity: 0, y: 46, filter: "blur(10px)", duration: 1, ease: "power3.out", clearProps: "filter,transform,opacity",
+            q(".head").forEach(el => gsap.from(el, { opacity: 0, y: 24, duration: .8, ease: "power3.out", clearProps: "filter,transform,opacity",
                 scrollTrigger: { trigger: el, start: "top 88%", once: true } }));
             q('[data-anim="fade"]:not(.head)').forEach(el => gsap.from(el, { opacity: 0, y: 56, duration: 1, ease: "power3.out", clearProps: "transform,opacity",
                 scrollTrigger: { trigger: el, start: "top 90%", once: true } }));
@@ -2399,7 +2411,7 @@
                 onEnter: () => gsap.to(fields, { opacity: 1, x: 0, duration: .8, stagger: .12, ease: "power3.out", clearProps: "opacity,transform" }) });
 
             /* footer */
-            gsap.fromTo(footerInner, { opacity: 0, y: 60, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.1, ease: "power3.out", clearProps: "filter,transform",
+            gsap.fromTo(footerInner, { opacity: 0, y: 24 }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.1, ease: "power3.out", clearProps: "filter,transform",
                 scrollTrigger: { trigger: "#footer", start: "top 98%", once: true } });
 
             /* parallax: hero copy fades as you scroll away */
@@ -2444,7 +2456,7 @@
             gsap.to(q(".pl-orb", host), { x: "random(-40,40)", y: "random(-30,30)", duration: 3, repeat: -1, yoyo: true, ease: "sine.inOut", stagger: .3 });
             gsap.fromTo(name, { opacity: 0, filter: "blur(12px)", letterSpacing: ".5em" }, { opacity: 1, filter: "blur(0px)", letterSpacing: ".34em", duration: 1.2, ease: "power3.out" });
             const o = { v: 0 };
-            gsap.to(o, { v: 100, duration: 2.4, ease: "power2.out", delay: .15,
+            gsap.to(o, { v: 100, duration: 1.1, ease: "power2.out", delay: .15,
                 onUpdate: () => { bar.style.transform = "scaleX(" + (o.v / 100) + ")"; count.textContent = String(Math.round(o.v)).padStart(2, "0") + "%"; },
                 onComplete: () => {
                     count.textContent = "100%";
@@ -2714,16 +2726,7 @@
     </script>
 
 
-  <!-- 1. The background element -->
-  <canvas id="fluid-canvas"></canvas>
-
-  <!-- 2. Link your structural portfolio code layout here -->
-  <div class="portfolio-container">
-     <!-- Your existing portfolio content sections -->
-  </div>
-
-  <!-- 3. Load the complete WebGL math engine script -->
-  <script src="fluid-engine.js"></script>
+  
 
 
 
