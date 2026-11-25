@@ -10,8 +10,9 @@
     <meta name="author" content="Bilawal Ali" />
     <link rel="canonical" href="https://bila-ali.github.io/" />
     <meta property="og:url" content="https://bila-ali.github.io/" />    
+    <link rel="icon" type="image/svg+xml" href="assets/logo/logo-icon.svg" />
     <link rel="icon" type="image/png" href="assets/logo/favicon.png" />
-    <link rel="apple-touch-icon" href="assets/logo/logo-icon.png" />
+    <link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png" />
 
     <meta property="og:type" content="profile" />
     <meta property="og:title" content="Bilawal Ali — SOC Analyst &amp; Security Researcher" />
@@ -996,9 +997,22 @@
         .pl-role, .pl-count { display: none; }
         .pl-name { font-size: clamp(20px, 3.4vw, 26px); letter-spacing: 0; padding-left: 0; font-weight: 500; }
         .pl-bar { width: 120px; margin-top: 22px; }
+
+        /* ---- Loading screen: logo, name, one thin line ---- */
+        .preloader { background: #020203; }
+        .loader-content { width: min(260px, 70vw); display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .preloader .pl-logo { width: 56px; height: 56px; margin: 0 0 22px; border-radius: 13px; border: 0 !important; box-shadow: none !important; }
+        .pl-name { display: block; padding: 0; font-size: 20px; font-weight: 500; letter-spacing: 0; color: var(--text); }
+        .pl-role { display: block; margin-top: 6px; padding: 0; font-family: var(--serif); font-style: italic; font-size: 15px; letter-spacing: 0; color: var(--muted); }
+        .pl-bar { width: 120px; height: 1px; margin: 26px 0 0; background: rgba(255, 255, 255, .12); }
+        .progress-bar { background: #f5f5f7; box-shadow: none; }
+
+        /* ---- Robot clears the mobile menu button ---- */
+        @media (max-width: 700px) { .rbt { top: 94px; } }
     </style>
 </head>
 <body>
+    <noscript><style>.preloader{display:none!important}html.is-loading,html.is-loading body{overflow:auto}</style><p style="max-width:560px;margin:120px auto;padding:0 24px;font:16px/1.6 Inter,system-ui,sans-serif;color:#f4f6fb">Bilawal Ali, SOC Analyst and Security Researcher. This portfolio needs JavaScript to display. Contact: <a href="mailto:khooharobilawalali@gmail.com" style="color:inherit;text-decoration:underline">khooharobilawalali@gmail.com</a></p></noscript>
     <a class="skip-link" href="#main">Skip to content</a>
     <div id="progress" aria-hidden="true"></div>
 
@@ -1079,15 +1093,13 @@
         </span>
     </button>
 
-    <!-- Cinematic preloader -->
+    <!-- Loading screen -->
     <div class="preloader" id="preloader" role="status" aria-live="polite" aria-label="Loading portfolio">
-        <span class="pl-orb"></span><span class="pl-orb"></span><span class="pl-orb"></span>
         <div class="loader-content">
-            <img src="assets/logo/logo-icon.png" alt="" width="84" height="84" style="margin:0 auto 22px;border-radius:20px;box-shadow:0 0 40px -8px rgba(0, 0, 0, 0)" />
-            <div class="pl-name" id="plName">Bilawal Ali</div>
-            <div class="pl-role">CYBERSECURITY ANALYST</div>
+            <img class="pl-logo" src="assets/logo/logo-icon.png" alt="" width="56" height="56" />
+            <div class="pl-name">Bilawal Ali</div>
+            <div class="pl-role">Security Operations</div>
             <div class="pl-bar"><div class="progress-bar" id="plBar"></div></div>
-            <div class="pl-count" id="plCount">00%</div>
         </div>
     </div>
 
@@ -1122,8 +1134,8 @@
             <div class="wrap">
                 <div class="hero__copy" id="heroCopy">
                     <!-- <p class="eyebrow hero-item"><span>Cybersecurity</span><i>•</i><span>SOC</span><i>•</i><span>Threat Detection</span><i>•</i><span>Security Research</span></p> -->
-                    <h1 class="hero__name hero-item" id="heroName"><span>Bilawal Ali</span><span><span class="grad">Cybersecurity Analyst</span></span></h1>
-                    <p class="hero__title hero-item">SOC Analyst and Security Researcher</p>
+                    <h1 class="hero__name hero-item" id="heroName"><span>Bilawal Ali</span><span><span class="grad">SOC Analyst</span></span></h1>
+                    <p class="hero__title hero-item">Security Researcher, BS Cyber Security (MUET)</p>
                     <p class="hero__bio hero-item">Detection, triage and incident response across Wazuh, Splunk and the ELK Stack.</p>
                     <!-- <p class="hero__disciplines hero-item">SIEM, Incident Response, Threat Hunting, DFIR, Offensive Security, ML for Security</p> -->
                     <!-- <p class="hero__bio hero-item">
@@ -1321,18 +1333,6 @@
                     <h2 class="head__title" id="eduTitle">Academic <em>background</em></h2>
                 </div>
                 <div id="educationSlot"></div>
-            </div>
-        </section>
-
-        <!-- ================= FOCUS ================= -->
-        <section id="focus" class="section" style="padding-top:0" aria-labelledby="focusTitle">
-            <div class="wrap">
-                <div class="head" data-anim="fade">
-                    <span class="head__label">Currently learning</span>
-                    <h2 class="head__title" id="focusTitle">What I'm <em>building next</em></h2>
-                    <p class="head__desc">Areas I am studying to deepen detection and response.</p>
-                </div>
-                <div class="focus" id="focusGrid"></div>
             </div>
         </section>
 
@@ -1885,7 +1885,7 @@
             </div>`;
 
         /* ---------- focus + community ---------- */
-        $("focusGrid").innerHTML = DATA.focus.map(f => `<p class="focus__item">${f}</p>`).join("");
+        if ($("focusGrid")) $("focusGrid").innerHTML = DATA.focus.map(f => `<p class="focus__item">${f}</p>`).join("");
         $("communityGrid").innerHTML = DATA.community.map(c => `
             <article class="panel panel--i cm">
               <div class="cm__media" role="button" tabindex="0" aria-label="Enlarge image: ${attr(txt(c.title))}"
@@ -2352,35 +2352,29 @@
             q("[data-count]", $("heroMetrics")).forEach(el => countUp(el, 1.0));
         }
         function runPreloader() {
-            const name = $("plName"), bar = $("plBar"), count = $("plCount");
-            if (!hasGSAP || reduce()) {
-                setTimeout(() => { revealSite(); heroIntro(); }, reduce() ? 250 : 900);
-                return;
-            }
-            gsap.set(q(".hero-item"), { opacity: 0, y: 50, filter: "blur(10px)" });
+            const bar = $("plBar"), content = q(".loader-content", preloader)[0];
+            if (!hasGSAP || reduce()) { setTimeout(() => { revealSite(); heroIntro(); }, reduce() ? 150 : 500); return; }
+            gsap.set(q(".hero-item"), { opacity: 0, y: 24 });
             gsap.set("#heroOrb", { opacity: 0 });
             gsap.set("#nav", { opacity: 0 });
-            try { if (sessionStorage.getItem("pl")) { preloader.style.display = "none"; revealSite(); heroIntro(); return; } } catch (e) {}
-            const host = preloader;
-            for (let i = 0; i < 16; i++) {
-                const d = document.createElement("span"); d.className = "pl-dot";
-                d.style.left = Math.random() * 100 + "%"; d.style.top = Math.random() * 100 + "%"; host.appendChild(d);
-                gsap.to(d, { x: (Math.random() - .5) * 70, y: (Math.random() - .5) * 70, opacity: .15 + Math.random() * .6, duration: 2 + Math.random() * 2, repeat: -1, yoyo: true, ease: "sine.inOut" });
-            }
-            gsap.to(q(".pl-orb", host), { x: "random(-40,40)", y: "random(-30,30)", duration: 3, repeat: -1, yoyo: true, ease: "sine.inOut", stagger: .3 });
-            gsap.fromTo(name, { opacity: 0 }, { opacity: 1, duration: .5, ease: "power2.out" });
-            const o = { v: 0 };
-            gsap.to(o, { v: 100, duration: .8, ease: "power2.out", delay: .15,
-                onUpdate: () => { bar.style.transform = "scaleX(" + (o.v / 100) + ")"; count.textContent = String(Math.round(o.v)).padStart(2, "0") + "%"; },
-                onComplete: () => {
-                    count.textContent = "100%";
+            let seen = null; try { seen = sessionStorage.getItem("pl"); } catch (e) {}
+            if (seen) { preloader.style.display = "none"; revealSite(); heroIntro(); return; }
+            const t0 = performance.now(), MIN = 1000, o = { v: 0 };
+            const paint = () => { bar.style.transform = "scaleX(" + o.v + ")"; };
+            gsap.fromTo(content, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .6, ease: "power2.out" });
+            gsap.to(o, { v: .85, duration: 1.4, ease: "power2.out", onUpdate: paint });
+            let done = false;
+            const finish = () => {
+                if (done) return; done = true;
+                gsap.to(o, { v: 1, duration: .3, ease: "power1.out", overwrite: true, onUpdate: paint, onComplete: () => {
                     gsap.timeline()
-                        .to({}, { duration: .3 })
-                        .to(".pl-bar, .pl-count", { opacity: 0, duration: .3 })
-                        .to(".loader-content", { y: -30, opacity: 0, duration: .6, ease: "power3.inOut" }, "<.1")
-                        .to(preloader, { scale: .96, opacity: 0, duration: .8, ease: "power3.inOut", onComplete: () => { revealSite(); } })
-                        .add(heroIntro, "-=.45");
+                        .to(content, { opacity: 0, duration: .35, ease: "power2.in" })
+                        .to(preloader, { opacity: 0, duration: .5, ease: "power2.inOut", onComplete: revealSite }, "<.1")
+                        .add(heroIntro, "-=.3");
                 } });
+            };
+            const ready = () => setTimeout(finish, Math.max(0, MIN - (performance.now() - t0)));
+            if (document.readyState === "complete") ready(); else window.addEventListener("load", ready, { once: true });
         }
 
         /* ---------- boot ---------- */
@@ -2390,7 +2384,7 @@
         try { setupScrollAnimations(); } catch (e) { console.warn("scroll animations", e); }
         runPreloader();
         /* Safety net: never leave the visitor stuck behind the preloader. */
-        setTimeout(() => { if (!booted) { revealSite(); q(".hero-item").forEach(i => { i.style.opacity = 1; i.style.transform = "none"; i.style.filter = "none"; }); if (hasGSAP) gsap.set(["#heroOrb", "#nav"], { opacity: 1 }); } }, 3000);
+        setTimeout(() => { if (!booted) { revealSite(); q(".hero-item").forEach(i => { i.style.opacity = 1; i.style.transform = "none"; i.style.filter = "none"; }); if (hasGSAP) gsap.set(["#heroOrb", "#nav"], { opacity: 1 }); } }, 4500);
 
         window.addEventListener("load", () => { if (hasST) ScrollTrigger.refresh(); });
         if (document.fonts && document.fonts.ready && hasST) document.fonts.ready.then(() => ScrollTrigger.refresh());
@@ -2504,7 +2498,7 @@
 
         /* ---- guidance copy (taken from what each section actually contains) ---- */
         var SECTIONS = {
-            home:           ["Welcome",        "Welcome to Bilawal Ali's portfolio. I'm his assistant and will guide you as you scroll."],
+            home:           ["Welcome",        "I'm Bilawal's assistant. I'll point out each section as you scroll."],
             about:          ["About",          "SOC analyst and final-year BS Cyber Security student at MUET, with hands-on defensive security experience."],
             metrics:        ["Key figures",    "1K+ daily security events monitored, 150+ PortSwigger labs and 10+ vulnerabilities identified."],
             experience:     ["Experience",     "SOC monitoring, threat analysis, vulnerability assessment and incident reporting."],
@@ -2515,7 +2509,6 @@
             achievements:   ["Achievements",   "CTF results, bug bounty recognition and speaking."],
             certifications: ["Certifications", "Certifications and structured training."],
             education:      ["Education",      "BS Cyber Security at Mehran University of Engineering and Technology."],
-            focus:          ["Current focus",  "Areas he is studying to deepen detection and response capability."],
             community:      ["Leadership",     "Student-led competitions and university events."],
             contact:        ["Contact",        "Open to SOC analyst, blue team, threat hunting and internship roles. Email is the quickest route."]
         };
